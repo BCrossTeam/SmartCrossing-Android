@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:weightSum="1"
+        android:layout_height="@dimen/sixty"
+        android:layout_weight="0.03">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:weightSum="1"
+            android:layout_weight="0.70"
+            android:layout_height="fill_parent"
+            android:id="@+id/shelf">
+
+            <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+                android:layout_weight="0.6"
+                android:elevation="3dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/five"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/places_name_textview"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_weight="0.4"
+                android:layout_height="0dp">
+
+                <TextView
+                    android:text=""
+                    android:layout_marginLeft="@dimen/six"
+                    android:layout_alignParentTop="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/book_count_textview"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_marginBottom="@dimen/three" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <TableRow
+            android:layout_width="0dp"
+            android:weightSum="1"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.30">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.5">
+
+                <ImageView
+                    android:layout_width="@dimen/forty"
+                    android:layout_height="@dimen/forty"
+                    app:srcCompat="@drawable/googlelocationico"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/location_image_view" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.5">
+
+                <ImageView
+                    android:layout_width="@dimen/thirty"
+                    android:layout_height="@dimen/thirty"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/combobox_image_view"
+                    app:srcCompat="@drawable/contextmenu" />
+            </RelativeLayout>
+        </TableRow>
+    </TableRow>
+</LinearLayout>
