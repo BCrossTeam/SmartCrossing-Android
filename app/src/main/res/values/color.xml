@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="notificationBarColor">#231a39</color>
+    <color name="lighterNotificationBarColor">#3B356B</color>
+    <color name="grey">#817d7d</color>
+    <color name="lightgreen">#9ae4b0</color>
+    <color name="darkgreen">#0b6c28</color>
+
+    <color name="darkpurple">#34234a</color>
+
+
+    <color name="darkpurpletransparent">#9634234a</color>
+    <color name="white">#ffffff</color>
+    <color name="darkerwhite">#40ffffff</color>
+
+    <color name="greenlight">#84ff7b</color>
+
+    <color name="lighterpurple">#7d56ae</color>
+    <color name="lightestpurple">#987bbb</color>
+    <color name="purplefortoolbar">#c4a7e7</color>
+
+    <color name="semipurple">#623f8d</color>
+
+
+    <color name="semiwhite">#ebebeb</color>
+    <color name="black">#000000</color>
+    <color name="greendarkness">#4e4e4e</color>
+
+
+    <color name="whiteandgreen">#bfe4a6</color>
+    <color name="yetanotherpurple">#57387c</color>
+    <color name="purpleno6">#634090</color>
+
+    <color name="loadingpurpure">#5B388A</color>
+    <color name="fortyshadesofgrey">#40ffffff</color>
+    <color name="userprofilepurple">#694498</color>
+    <color name="fivecpurple">#5c3889</color>
+
+    <color name="currentslideinrow">#dae4dd</color>
+
+
+    <color name="base">#FFFFFB</color>
+    <color name="overlay">#AA34234a</color>
+    <color name="text">#1C1C1C</color>
+    <color name="handle">#987bbb</color>
+    <color name="frame">#987bbb</color>
+    <color name="guide">#AA5c3889</color>
+    <color name="menu_bg">#FFFFFB</color>
+
+    <color name="shelf_color">#2e1c04</color>
+
+    <color name="transparent_white">#50ffffff</color>
+
+</resources>

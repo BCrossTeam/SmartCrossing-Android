@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="near_points">Punkty blisko Ciebie:</string>
+    <plurals name="hours">
+        <item quantity="one">godzina</item>
+        <item quantity="few">godziny</item>
+        <item quantity="many">godzin</item>
+        <item quantity="other">godzin</item>
+    </plurals>
+
+    <plurals name="minutes">
+        <item quantity="one">minuta</item>
+        <item quantity="few">minuty</item>
+        <item quantity="many">minut</item>
+        <item quantity="other">minut</item>
+    </plurals>
+
+    <plurals name="seconds">
+        <item quantity="one">sekunda</item>
+        <item quantity="few">sekundy</item>
+        <item quantity="many">sekund</item>
+        <item quantity="other">sekund</item>
+    </plurals>
+
+    <string name="ERROR_EMAIL_INVALID">Prawidłowy format adresu e-mail: example@example.com (do 100 znaków)</string>
+    <string name="ERROR_EMAIL_MATCH">Błąd: Adresy e-mail są różne.</string>
+    <string name="ERROR_INPUT_EMPTY">Błąd: Serwer nie odebrał danych.</string>
+    <string name="ERROR_INPUT_INVALID">Błąd: Wysłano błędne dane do serwera.</string>
+    <string name="ERROR_LOGIN_INVALID">Login musi mieć 3–20 znaków. Może się składać tylko ze znaków alfanumerycznych, "." i "_"</string>
+    <string name="ERROR_MYSQL_CONNECT">Błąd: Wystąpił błąd podczas łączenia z bazą danych. (MYSQL_CONNECT)</string>
+    <string name="ERROR_PASSWORD_INVALID">Hasło musi mieć długość 6–20 znaków. Nie może zawierać żadnych znaków białych.</string>
+    <string name="ERROR_PASSWORD_MATCH">Błąd: Hasła są różne.</string>
+    <string name="ERROR_MYSQL_BIND_PARAM">Błąd: Wystąpił błąd podczas łączenia z bazą danych. (MYSQL_BIND_PARAM)</string>
+    <string name="ERROR_MYSQL_BIND_RESULT">Błąd: Wystąpił błąd podczas łączenia z bazą danych. (MYSQL_BIND_RESULT)</string>
+    <string name="ERROR_MYSQL_EXECUTE">Błąd: Wystąpił błąd podczas łączenia z bazą danych. (MYSQL_EXECUTE)</string>
+    <string name="ERROR_MYSQL_PREPARE">Błąd: Wystąpił błąd podczas łączenia z bazą danych. (MYSQL_PREPARE)</string>
+    <string name="ERROR_MYSQL_STORE_RESULT">Błąd: Wystąpił błąd podczas łączenia z bazą danych. (MYSQL_STORE_RESULT)</string>
+    <string name="ERROR_USERNAME_INVALID">Nazwa użytkownika musi mieć długość 3–30 znaków.</string>
+    <string name="ERROR_USER_ACTIVATED">Błąd: Konto użytkownika zostało już aktywowane.</string>
+    <string name="ERROR_USER_BANNED">Błąd: Konto użytkownika zostało zablokowane.</string>
+    <string name="ERROR_USER_DEACTIVATED">Błąd: Konto użytkownika zostało dezaktywowane.</string>
+    <string name="ERROR_USER_EMAIL_NOT_MATCH">Błąd: Podany adres e-mail nie jest zgodny z adresem przypisanym do konta.</string>
+    <string name="ERROR_USER_INVALID_PASSWORD_LIMIT_EXCEEDED">Przekroczono limit nieudanych prób logowania. Logowanie zostało zablokowane na 10 minut.</string>
+    <string name="ERROR_USER_NOT_EXISTS">Błąd: Konto użytkownika nie istnieje.\nUpewnij się, że używasz loginu zamiast nazwy użytkownika.</string>
+    <string name="ERROR_USER_NOT_SIGNED_IN">Błąd: Użytkownik nie zalogowany.</string>
+    <string name="ERROR_USER_UNACTIVATED">Błąd: Konto użytkownika nie zostało aktywowane.</string>
+    <string name="RESULT_USER_AUTHENTICATED">Zalogowano</string>
+    <string name="RESULT_USER_DEACTIVATED">Konto zostało dezakywowane.</string>
+    <string name="RESULT_USER_DESCRIPTION_CHANGED">Opis użytkownika został zmieniony.</string>
+    <string name="RESULT_USER_NAME_CHANGED">Nazwa użytkownika została zmieniona.</string>
+    <string name="RESULT_USER_PASSWORD_CHANGED">Hasło zostało zmienione.</string>
+    <string name="RESULT_USER_SIGNED_IN">Zalogowano</string>
+    <string name="RESULT_USER_SIGNED_OUT">Wylogowano</string>
+    <string name="SIGN_IN_UNLOCK_TIME">Logowanie zostanie odblokowane za </string>
+    <string name="action_settings">Ustawienia</string>
+    <string name="addfriend">Dodaj znajomego</string>
+    <string name="challengesb">Rzuć wyzwanie</string>
+    <string name="friends">Znajomi</string>
+    <string name="goFuckYourself">Wal się </string>
+    <string name="home">Strona główna</string>
+    <string name="loadingEnd">Ukończono ładowanie</string>
+    <string name="no_ads">- Brak reklam</string>
+    <string name="open_challenges">- Rzucanie otwartych wyzwań</string>
+    <string name="profile">Mój profil</string>
+    <string name="ru_ready">Gotowy na wyzwanie?</string>
+    <string name="settings">Ustawienia</string>
+    <string name="signout">Wyloguj się</string>
+    <string name="singIn">Zaloguj się</string>
+    <string name="singUp">Zarejestruj się</string>
+    <string name="title_activity_user_profile">Profil użytkownika</string>
+    <string name="unlimited_ch_and_groups">- Wyzwania i grupy bez limitu uczestników</string>
+    <string name="unlimited_challenges">- Nielimitowana liczba wyzwań dziennie</string>
+    <string name="pro">Przejdź na pro</string>
+    <string name="username">Nazwa użytkownika</string>
+    <string name="password">Hasło</string>
+    <string name="login">Login</string>
+    <string name="email">Adres e-mail</string>
+    <string name="email_confirmation">Potwierdź adres e-mail</string>
+    <string name="password_confirmation">Potwierdź hasło</string>
+    <string name="title_activity_settings">Ustawienia</string>
+    <string name="loading">Ładowanie…</string>
+
+    <string name="RESULT_RELATION_FRIEND_REMOVED">Użytkownik został usunięty z grona znajomych.</string>
+
+
+    <string name="you_have_new_challenge">Masz %1$d %2$s</string>
+
+    <plurals name="challenges">
+        <item quantity="one">nowe wyzwanie</item>
+        <item quantity="few">nowe wyzwania</item>
+        <item quantity="many">nowych wyzwań</item>
+    </plurals>
+
+    <string name="report_user_violence">Użytkownik nawołuje do przemocy</string>
+    <string name="report_user_religious">Użytkownik obraża uczucia religijne</string>
+    <string name="report_user_illegal">Użytkownik promuje nielegalne substancje</string>
+    <string name="report_user_vulgarism">Opis użytkownika zawiera wulgaryzmy</string>
+    <string name="report_user_threats">Opis użytkownika zawiera groźby</string>
+    <string name="report_user_suicide">Użytkownik nawołuje do popełnienia samobójstwa</string>
+    <string name="report_user_undress">Użytkownik nawołuje do obnażania się</string>
+    <string name="report_user_other">Inny (jaki?)</string>
+
+    <string name="report_group_violence">Grupa nawołuje do przemocy</string>
+    <string name="report_group_religious">Grupa obraża uczucia religijne</string>
+    <string name="report_group_illegal">Grupa promuje nielegalne substancje</string>
+    <string name="report_group_vulgarism">Opis grupy zawiera wulgaryzmy</string>
+    <string name="report_group_threats">Opis grupy zawiera groźby</string>
+    <string name="report_group_suicide">Grupa nawołuje do popełnienia samobójstwa</string>
+    <string name="report_group_undress">Grupa nawołuje do obnażania się</string>
+    <string name="report_group_other">Inny (jaki?)</string>
+
+    <string name="report_challenge_violence">Wyzwanie nawołuje do przemocy</string>
+    <string name="report_challenge_religious">Wyzwanie obraża uczucia religijne</string>
+    <string name="report_challenge_illegal">Wyzwanie promuje nielegalne substancje</string>
+    <string name="report_challenge_vulgarism">Opis wyzwania zawiera wulgaryzmy</string>
+    <string name="report_challenge_threats">Opis wyzwania zawiera groźby</string>
+    <string name="report_challenge_suicide">Wyzwanie nawołuje do popełnienia samobójstwa</string>
+    <string name="report_challenge_undress">Wyzwanie nawołuje do obnażania się</string>
+    <string name="report_challenge_other">Inny (jaki?)</string>
+
+    <string name="sendticket">Zgłoś</string>
+    <string name="readlog">Czytaj</string>
+    <string name="LOCAL_RESULT_USER_SIGNED_OUT">Wylogowano lokalnie.</string>
+    <string name="confirm">POTWIERDŹ</string>
+    <string name="complete_challenge">Ukończ wyzwanie</string>
+    <string name="complete_challenge_message">&#160;Dodatkowa wiadomość</string>
+    <string name="complete_challenge_gz">Gratulacje od Zespołu Challengetic\nza wykonanie wyzwania!</string>
+
+    <string name="challenge_desc">&#160;Opis wyzwania</string>
+    <string name="challenge_title">&#160;Tytuł wyzwania</string>
+    <string name="challenge_completed">UKOŃCZYŁO</string>
+    <string name="challengewho">Komu chcesz rzucić wyzwanie?</string>
+    <string name="image_crop">PRZYTNIJ</string>
+    <string name="edit_username">Zmień nazwę</string>
+    <string name="edit_avatar">Zmień zdjęcie profilowe</string>
+    <string name="edit_description">Zmień opis</string>
+    <string name="save">ZAPISZ</string>
+    <string name="discard">PORZUĆ</string>
+    <string name="list_friends">Znajomi</string>
+    <string name="list_groups">Grupy</string>
+    <string name="members">Członkowie:</string>
+    <string name="group_name">Nazwa grupy</string>
+    <string name="members_list">Lista uczestników</string>
+    <string name="report_title">&#160;Tytuł zgłoszenia</string>
+    <string name="report_description">&#160;Opis</string>
+    <string name="forgot">Zapomniałeś hasła?</string>
+    <string name="sign_up_button">ZAREJESTRUJ</string>
+    <string name="ERROR_RELATION_ALREADY_FRIENDS">Błąd: Już jesteście znajomymi.</string>
+    <string name="ERROR_RELATION_NOT_EXISTS">Błąd: Nie masz znajomości z tym użytkownikiem.</string>
+    <string name="title_activity_user_settings">Zarządzanie kontem</string>
+    <string name="title_activity_slide_in_menu">Menu wysuwane</string>
+    <string name="title_activity_sign_up">Rejestracja</string>
+    <string name="title_activity_sign_in">Logowanie</string>
+    <string name="title_activity_main">Menu główne</string>
+    <string name="title_activity_current_user_activiy">Konto użytkownika</string>
+    <string name="title_activity_challenge_screen">Wyzwanie</string>
+    <string name="goToMain">Menu główne</string>
+    <string name="add_photo_to_completed_challenge">Dodaj zdjęcie</string>
+    <string name="RESULT_USER_AVATAR_CHANGED">Zdjęcie profilowe zostało zmienione.</string>
+    <string name="ERROR_CHALLENGE_MODIFICATION_PERMISSION">Błąd: Brak uprawnień. Nie można zmodyfikować wyzwania.</string>
+    <string name="ERROR_CHALLENGE_RESPONSE_MODIFICATION_PERMISSION">Błąd: Nie można zmienić odpowiedzi na wyzwanie.</string>
+    <string name="ERROR_CONTENT_MODIFICATION_PERMISSION">Błąd: Nie można zmienić zawartości.</string>
+    <string name="ERROR_UPLOAD_NO_FILE">Błąd: Wystąpił błąd podczas przesyłania pliku. (Nie wysłano pliku)</string>
+    <string name="ERROR_UPLOAD_PARTIAL">Błąd: Wystąpił błąd podczas przesyłania pliku. (Plik częściowo wysłany)</string>
+    <string name="ERROR_UPLOAD_SAVE_FILE">Błąd: Wystąpił błąd podczas przesyłania pliku. (Nie można zapisać pliku)</string>
+    <string name="ERROR_UPLOAD_SERVER">Błąd: Wystąpił błąd podczas przesyłania pliku. (Nieznany błąd serwera)</string>
+    <string name="ERROR_UPLOAD_SIZE">Błąd: Wystąpił błąd podczas przesyłania pliku. (Przekroczono dopuszczalny rozmiar pliku)</string>
+    <string name="RESULT_CHALLENGE_RESPONSE_ADDED">Dodano odpowiedź na wyzwanie.</string>
+    <string name="RESULT_CHALLENGE_TARGET_ADDED">Wysłano zaproszenie do wyzwania.</string>
+    <string name="report_challenge">Zgłoś wyzwanie</string>
+    <string name="edit_challenge">Edytuj wyzwanie</string>
+    <string name="delete_challenge">Usuń wyzwanie</string>
+    <string name="RESULT_CHALLENGE_MODIFIED">Wyzwanie zostało zmodyfikowane.</string>
+    <string name="preview">PODGLĄD</string>
+    <string name="edit_targets">Edytuj listę uczestników</string>
+    <string name="slide_your_challenges">Moje wyzwania</string>
+    <string name="ERROR_RELATION_ALREADY_BLOCKED">Błąd: Użytkownik jest już zablokowany.</string>
+    <string name="RESULT_RELATION_REQUEST_CANCELED">Cofnięto zaproszenie do znajomych.</string>
+    <string name="RESULT_RELATION_REQUEST_REJECTED">Odrzucono zaproszenie do znajomych.</string>
+    <string name="RESULT_RELATION_UNBLOCKED">Odblokowano użytkownika.</string>
+
+    <string name="loadingloadingloading">Ładowanie&#8230;</string>
+
+    <string name="read_logs">Czytaj wpisy dziennika</string>
+    <string name="send_logs">Wyślij pliki dziennika</string>
+    <string name="clear_logs">Wyczyść dziennik</string>
+
+    <string name="title_user">Użytkownik</string>
+    <string name="about_app">O aplikacji</string>
+
+    <string name="review_requests">Przejrzyj nowe zaproszenia</string>
+    <string name="select_src">Wybierz źródło</string>
+
+    <string name="none_challenges_text">Nie masz żadnych nowych\n wyzwań. Zaproś znajomych\n do używania naszej aplikacji\nabyś codziennie znajdował\n tu źródło motywacji do działania</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="you_must_friend">Aby rzucić wyzwanie temu użytkownikowi musicie być znajomymi</string>
+    <string name="he_must_accept_friend">Aby rzucić wyzwanie temu użytkownikowi, musi on zaakceptować Twoje zaproszenie do znajomych</string>
+
+    <string name="soon">Wkrótce&#8230;</string>
+    <string name="RESULT_CHALLENGE_REMOVED">Usunięto wyzwanie.</string>
+    <string name="ERROR_CHALLENGE_EXPIRED">Błąd: Wyzwanie wygasło.</string>
+
+    <string name="slide_responses">Odpowiedzi</string>
+
+    <string name="frequency">Odświeżaj co</string>
+    <string name="sign_in">ZALOGUJ</string>
+    <string name="have_an_acc">Masz już konto? Zaloguj się!</string>
+    <string name="photo_added">Dodano zdjęcie, w następnym kroku będziesz mógł je przyciąć</string>
+    <string name="here_are_friends_challenges">Oto wyzwania wykonane\nprzez Twoich znajomych</string>
+
+    <string name="app_doesnt_have_gallery_permission">Kliknij PRZYZNAJ aby móc dodawać zdjęcia z galerii</string>
+    <string name="grant_permission">PRZYZNAJ</string>
+
+    <string name="creators_title">Twórcy</string>
+    <string name="version_title">Wersja</string>
+    <string name="thanks_title">Podziękowania</string>
+    <string name="licenses_title">Licencje</string>
+
+    <string name="manage_notifications">Zarządzaj powiadomieniami</string>
+    <string name="turn_notifications">Powiadomienia</string>
+    <string name="use_LED">Używaj diody LED</string>
+    <string name="use_sound">Używaj dźwięku</string>
+    <string name="choose_notifications">Wybierz powiadomienia</string>
+
+    <string name="change_email">Zmień adres e-mail</string>
+    <string name="change_password">Zmień hasło</string>
+
+    <string name="crop__saving">Zapisywanie zdjęcia…</string>
+
+    <string name="crop__wait">Please wait…</string>
+
+    <string name="crop__pick_error">Brak dostępnych źródeł zdjęcia</string>
+
+    <string name="crop__done">WYKONAJ</string>
+
+    <string name="crop__cancel" tools:ignore="ButtonCase">ANULUJ</string>
+
+    <string name="new_challenge">Nowe wyzwanie</string>
+    <string name="new_challenge_response">Nowa odpowiedź na wyzwanie</string>
+    <string name="new_friend_request">Nowe zaproszenie do znajomych</string>
+    <string name="friend_request_accepted">Użytkownik zaakceptował prośbę o dodanie do znajomych</string>
+    <string name="friend_request_rejected">Użytkownik odrzucił prośbę o dodanie do znajomych</string>
+
+    <string name="crop_your_photo">Przytnij swoje zdjęcie</string>
+    <string name="take_your_photo">Zrób zdjęcie</string>
+    <string name="choose_source">Wybierz źródło</string>
+    <string name="arus_nickname">Arkadiusz Mirecki</string>
+    <string name="groups_string">Grupy</string>
+    <string name="buy_now">KUP TERAZ</string>
+    <string name="wykrzyknik">!</string>
+    <string name="choose_photo">Wybierz zdjęcie</string>
+    <string name="awerwa_nickname">Sebastian Zasuwa</string>
+    <string name="temai_nickname">Kamil Zgodziński</string>
+    <string name="unlimited_daily_challenges">- Dowolna liczba wyzwań dziennie</string>
+    <string name="unlimited_challenge_members">- Brak limitu uczestników</string>
+    <string name="ERROR_CHALLENGE_FETCH_PERMISSION">Błąd: Brak uprawnień. Nie można pobrać danych wyzwania.</string>
+    <string name="ERROR_CHALLENGE_NOT_EXISTS">Błąd: Wyzwanie nie istnieje.</string>
+    <string name="ERROR_CHALLENGE_RESPONSE_ADD_PERMISSION">Błąd: Nie możesz odpowiedzieć na to wyzwanie.</string>
+    <string name="ERROR_CHALLENGE_RESPONSE_ALREADY_EXISTS">Błąd: Już odpowiedziałeś na to wyzwanie.</string>
+    <string name="ERROR_CHALLENGE_RESPONSE_ALREADY_SET">Błąd: Już oceniłeś tą odpowiedź.</string>
+    <string name="ERROR_CHALLENGE_RESPONSE_FETCH_PERMISSION">Błąd: Brak uprawnień. Nie można pobrać danych odpowiedzi.</string>
+    <string name="ERROR_CHALLENGE_RESPONSE_NOT_EXISTS">Błąd: Odpowiedź na wyzwanie nie istnieje.</string>
+    <string name="ERROR_CHALLENGE_RESPONSE_STATE_MODIFICATION_PERMISSION">Błąd: Brak uprawnień. Nie można ocenić odpowiedzi.</string>
+    <string name="ERROR_CHALLENGE_TARGET_FETCH_PERMISSION">Błąd: Brak uprawnień. Nie można pobrać danych uczestnika wyzwania.</string>
+    <string name="ERROR_CHALLENGE_TARGET_MANAGEMENT_PERMISSION">Błąd: Nie możesz zapraszać ani wyrzucać użytkowników.</string>
+    <string name="ERROR_CHALLENGE_TARGET_NOT_EXISTS">Błąd: Uczestnik wyzwania nie istnieje.</string>
+    <string name="ERROR_CHALLENGE_TARGET_RESPONSE_STATE_MANAGEMENT_PERMISSION">Błąd: Nie można zmienić stanu zaproszenia do wyzwania.</string>
+    <string name="ERROR_CHALLENGE_TARGET_USER_ADD_PERMISSION">Błąd: Nie możesz zaprosić tego użytkownika.</string>
+    <string name="ERROR_CONTENT_FETCH_PERMISSION">Błąd: Brak uprawnień. Nie można pobrać zawartości.</string>
+    <string name="ERROR_CONTENT_NOT_EXISTS">Błąd: Zawartość nie istnieje.</string>
+    <string name="ERROR_INTERNAL">Błąd: Wewnętrzny błąd serwera.</string>
+    <string name="ERROR_RELATION_FETCH_PERMISSION">Błąd: Brak uprawnień. Nie można pobrać danych znajomości.</string>
+    <string name="ERROR_RELATION_IS_BLOCKED">Błąd: Twoje konto zostało zablokowane przez tego użytkownika.</string>
+    <string name="ERROR_RELATION_REQUEST_ALREADY_SENT">Błąd: Zaproszenie do znajomych już zostało wysłane.</string>
+    <string name="ERROR_RELATION_WAS_BLOCKED">Błąd: Ten użytkownik już został zablokowany.</string>
+    <string name="ERROR_USER_ALREADY_EXISTS">Błąd: Użytkownik już istnieje.</string>
+    <string name="ERROR_USER_AUTH_PASSWORD"> Błędne hasło.</string>
+    <string name="ERROR_USER_AUTH_TOKEN">Błędny token uwierzytelniający.</string>
+    <string name="ERROR_USER_FETCH_PERMISSION">Błąd: Brak uprawnień. Nie można pobrać danych użytkownika.</string>
+    <string name="LOCAL_CONNECTION_ERROR">Błąd: Nie można połączyć z serwerem.</string>
+    <string name="LOCAL_INVALID_URL">Błąd: Nie można połączyć z serwerem. Błędny adres URL.</string>
+    <string name="LOCAL_RESPONSE_INVALID">Błąd: Nieprawidłowa odpowiedź serwera.</string>
+    <string name="RESULT_CHALLENGE_ADDED">Utworzono wyzwanie.</string>
+    <string name="RESULT_CHALLENGE_RESPONSE_REMOVED">Usunięto odpowiedź na wyzwanie.</string>
+    <string name="RESULT_CHALLENGE_RESPONSE_STATE_MODIFIED">Oceniono odpowiedź na wyzwanie.</string>
+    <string name="RESULT_CHALLENGE_TARGET_REMOVED">Anulowano zaproszenie do wyzwania.</string>
+    <string name="RESULT_CHALLENGE_TARGET_RESPONSE_STATE_MODIFIED">Odpowiedziano na zaproszenie od wyzwania.</string>
+    <string name="RESULT_RELATION_BLOCKED">Zablokowano użytkownika.</string>
+    <string name="RESULT_RELATION_REQUEST_ACCEPTED">Zaakceptowanie zaproszenie do znajomych.</string>
+    <string name="RESULT_RELATION_REQUEST_SENT">Wysłano zaproszenie do znajomych.</string>
+    <string name="RESULT_USER_EMAIL_ADDRESS_CHANGE_REQUESTED">Zmieniono adres e-mail. Wiadomość potwierdzająca została wysłana na nowy adres e-mail.</string>
+    <string name="RESULT_USER_PASSWORD_RESET">Hasło zostało zresetowane i wysłane na Twój adres email.</string>
+    <string name="RESULT_USER_SIGNED_UP">Zarejestrowano. Wiadomość aktywacyjna została wysłana na podany adres e-mail.</string>
+    <string name="didnt_accept">Musisz zaakceptować zaproszenie zanim na nie odpowiesz.</string>
+    <string name="ERROR_MAIL_NOT_SENT">Błąd: Nie można wysłać wiadomości e-mail.</string>
+    <string name="RESULT_MAIL_SENT">Wysłano wiadomość e-mail.</string>
+
+    <string name="notify_friend_request">Zaproszenie do znajomych</string>
+    <string name="notify_friend_request_sent">Otrzymano</string>
+    <string name="notify_friend_request_accepted">Zostało zaakceptowane</string>
+    <string name="notify_friend_request_rejected">Zostało odrzucone</string>
+
+    <string name="notify_challenge_request">Zaproszenie do wyzwania</string>
+    <string name="notify_challenge_request_sent">Otrzymano</string>
+
+    <string name="notify_challenge_response">Odpowiedź na wyzwanie</string>
+    <string name="notify_challenge_response_added">Otrzymano</string>
+    <string name="notify_challenge_response_accepted">Została zaakceptowana</string>
+    <string name="notify_challenge_response_rejected">Została odrzucona</string>
+
+    <string name="yes">Tak</string>
+    <string name="no">Nie</string>
+    <string name="challenge_without_content">Jesteś pewien, że chcesz dodać wyzwanie bez zdjęcia?</string>
+    <string name="ERROR_USER_INVALID_PASSWORD_LIMIT_EXCEEDED_DYNAMIC">Przekroczono limit nieudanych prób logowania. Logowanie zostanie odblokowane za %s</string>
+    <string name="acc_not_activated">Konto nieaktywowane, czy chcesz wysłać ponownie mail aktywacyjny?</string>
+    <string name="acc_deactivated">Konto nieaktywowane, czy chcesz wysłać mail reaktywacyjny?</string>
+
+    <string name="notifications">Powiadomienia</string>
+    <string name="time_null">Nie wybrano godziny</string>
+    <string name="date_null">Nie wybrano daty</string>
+    <string name="title_null">Nie wpisano tytułu</string>
+    <string name="desc_null">Nie wpisano opisu</string>
+
+
+    <string name="notifies_new_friend_request">Masz nowe zaproszenie do znajomych</string>
+    <string name="notifies_new_challenge_request">Masz nowe wyzwanie</string>
+    <string name="notifies_new_challenge_response">Masz nową odpowiedź na wyzwanie</string>
+
+    <string name="notifies_friend_request_rejected">Prośba o dodanie do przyjaciół odrzucona</string>
+    <string name="notifies_challenge_response_rejected">Odpowiedź na wyzwanie odrzucona</string>
+    <string name="notifies_challenge_response_accepted">Odpowiedź na wyzwanie zaakceptowana</string>
+    <string name="notifies_friend_request_accepted">Prośba o dodanie do przyjaciół zaakceptowana</string>
+    <string name="target_null">Nie wybrano adresata wyzwania</string>
+    <string name="wypozycz">Półka</string>
+    <string name="oddaj">Książka</string>
+    <string name="map">Mapa</string>
+    <string name="b_count">Liczba książek:</string>
+    <string name="b_add">Dodaj książkę</string>
+    <string name="b_title">&#0160;Tytuł</string>
+    <string name="b_author">&#0160;Autor</string>
+    <string name="b_year">&#0160;Rok wydania</string>
+    <string name="b_genre">&#0160;Liczba stron</string>
+    <string name="add_book_a">Dodaj książkę kodem kreskowym</string>
+    <string name="add_station">Dodaj stację</string>
+    <string name="add_book_m">Dodaj książkę ręcznie</string>
+    <string name="points">Twoje punkty:</string>
+    <string name="badges">Twoje odznaki:</string>
+    <string name="gtrank">Przejdź do rankingu:</string>
+
+</resources>

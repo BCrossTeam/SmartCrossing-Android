@@ -1,0 +1,34 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="popupMenuStyle">@style/MyPopupMenu</item>
+    </style>
+
+    <style name="PreferencesTheme">
+        <item name="android:background">@color/darkpurple</item>
+    </style>
+
+
+    <style name="perfekcyjneTloTheme">
+        <item name="android:background">@drawable/perfekcyjnetlo</item>
+    </style>
+
+    <style name="myDialog" parent="@style/Theme.AppCompat.Dialog">
+        <item name="colorAccent">#987bbb</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="MyPopupMenu" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:popupBackground">@color/semipurple</item>
+        <item name="android:popupMenuStyle">@color/semipurple</item>
+    </style>
+
+
+    <!-- Offsets left drawable -->
+
+</resources>

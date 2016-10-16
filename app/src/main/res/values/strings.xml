@@ -1,0 +1,469 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="app_name">SmartCrossing</string>
+    <string name="near_points">Points near to you:</string>
+    <string name="map">Map</string>
+    <string name="b_count">Book count:</string>
+    <string name="b_add">Add a book</string>
+    <string name="b_title">&#0160;Title</string>
+    <string name="b_author">&#0160;Author</string>
+    <string name="b_year">&#0160;Year</string>
+    <string name="b_genre">&#0160;Page count</string>
+    <string name="add_book_m">Add book manually</string>
+    <string name="add_book_a">Add book by barcode</string>
+    <string name="add_station">Add station</string>
+    <string name="points">Your points:</string>
+    <string name="badges">Your badges:</string>
+    <string name="gtrank">Go to ranking:</string>
+
+
+    <!-- Stringi dziedziczone -->
+
+    <!--Titles-->
+    <string name="title_activity_user_profile">User profile</string>
+    <string name="title_activity_sign_in">Sign in</string>
+    <string name="title_activity_slide_in_menu">Slide in menu</string>
+    <string name="title_activity_current_user_activiy">User account</string>
+    <string name="title_activity_challenge_screen">Challenge</string>
+    <string name="title_activity_settings">Ustawienia</string>
+    <string name="title_activity_user_settings">Managing account</string>
+
+    <!--Actions & Buttons-->
+    <string name="action_settings">Settings</string>
+    <string name="singIn">Sign in</string>
+    <string name="singUp">Sign up</string>
+    <string name="login">Login</string>
+    <string name="email">E-mail address</string>
+    <string name="email_confirmation">Confirm e-mail address</string>
+    <string name="password">Password</string>
+    <string name="password_confirmation">Confirm password</string>
+    <string name="username">Username</string>
+    <string name="profile">My profile</string>
+    <string name="addfriend">Add friend</string>
+    <string name="friends">Friends</string>
+    <string name="pro">Upgrade to pro</string>
+    <string name="settings">Settings</string>
+    <string name="signout">Sign out</string>
+    <string name="home">Home page</string>
+    <string name="challengesb">Challenge somebody</string>
+
+    <!--Text-->
+    <string name="ru_ready">Are you ready for challenges?</string>
+    <string name="goFuckYourself">Go fuck yourself</string>
+    <string name="loading">Loading…</string>
+    <string name="loadingEnd">Finished loading</string>
+
+    <string name="unlimited_challenges">- Unilimited challenges per day</string>
+    <string name="open_challenges">- Creating open challenges</string>
+    <string name="no_ads">- No ads</string>
+    <string name="unlimited_ch_and_groups">- Challenges and group without user limit</string>
+
+    <!--Temp-->
+    <string name="lorem" translatable="false">Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui, non felis. Maecenas malesuada elit lectus felis, malesuada ultricies. Curabitur et ligula. Molestie a, ultricies porta urna. Vestibulum commodo volutpat a, convallis ac.</string>
+
+    <!--Formatted-->
+    <string name="participants" translatable="false">+%1$d</string>
+    <string name="you_have_new_challenge">You have %1$d %2$s</string>
+
+    <!--Plurals-->
+    <plurals name="new_challenge">
+        <item quantity="one">new challenge</item>
+        <item quantity="other">new challenges</item>
+    </plurals>
+
+    <plurals name="hours">
+        <item quantity="one">hour</item>
+        <item quantity="other">hours</item>
+    </plurals>
+
+    <plurals name="minutes">
+        <item quantity="one">minute</item>
+        <item quantity="other">minutes</item>
+    </plurals>
+
+    <plurals name="seconds">
+        <item quantity="one">second</item>
+        <item quantity="other">seconds</item>
+    </plurals>
+
+    <!-- Internal server error -->
+    <string name="ERROR_INTERNAL">Error: Internal server error</string>
+
+    <!-- Database -->
+    <string name="ERROR_MYSQL_CONNECT">Error: An error occurred while connecting to database. (MYSQL_CONNECT)</string>
+    <string name="ERROR_MYSQL_PREPARE">Error: An error occurred while connecting to database. (MYSQL_PREPARE)</string>
+    <string name="ERROR_MYSQL_BIND_PARAM">Error: An error occurred while connecting to database. (MYSQL_BIND_PARAM)</string>
+    <string name="ERROR_MYSQL_EXECUTE">Error: An error occurred while connecting to database. (MYSQL_EXECUTE)</string>
+    <string name="ERROR_MYSQL_STORE_RESULT">Error: An error occurred while connecting to database. (MYSQL_STORE_RESULT)</string>
+    <string name="ERROR_MYSQL_BIND_RESULT">Error: An error occurred while connecting to database. (MYSQL_BIND_RESULT)</string>
+
+    <!-- Input & Upload -->
+    <string name="ERROR_INPUT_EMPTY">Error: Server has not received any data.</string>
+    <string name="ERROR_INPUT_INVALID">Error: Invalid data has been sent to server.</string>
+    <string name="ERROR_UPLOAD_SIZE">Error: An error occurred while uploading file. (Size limit exceeded)</string>
+    <string name="ERROR_UPLOAD_PARTIAL">Error: An error occurred while uploading file. (File partially uploaded)</string>
+    <string name="ERROR_UPLOAD_NO_FILE">Error: An error occurred while uploading file. (No file uploaded)</string>
+    <string name="ERROR_UPLOAD_SERVER">Error: An error occurred while uploading file. (Unknown server error)</string>
+    <string name="ERROR_UPLOAD_SAVE_FILE">Error: An error occurred while uploading file. (Cannot save file)</string>
+
+    <!-- User -->
+    <string name="ERROR_USER_NOT_EXISTS">Error: User not exists.\nMake sure you are using login instead of username.</string>
+    <string name="ERROR_USER_ACTIVATED">Error: User account has been already activated.</string>
+    <string name="ERROR_USER_UNACTIVATED">Error: Account has not been activated.</string>
+    <string name="ERROR_USER_DEACTIVATED">Error: Account has been deactivated.</string>
+    <string name="ERROR_USER_BANNED">Error: Account has been banned.</string>
+    <string name="ERROR_USER_NOT_SIGNED_IN">Error: User not signed in.</string>
+    <string name="ERROR_USER_AUTH_PASSWORD">Invalid password.</string>
+    <string name="ERROR_USER_AUTH_TOKEN">Invalid authentication token.</string>
+    <string name="ERROR_USER_INVALID_PASSWORD_LIMIT_EXCEEDED">Invalid sign in attempts limit exceeded. Signing in has been locked for 10 minutes.</string>
+    <string name="ERROR_USER_INVALID_PASSWORD_LIMIT_EXCEEDED_DYNAMIC">Invalid sign in attempts limit exceeded.\nSigning in will be enabled in %s</string>
+    <string name="ERROR_USER_ALREADY_EXISTS">Error: User already exists.</string>
+    <string name="ERROR_USER_FETCH_PERMISSION">Error: Permission denied. Cannot fetch user data.</string>
+    <string name="ERROR_USER_EMAIL_NOT_MATCH">Error: E-mail not match account e-mail address.</string>
+
+    <string name="RESULT_USER_SIGNED_UP">Signed up. Activation e-mail has been sent to given address.</string>
+    <string name="RESULT_USER_SIGNED_IN">Signed in</string>
+    <string name="RESULT_USER_AUTHENTICATED">Signed in</string>
+    <string name="RESULT_USER_SIGNED_OUT">Signed out</string>
+    <string name="RESULT_USER_DEACTIVATED">Account has been deactivated.</string>
+    <string name="RESULT_USER_PASSWORD_RESET">Password has been reset and sent to Your\'s e-mail address.</string>
+    <string name="RESULT_USER_PASSWORD_CHANGED">Password has been changed.</string>
+    <string name="RESULT_USER_NAME_CHANGED">Username has been changed.</string>
+    <string name="RESULT_USER_DESCRIPTION_CHANGED">User description has been changed.</string>
+    <string name="RESULT_USER_EMAIL_ADDRESS_CHANGE_REQUESTED">E-mail address has been changed. Confirmation email has been sent to new e-mail address.</string>
+    <string name="RESULT_USER_AVATAR_CHANGED">Avatar has been changed.</string>
+
+    <!-- Relation -->
+    <string name="ERROR_RELATION_NOT_EXISTS">Error: You have no relation with this user.</string>
+    <string name="ERROR_RELATION_FETCH_PERMISSION">Error: Permission denied. Cannot fetch relation data.</string>
+    <string name="ERROR_RELATION_REQUEST_ALREADY_SENT">Error: Friend request already sent.</string>
+    <string name="ERROR_RELATION_ALREADY_FRIENDS">Error: You are friends already.</string>
+    <string name="ERROR_RELATION_ALREADY_BLOCKED">Error: User already blocked.</string>
+    <string name="ERROR_RELATION_WAS_BLOCKED">Error: This user have been blocked already.</string>
+    <string name="ERROR_RELATION_IS_BLOCKED">Error: This user have blocked You.</string>
+
+    <string name="RESULT_RELATION_REQUEST_SENT">Friend request sent.</string>
+    <string name="RESULT_RELATION_REQUEST_CANCELED">Friend request canceled.</string>
+    <string name="RESULT_RELATION_REQUEST_ACCEPTED">Friend request accepted.</string>
+    <string name="RESULT_RELATION_REQUEST_REJECTED">Friend request rejected.</string>
+    <string name="RESULT_RELATION_FRIEND_REMOVED">User removed from friends.</string>
+    <string name="RESULT_RELATION_BLOCKED">Blocked user.</string>
+    <string name="RESULT_RELATION_UNBLOCKED">Unblocked user.</string>
+
+    <!-- Content -->
+    <string name="ERROR_CONTENT_NOT_EXISTS">Error: Content not exist.</string>
+    <string name="ERROR_CONTENT_FETCH_PERMISSION">Error: Permission denied. Cannot fetch content data.</string>
+    <string name="ERROR_CONTENT_MODIFICATION_PERMISSION">Error: Cannot modify content.</string>
+
+    <!-- Challenge -->
+    <string name="ERROR_CHALLENGE_NOT_EXISTS">Error: Challenge not exists.</string>
+    <string name="ERROR_CHALLENGE_FETCH_PERMISSION">Error: Permission denied. Cannot fetch challenge data.</string>
+    <string name="ERROR_CHALLENGE_MODIFICATION_PERMISSION">Error: Permission denied.  Cannot modify challenge.</string>
+    <string name="ERROR_CHALLENGE_EXPIRED">Error: Challenge has expired.</string>
+
+    <string name="RESULT_CHALLENGE_ADDED">Created challenge.</string>
+    <string name="RESULT_CHALLENGE_REMOVED">Deleted challenge.</string>
+    <string name="RESULT_CHALLENGE_MODIFIED">Challenge has been modified.</string>
+
+    <!-- ChallengeTarget -->
+    <string name="ERROR_CHALLENGE_TARGET_NOT_EXISTS">Error: Challenge participant not exists.</string>
+    <string name="ERROR_CHALLENGE_TARGET_FETCH_PERMISSION">Error: Permission denied. Cannot fetch challenge participant data.</string>
+    <string name="ERROR_CHALLENGE_TARGET_MANAGEMENT_PERMISSION">Error: You can\'t invite or kick users.</string>
+    <string name="ERROR_CHALLENGE_TARGET_RESPONSE_STATE_MANAGEMENT_PERMISSION">Error: Cannot change challenge request status.</string>
+
+    <string name="ERROR_CHALLENGE_TARGET_USER_ADD_PERMISSION">Error: You can\'t invite this user.</string>
+    <string name="RESULT_CHALLENGE_TARGET_ADDED">Challenge request send.</string>
+    <string name="RESULT_CHALLENGE_TARGET_REMOVED">Challenge request cancelled.</string>
+    <string name="RESULT_CHALLENGE_TARGET_RESPONSE_STATE_MODIFIED">Responded to challenge request.</string>
+
+    <!-- ChallengeResponse -->
+    <string name="ERROR_CHALLENGE_RESPONSE_NOT_EXISTS">Error: Challenge response not exists.</string>
+    <string name="ERROR_CHALLENGE_RESPONSE_FETCH_PERMISSION">Error: Permission denied. Cannot fetch response data.</string>
+    <string name="ERROR_CHALLENGE_RESPONSE_MODIFICATION_PERMISSION">Error: Permission denied. Cannot modify challenge response.</string>
+    <string name="ERROR_CHALLENGE_RESPONSE_STATE_MODIFICATION_PERMISSION">Error: Permission denied. Cannot rate response.</string>
+    <string name="ERROR_CHALLENGE_RESPONSE_ADD_PERMISSION">Error: You can\'t respond to this challenge.</string>
+    <string name="ERROR_CHALLENGE_RESPONSE_ALREADY_EXISTS">Error: You already have responded to this challenge.</string>
+    <string name="ERROR_CHALLENGE_RESPONSE_ALREADY_SET">Error: You already have rated to this response.</string>
+    <string name="RESULT_CHALLENGE_RESPONSE_ADDED">Created challenge response.</string>
+    <string name="RESULT_CHALLENGE_RESPONSE_REMOVED">Removed challenge response.</string>
+    <string name="RESULT_CHALLENGE_RESPONSE_STATE_MODIFIED">Rated challenge response.</string>
+
+    <!-- Mailing -->
+    <string name="ERROR_MAIL_NOT_SENT">Error: E-mail could not be sent.</string>
+    <string name="RESULT_MAIL_SENT">E-mail sent.</string>
+
+    <!--Client-->
+    <string name="LOCAL_INVALID_URL">Error: Cannot connect to server. Invalid URL address.</string>
+    <string name="LOCAL_CONNECTION_ERROR">Error: Cannot connect to server.</string>
+    <string name="LOCAL_RESPONSE_INVALID">Error: Invalid server response.</string>
+    <string name="ERROR_LOGIN_INVALID">Login must be 3–20 characters long. It may only contain alphanumeric characters, "." and "_"</string>
+    <string name="ERROR_EMAIL_INVALID">Valid e-mail address format: example@example.com (up to 100 characters)</string>
+    <string name="ERROR_EMAIL_MATCH">Error: E-mail address do not match.</string>
+    <string name="ERROR_PASSWORD_INVALID">Password must be 6–20 characters long. It may not contain any whitespace characters.</string>
+    <string name="ERROR_PASSWORD_MATCH">Error: Passwords do not match.</string>
+    <string name="ERROR_USERNAME_INVALID">Username must be 3–30 characters long.</string>
+    <string name="LOCAL_RESULT_USER_SIGNED_OUT">Signed out locally.</string>
+    <string name="SIGN_IN_UNLOCK_TIME">Signing in will be unlocked in </string>
+
+    <!-- Strings related to Settings -->
+    <string name="report_user_violence">User profile is calling to use violence</string>
+    <string name="report_user_religious">User profile is offensive to religion</string>
+    <string name="report_user_illegal">User profile is promoting illegal substances</string>
+    <string name="report_user_vulgarism">User profile contains not proper language</string>
+    <string name="report_user_threats">User profile contains threats</string>
+    <string name="report_user_suicide">User profile is calling to suicide</string>
+    <string name="report_user_undress">User profile is calling to undressing</string>
+    <string name="report_user_other">Other (which?)</string>
+
+    <string name="report_challenge_violence">Challenge is calling to use violence</string>
+    <string name="report_challenge_religious">Challenge is offensive to religion</string>
+    <string name="report_challenge_illegal">Challenge is promoting illegal substances</string>
+    <string name="report_challenge_vulgarism">Challenge description contains not proper language</string>
+    <string name="report_challenge_threats">Challenge description contains threats</string>
+    <string name="report_challenge_suicide">Challenge is calling to suicide</string>
+    <string name="report_challenge_undress">Challenge is calling to undress</string>
+    <string name="report_challenge_other">Other (which?)</string>
+
+    <string name="report_group_violence">Group is calling to use violence</string>
+    <string name="report_group_religious">Group is offensive to religion</string>
+    <string name="report_group_illegal">Group is promoting illegal substances</string>
+    <string name="report_group_vulgarism">Group description contains not proper language</string>
+    <string name="report_group_threats">Group description contains threats</string>
+    <string name="report_group_suicide">Group is calling to suicide</string>
+    <string name="report_group_undress">Group is calling to undressing</string>
+    <string name="report_group_other">Other (which?)</string>
+
+    <string name="sendticket">Report</string>
+    <string name="readlog">Read</string>
+    <string name="confirm">CONFIRM</string>
+    <string name="complete_challenge">Complete challenge</string>
+    <string name="complete_challenge_message">&#160;Additional message</string>
+    <string name="complete_challenge_gz">Congratz from Challengetic team\nfor completing challenge!</string>
+
+    <string name="challenge_desc">&#160;Challenge description</string>
+    <string name="challenge_title">&#160;Challenge title</string>
+    <string name="challenge_completed">COMPLETED BY</string>
+    <string name="challengewho">Who you want to challenge?</string>
+    <string name="image_crop">CROP</string>
+    <string name="edit_username">Edit username</string>
+    <string name="edit_avatar">Edit avatar</string>
+    <string name="edit_description">Edit description</string>
+    <string name="save">SAVE</string>
+    <string name="discard">DISCARD</string>
+    <string name="list_friends">Friends</string>
+    <string name="list_groups">Groups</string>
+    <string name="members">Members:</string>
+    <string name="group_name">Group name</string>
+    <string name="members_list">Members list</string>
+    <string name="report_title">&#160;Report title</string>
+    <string name="report_description">&#160;Description</string>
+    <string name="forgot">Forgot password?</string>
+    <string name="sign_up_button">SIGN UP</string>
+    <string name="title_activity_sign_up">Sign up</string>
+    <string name="title_activity_main">Main menu</string>
+    <string name="goToMain">Main menu</string>
+    <string name="add_photo_to_completed_challenge">Add photo</string>
+    <string name="edit_challenge">Edit challenge</string>
+    <string name="delete_challenge">Delete challenge</string>
+    <string name="c_screen_complete_challenge" translatable="false">Complete challenge</string>
+    <string name="report_challenge">Report challenge</string>
+    <string name="preview">PREVIEW</string>
+    <string name="edit_targets">Edit members list</string>
+    <string name="slide_your_challenges">My challenges</string>
+
+    <plurals name="challenges">
+        <item quantity="one">new challenge</item>
+        <item quantity="few">new challenges</item>
+        <item quantity="many">new challenges</item>
+        <item quantity="other">new challenges</item>
+    </plurals>
+
+    <string name="loadingloadingloading">Loading&#8230;</string>
+
+    <string name="read_logs">Read logs</string>
+    <string name="send_logs">Send logs</string>
+    <string name="clear_logs">Clear logs</string>
+
+    <string name="title_user">User</string>
+    <string name="about_app">About app</string>
+
+    <string name="review_requests">Review new friends requests</string>
+    <string name="select_src">Select source</string>
+
+    <string name="none_challenges_text">You do not have new challenges.\nInvite friends to using our app\nfor find here source of motivation</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="you_must_friend">To challenge this user, you must be friends</string>
+    <string name="he_must_accept_friend">To challenge this user, he must accept your friend request</string>
+
+    <string name="soon">Soon&#8230;</string>
+    <string name="frequency">Update frequency</string>
+
+    <string name="slide_responses">Responses</string>
+
+    <string name="sign_in">SIGN IN</string>
+    <string name="have_an_acc">Have an account? Sign in</string>
+    <string name="photo_added">Photo added, in next step you\'ll be able to cropp it</string>
+    <string name="here_are_friends_challenges">Here are some challenges\ncompleted by your friends</string>
+
+    <string name="app_doesnt_have_gallery_permission">Click GRANT to be able to upload photos from gallery</string>
+    <string name="grant_permission">GRANT</string>
+
+    <string name="creators_title">Creators</string>
+    <string name="version_title">Version</string>
+    <string name="thanks_title">Thanks</string>
+    <string name="licenses_title">Licenses</string>
+
+    <string name="manage_notifications">Manage notifications</string>
+    <string name="turn_notifications">Notifications</string>
+    <string name="use_LED">Use LED</string>
+    <string name="use_sound">Use sound</string>
+    <string name="choose_notifications">Choose notifications</string>
+
+    <string name="notify_friend_request">Friend request</string>
+    <string name="notify_friend_request_sent">Has been received</string>
+    <string name="notify_friend_request_accepted">Has been accepted</string>
+    <string name="notify_friend_request_rejected">Has been rejected</string>
+
+    <string name="notify_challenge_request">Challenge request</string>
+    <string name="notify_challenge_request_sent">Has been received</string>
+
+    <string name="notify_challenge_response">Challenge response</string>
+    <string name="notify_challenge_response_added">Has been received</string>
+    <string name="notify_challenge_response_accepted">Has been accepted</string>
+    <string name="notify_challenge_response_rejected">Has been rejected</string>
+
+    <string name="change_email">Change e-mail address</string>
+    <string name="change_password">Change password</string>
+
+    <string name="crop__saving">Saving picture…</string>
+
+    <string name="crop__wait">Please wait…</string>
+
+    <string name="crop__pick_error">No image sources available</string>
+
+    <string name="crop__done">DONE</string>
+
+    <string name="crop__cancel" tools:ignore="ButtonCase">CANCEL</string>
+
+    <string name="new_challenge">New challenge request</string>
+    <string name="new_challenge_response">New challenge response</string>
+    <string name="new_friend_request">New friend request</string>
+    <string name="friend_request_accepted">Friend request accepted</string>
+    <string name="friend_request_rejected">Friend request rejected</string>
+
+    <string name="crop_your_photo">Crop your photo</string>
+    <string name="take_your_photo">Take photo</string>
+    <string name="choose_source">Choose source</string>
+    <string name="arus_nickname">Arkadiusz Mirecki</string>
+    <string name="groups_string">Groups</string>
+    <string name="buy_now">BUY NOW</string>
+    <string name="wykrzyknik">!</string>
+    <string name="plus_zero" translatable="false">+0</string>
+    <string name="choose_photo">Choose photo</string>
+    <string name="awerwa_nickname">Sebastian Zasuwa</string>
+    <string name="temai_nickname">Kamil Zgodziński</string>
+    <string name="unlimited_daily_challenges">- Unlimited daily challenges</string>
+    <string name="unlimited_challenge_members">- Unlimited challenge\'s members</string>
+    <string name="didnt_accept">You must accept this challenge before adding response.</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="challenge_without_content">Are you sure you want to add challenge without content?</string>
+
+    <string name="acc_not_activated">Account not activated, would you like to resend activation e-mail?</string>
+    <string name="acc_deactivated">Account deactivated, would you like to send reactivation e-mail?</string>
+
+    <string name="notifications">Notifications</string>
+
+
+    <string name="time_null">Choose hour</string>
+    <string name="date_null">Choose date</string>
+    <string name="title_null">Enter the title</string>
+    <string name="desc_null">Enter the description</string>
+
+    <string name="notifies_new_friend_request">New friend request</string>
+    <string name="notifies_new_challenge_request">New challenge request</string>
+    <string name="notifies_new_challenge_response">New challenge response</string>
+
+    <string name="notifies_friend_request_rejected">Friends reqest rejected</string>
+    <string name="notifies_challenge_response_rejected">Challenge response rejected</string>
+    <string name="notifies_challenge_response_accepted">Challenge response accepted</string>
+    <string name="notifies_friend_request_accepted">Friends request accepted</string>
+    <string name="target_null">No challenge\'s target selected</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_social_recommendations">Enable social recommendations</string>
+    <string name="pref_description_social_recommendations">Recommendations for people to contact
+        based on your message history
+    </string>
+
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string-array name="list_preference_entries">
+        <item>Entry 1</item>
+        <item>Entry 2</item>
+        <item>Entry 3</item>
+    </string-array>
+
+    <string-array name="list_preference_entry_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="multi_select_list_preference_default_value" />
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
+
+
+</resources>
+
+
+

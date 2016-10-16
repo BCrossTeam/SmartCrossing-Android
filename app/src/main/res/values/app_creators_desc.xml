@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+
+    <string name="what_arus_does">Interfejs użytkownika i PR</string>
+    <string name="what_awerwa_does">Twórca serwera</string>
+    <string name="what_temai_does">Grafik</string>
+
+
+    <string name="arus_desc">Urodzony w 99 roku, interesuje się kreacją wizerunku i kontaktem z klientami. Za tworzenie interfejsu wziął się po długich namowach kolegów, którzy kazali żeby "wziął się wreszcie za jakąś robotę".</string>
+    <string name="awerwa_desc">Twórca serwera</string>
+    <string name="temai_desc">Urodzony w 95 roku pasjonat grafiki komputerowej, obecnie student. Wielokrotnie nagradzany za swoją cierpliwość do klientów, którzy oferowali „będzie mnie Pan miał do portfolio”.  Złośliwie nazywany przez kolegów mistrzem performance’u, bo nie wypuścił spod swojej myszki dzieła, które nie zawierałoby literówek. Kocha swoje prace okraszać ciemnymi motywami do tego stopnia, że w pierwszej kolejności wykonuje zlecenia na nekrologi i epitafia. </string>
+</resources>

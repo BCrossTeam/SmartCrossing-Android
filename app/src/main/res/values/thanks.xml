@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+           <string name="thanks" translatable="false">
+<![CDATA[
+<html>
+ <head></head>
+ <body style="text-align:justify;color:white;background-color:transparent;">
+ Nasza aplikacja nie mogłaby powstać bez wsparcia niektórych osób, toteż w tym miejscu chcielibyśmy
+ publicznie im podziękować. Pierwszą osobą, która przyczyniła się do rozwoju był Pan Michał F. z hostingu
+ lvlup.pro, dziękujemy mu dlatego, iż zasponsorował on nam serwer VPS na potrzeby tworzenia naszej
+ aplikacji. Z serwerem nie było żadnych problemów a obsługa odpowiadała na pytania błyskawicznie.<br><br>
+
+ Chcielibyśmy też podziękować Kamilowi Z., który zgodził się wykonać interfejs naszej aplikacji. Dziękuję
+ mu za cierpliwość oraz to, że nie wyśmiewał moich projektów, które rozrysowywaliśmy mu na kartce. Jest
+ solidny i wszystkie zlecenia wykonuje punktualnie toteż polecam zapoznać się z jego portfolio:
+  http://temai.jimdo.com/<br><br>
+
+  Kolejne podziękowania ślemy do Joachima S., który był pre-alfa testerem naszej aplikacji. Dzięki za
+  wiele cennych wskazówek na temat tego jak mogliśmy ulepszyć nasz interfejs, by był on bardziej
+  przejrzysty i intuicyjny. <br><br>
+
+
+ </body>
+</html>
+]]>
+</string>
+</resources>
