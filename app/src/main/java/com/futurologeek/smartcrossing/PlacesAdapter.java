@@ -51,7 +51,13 @@ public class PlacesAdapter extends ArrayAdapter<Place> {
             holder.location.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context, "Location", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(context, MapActivity.class);
+                    Bundle koszyk = new Bundle();
+                    koszyk.putBoolean("isPoint",true);
+                    koszyk.putDouble("longitude", getItem(position).getLongitude());
+                    koszyk.putDouble("latitude", getItem(position).getLatitude());
+                    i.putExtras(koszyk);
+                    context.startActivity(i);
                 }
             });
             holder.shelf.setOnClickListener(new View.OnClickListener() {

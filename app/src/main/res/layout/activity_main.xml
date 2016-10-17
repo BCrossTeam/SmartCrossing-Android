@@ -35,8 +35,9 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:inputType="textPersonName"
+            android:focusable="false"
             android:ems="10"
-            android:id="@+id/editText"
+            android:id="@+id/search_edit_text"
             android:layout_toStartOf="@+id/lupa"
             android:layout_toLeftOf="@+id/lupa"
             android:selectAllOnFocus="false" />

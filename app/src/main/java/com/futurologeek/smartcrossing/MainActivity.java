@@ -5,30 +5,31 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
-import static java.security.AccessController.getContext;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     ListView booklist;
     ArrayList<Place> listItems=new ArrayList<Place>();
     PlacesAdapter adapter;
+    EditText searchEditText;
     TableRow settings;
     TableRow profile;
     final Activity activity = this;
     ImageView plus;
+    TableRow mapview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +45,55 @@ public class MainActivity extends AppCompatActivity {
         settings = (TableRow) findViewById(R.id.settings_button);
         profile = (TableRow) findViewById(R.id.profile_button);
         plus = (ImageView) findViewById(R.id.add_button);
+        mapview = (TableRow) findViewById(R.id.map_button);
+        searchEditText = (EditText) findViewById(R.id.search_edit_text);
     }
     public void setListeners(){
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                Toast.makeText(MainActivity.this, "Dodaj", Toast.LENGTH_SHORT).show();
+                final Dialog dialog = new Dialog(MainActivity.this);
+                dialog.setContentView(R.layout.add_book_prompt);
+                dialog.setTitle(MainActivity.this.getResources().getString(R.string.select_src));
+                RelativeLayout takePhotoRelative = (RelativeLayout) dialog.findViewById(R.id.add_a);
+                RelativeLayout choosePhotoRelative = (RelativeLayout) dialog.findViewById(R.id.add_m);
+                takePhotoRelative.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        IntentIntegrator integrator = new IntentIntegrator(activity);
+                        integrator.setDesiredBarcodeFormats(IntentIntegrator.PRODUCT_CODE_TYPES);
+                        integrator.setPrompt("Scan");
+                        integrator.setCameraId(0);
+                        integrator.setBeepEnabled(false);
+                        integrator.setBarcodeImageEnabled(true);
+                        integrator.initiateScan();
+                        dialog.dismiss();
+                    }
+                });
+                searchEditText.setFocusable(true);
+
+                choosePhotoRelative.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(MainActivity.this, AddBookActivity.class);
+                        startActivity(i);
+                        dialog.dismiss();
+
+                    }
+                });
+                dialog.show();
+
+            }
+        });
+
+        mapview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, MapActivity.class);
+                Bundle koszyk = new Bundle();
+                koszyk.putBoolean("isPoint",false);
+                i.putExtras(koszyk);
+                startActivity(i);
             }
         });
         settings.setOnClickListener(new View.OnClickListener() {
@@ -61,9 +105,12 @@ public class MainActivity extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Profil", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(MainActivity.this, ProfileActivity.class);
+                startActivity(i);
             }
         });
+
+
 
         adapter=new PlacesAdapter(this, listItems);
         booklist.setAdapter(adapter);
@@ -82,5 +129,28 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if(result != null){
+            if(result.getContents()==null){
+                Toast.makeText(this, "You cancelled the scanning", Toast.LENGTH_LONG).show();
+            }
+            else {
+                String url = "https://www.googleapis.com/books/v1/volumes?q=ISBN:"+result.getContents();
+                Bundle koszyk = new Bundle();
+                koszyk.putString("jurl", url);
+                // Definiujemy cel
+                Intent cel = new Intent(this, AddBookActivity.class);
+                cel.putExtras(koszyk);
+                // Wysyłamy
+                startActivity(cel);
+            }
+
+        }
+        else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 
 }

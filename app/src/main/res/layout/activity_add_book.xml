@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/perfekcyjnetlo"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/mainlinearlayout">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="60dp">
+
+
+        <TextView
+            android:text="@string/b_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/twenty_five"
+            android:id="@+id/act_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+    </RelativeLayout>
+
+    <EditText
+        android:inputType="textCapSentences"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/sixty"
+        android:id="@+id/add_title"
+        android:hint="@string/b_title"
+        android:textColorHint="@color/white"
+        android:singleLine="true"
+        android:background="@color/fortyshadesofgrey"
+        android:textColor="@color/white"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/twenty"
+        android:layout_marginRight="@dimen/twenty"
+        android:layout_marginBottom="@dimen/fifteen" />
+
+    <EditText
+        android:inputType="textCapSentences"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/sixty"
+        android:id="@+id/add_author"
+        android:hint="@string/b_author"
+        android:textColorHint="@color/white"
+        android:singleLine="true"
+        android:background="@color/fortyshadesofgrey"
+        android:textColor="@color/white"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/twenty"
+        android:layout_marginRight="@dimen/twenty"
+        android:layout_marginBottom="@dimen/fifteen" />
+
+    <EditText
+        android:inputType="textCapSentences"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/sixty"
+        android:id="@+id/add_year"
+        android:hint="@string/b_year"
+        android:textColorHint="@color/white"
+        android:singleLine="true"
+        android:background="@color/fortyshadesofgrey"
+        android:textColor="@color/white"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/twenty"
+        android:layout_marginRight="@dimen/twenty"
+        android:layout_marginBottom="@dimen/fifteen" />
+
+
+    <RelativeLayout
+        android:background="@color/transparent_white"
+        android:id="@+id/challenge_sb_choose_photo"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/sixty"
+        android:layout_marginLeft="@dimen/twenty"
+        android:layout_marginRight="@dimen/twenty"
+        android:layout_marginBottom="@dimen/fifteen">
+
+        <ImageView
+            android:layout_height="@dimen/twenty_five"
+            android:layout_width="@dimen/twenty_eight"
+            android:id="@+id/challenge_sb_choose_photo_ico"
+            android:src="@drawable/add_photo_ico"
+            android:layout_centerInParent="true"
+            />
+
+    </RelativeLayout>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/spinner"
+        android:entries="@array/categoryArray"
+        android:layout_marginLeft="@dimen/twenty"
+        android:layout_marginRight="@dimen/twenty" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <RelativeLayout
+            android:layout_width="@dimen/hundred_twenty_five"
+            android:layout_centerInParent="true"
+            android:background="@color/fortyshadesofgrey"
+            android:layout_height="@dimen/fifty">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:layout_centerInParent="true"
+                android:text="@string/zxing_button_ok"/>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>
