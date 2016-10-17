@@ -1,17 +1,9 @@
 package com.futurologeek.smartcrossing;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.AsyncTask;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -23,7 +15,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
@@ -35,7 +26,7 @@ import java.util.ArrayList;
 public class MapActivity extends FragmentActivity {
 
     private GoogleMap mMap;
-    ArrayList<Place> punkty;
+    ArrayList<Bookshelf> punkty;
     boolean isPoint;
     double longitude;
     GoogleApiClient mGoogleApiClient;
@@ -50,7 +41,7 @@ public class MapActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-        punkty = new ArrayList<Place>();
+        punkty = new ArrayList<Bookshelf>();
         new GetContacts().execute();
         if (getIntent().getExtras() != null) {
             Bundle przekazanedane = getIntent().getExtras();
@@ -68,11 +59,11 @@ public class MapActivity extends FragmentActivity {
                     mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
                         @Override
                         public void onMapLoaded() {
-                            for (Place l : punkty) {
+                            for (Bookshelf l : punkty) {
                                 mMap.addMarker(new MarkerOptions().position(new LatLng(l.getLatitude(), l.getLongitude())).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title(l.getNamePlace()));
                             }
                             LatLngBounds.Builder builder = new LatLngBounds.Builder();
-                            for (Place marker : punkty) {
+                            for (Bookshelf marker : punkty) {
                                 builder.include(new LatLng(marker.getLatitude(), marker.getLongitude()));
                             }
                             LatLngBounds bounds = builder.build();
@@ -131,7 +122,7 @@ public class MapActivity extends FragmentActivity {
                         final double latitude = c.getDouble("bookshelf_latitude");
                         final double longitude = c.getDouble("bookshelf_longitude");
                         final String name = c.getString("bookshelf_name");
-                        Place plejs = new Place(id, name, latitude, longitude);
+                        Bookshelf plejs = new Bookshelf(id, name, latitude, longitude);
                         punkty.add(plejs);
                     }
                 } catch (final JSONException e) {

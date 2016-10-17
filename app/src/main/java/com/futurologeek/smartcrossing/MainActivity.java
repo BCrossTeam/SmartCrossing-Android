@@ -1,9 +1,7 @@
 package com.futurologeek.smartcrossing;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -18,7 +16,6 @@ import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.Toast;
 
-import com.google.zxing.PlanarYUVLuminanceSource;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -32,11 +29,11 @@ import java.util.Comparator;
 
 public class MainActivity extends AppCompatActivity {
     ListView booklist;
-    PlacesAdapter adapter;
+    BookshelfAdapter adapter;
     EditText searchEditText;
     TableRow settings;
     TableRow profile;
-    ArrayList<Place> punkty = new ArrayList<Place>();
+    ArrayList<Bookshelf> punkty = new ArrayList<Bookshelf>();
     final Activity activity = this;
     ImageView plus;
     TableRow mapview;
@@ -57,9 +54,9 @@ public class MainActivity extends AppCompatActivity {
         sortList();
     }
     public void sortList(){
-        Collections.sort(punkty, new Comparator<Place>() {
+        Collections.sort(punkty, new Comparator<Bookshelf>() {
             @Override
-            public int compare(Place c1, Place c2) {
+            public int compare(Bookshelf c1, Bookshelf c2) {
                 return Float.compare(c1.getDistance(), c2.getDistance());
             }
         });
@@ -192,17 +189,17 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         Log.d("Leeel", latitude+ " " + longitude+ " " + name + " " + String.valueOf(id));
-                        Place plejs = new Place(id, name, latitude, longitude, bookcount);
+                        Bookshelf plejs = new Bookshelf(id, name, latitude, longitude, bookcount);
                         punkty.add(plejs);
                     }
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                adapter=new PlacesAdapter(MainActivity.this, punkty);
+                                adapter=new BookshelfAdapter(MainActivity.this, punkty);
                                 booklist.setAdapter(adapter);
                                 adapter.notifyDataSetChanged();
                                 float[] results = new float[1];
-                                for(Place pl:punkty){
+                                for(Bookshelf pl:punkty){
                                     Location.distanceBetween(51.0993389,17.0152863, pl.getLatitude(), pl.getLongitude(), results);
                                     pl.setDistance(results[0]);
                                 }

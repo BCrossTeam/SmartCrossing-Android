@@ -1,30 +1,21 @@
 package com.futurologeek.smartcrossing;
 
 import android.content.Context;
-import android.content.Intent;
-import android.location.Location;
-import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 
-public class PlacesAdapter extends ArrayAdapter<Place> {
+public class BookshelfAdapter extends ArrayAdapter<Bookshelf> {
     private final Context context;
-    private final ArrayList<Place> itemsArrayList;
+    private final ArrayList<Bookshelf> itemsArrayList;
 
-    public PlacesAdapter(Context context, ArrayList<Place> itemsArrayList) {
+    public BookshelfAdapter(Context context, ArrayList<Bookshelf> itemsArrayList) {
         super(context, R.layout.shelf_template, itemsArrayList);
         this.context = context;
         this.itemsArrayList = itemsArrayList;

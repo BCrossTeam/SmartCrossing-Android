@@ -9,18 +9,18 @@ import android.view.View;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
-public class Place {
+public class Bookshelf {
     private String name;
     private int bookcount;
     double latitude;
     double longitude;
     private int id;
     float distance;
-    PlacesAdapter.ViewHolder holder;
-    PlacesAdapter adapter;
+    BookshelfAdapter.ViewHolder holder;
+    BookshelfAdapter adapter;
 
 
-    public Place(int id, String name, double latitude, double longitude,  int bookcount){
+    public Bookshelf(int id, String name, double latitude, double longitude, int bookcount){
         this.id = id;
         this.name = name;
         this.bookcount = bookcount;
@@ -29,7 +29,7 @@ public class Place {
     }
 
 
-    public Place(int id, String name, double latitude, double longitude){
+    public Bookshelf(int id, String name, double latitude, double longitude){
         this.name = name;
         this.id = id;
         this.latitude = latitude;
@@ -70,7 +70,7 @@ public class Place {
     }
 
 
-    public void setListeners(final PlacesAdapter.ViewHolder holder, PlacesAdapter adapter, final Context context) {
+    public void setListeners(final BookshelfAdapter.ViewHolder holder, BookshelfAdapter adapter, final Context context) {
     this.holder = holder;
     this.adapter = adapter;
 

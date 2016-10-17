@@ -1,9 +1,5 @@
 package com.futurologeek.smartcrossing;
 
-/**
- * Created by adminizdrador on 11.10.2016.
- */
-
 
 import android.util.Log;
 
@@ -17,10 +13,6 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
-/**
- * Created by Ravi Tamada on 01/09/16.
- * www.androidhive.info
- */
 public class HttpHandler {
 
     private static final String TAG = HttpHandler.class.getSimpleName();
