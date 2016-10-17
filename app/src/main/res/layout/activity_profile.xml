@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_profile"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:background="@drawable/perfekcyjnetlo"
+    tools:context="com.futurologeek.smartcrossing.ProfileActivity"
+    android:weightSum="1">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/seventy"
+        android:gravity="center"
+        android:id="@+id/usernameRow">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/username"
+            android:text="Nick"
+            android:textSize="46sp" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/hundred_seventy_five"
+        android:paddingLeft="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_vertical_margin"
+        android:id="@+id/pointsRow"
+        android:layout_below="@+id/usernameRow"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="@string/points"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="@dimen/five"
+                android:textSize="20sp" />
+
+            <RelativeLayout
+                android:layout_width="@dimen/hundred_fifty"
+                android:background="@drawable/loginbutton"
+                android:gravity="center"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/ten"
+                android:layout_height="@dimen/thirty">
+
+                <TextView
+                    android:text="@string/gtrank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rank"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="17sp" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:text="3000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/points"
+                android:textSize="50sp"
+                android:textStyle="normal|bold"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/fifty" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/two"
+                android:background="#FFFFFF"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/relative_with_ui"
+        android:layout_below="@+id/pointsRow">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingRight="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_vertical_margin">
+
+            <TextView
+                android:text="@string/badges"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textSize="20sp"
+                android:layout_marginTop="@dimen/five" />
+
+        </RelativeLayout>
+    </TableRow>
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:id="@+id/relative_with_ui"
+        android:layout_height="@dimen/eighty_five"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sixty"
+            android:layout_centerHorizontal="true"
+            android:layout_alignBottom="@+id/add_button">
+
+            <TableRow
+                android:layout_width="@dimen/hundred"
+                android:layout_height="@dimen/forty"
+                android:background="@drawable/loginbutton"
+                android:layout_centerVertical="true"
+                android:id="@+id/profile_button"
+                android:layout_alignParentLeft="true"
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/twenty"
+                android:layout_marginTop="@dimen/five">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/profile"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:textSize="@dimen/eighteen" />
+
+                </RelativeLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="@dimen/hundred"
+                android:layout_height="@dimen/forty"
+                android:background="@drawable/loginbutton"
+                android:id="@+id/settings_button"
+                android:gravity="center"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/twenty"
+                android:layout_marginTop="@dimen/five">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:textSize="@dimen/eighteen" />
+
+                </RelativeLayout>
+
+            </TableRow>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="@dimen/eighty"
+            android:layout_height="@dimen/eighty"
+            android:src="@drawable/floatingbuttonimage"
+            android:id="@+id/add_button"
+            app:srcCompat="@drawable/floatingbuttonimage"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

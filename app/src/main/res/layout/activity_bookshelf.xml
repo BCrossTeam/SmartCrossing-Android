@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_bookshelf"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context="com.futurologeek.smartcrossing.BookshelfActivity"
+    android:background="@drawable/perfekcyjnetlo">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/name"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="30sp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical" >
+
+                <TextView
+                    android:text="@string/b_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="20sp"
+                    android:id="@+id/tv_book_count" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/bookCount"
+                    android:textSize="20sp" />
+
+            </TableRow>
+        </LinearLayout>
+    </TableRow>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/hundred_fifty"
+        android:gravity="center"
+        android:scrollbars="none"
+        android:paddingLeft="@dimen/activity_horizontal_margin">
+
+        <TableRow
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+            <include layout="@layout/bookshelf_list_template"/>
+            <include layout="@layout/bookshelf_list_template"/>
+            <include layout="@layout/bookshelf_list_template"/>
+            <include layout="@layout/bookshelf_list_template"/>
+            <include layout="@layout/bookshelf_list_template"/>
+            <include layout="@layout/bookshelf_list_template"/>
+    </TableRow>
+
+    </HorizontalScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:id="@+id/relative_with_ui"
+            android:layout_height="@dimen/eighty_five"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:gravity="center">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/sixty"
+                android:layout_centerHorizontal="true"
+                android:layout_alignBottom="@+id/add_button"
+                android:id="@+id/border">
+
+                <TableRow
+                    android:layout_width="@dimen/hundred"
+                    android:layout_height="@dimen/forty"
+                    android:background="@drawable/loginbutton"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/profile_button"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="center"
+                    android:layout_marginLeft="@dimen/twenty"
+                    android:layout_marginTop="@dimen/five">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/profile"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:textSize="@dimen/eighteen" />
+
+                    </RelativeLayout>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="@dimen/hundred"
+                    android:layout_height="@dimen/forty"
+                    android:background="@drawable/loginbutton"
+                    android:id="@+id/settings_button"
+                    android:gravity="center"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/twenty"
+                    android:layout_marginTop="@dimen/five">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:textSize="@dimen/eighteen" />
+
+                    </RelativeLayout>
+
+                </TableRow>
+
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="@dimen/eighty"
+                android:layout_height="@dimen/eighty"
+                android:src="@drawable/floatingbuttonimage"
+                android:id="@+id/add_button"
+                app:srcCompat="@drawable/floatingbuttonimage"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true" />
+
+        </RelativeLayout>
+
+        <TableRow
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_above="@+id/relative_with_ui">
+
+
+            <fragment
+                android:layout_marginTop="@dimen/twenty"
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.MapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </TableRow>
+
+    </RelativeLayout>
+
+</LinearLayout>

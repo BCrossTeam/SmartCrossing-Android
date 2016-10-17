@@ -57,7 +57,14 @@ public class PlacesAdapter extends ArrayAdapter<Place> {
             holder.shelf.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    Intent i = new Intent(context,BookshelfActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("name",getItem(position).getNamePlace());
+                    bundle.putDouble("longitude", getItem(position).getLongitude());
+                    bundle.putInt("bookcount", getItem(position).getBookcount());
+                    bundle.putDouble("latitude", getItem(position).getLatitude());
+                    i.putExtras(bundle);
+                    context.startActivity(i);
                 }
             });
             convertView.setTag(holder);
