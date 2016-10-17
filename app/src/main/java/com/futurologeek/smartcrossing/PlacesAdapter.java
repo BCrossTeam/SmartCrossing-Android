@@ -2,16 +2,22 @@ package com.futurologeek.smartcrossing;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class PlacesAdapter extends ArrayAdapter<Place> {
@@ -36,43 +42,10 @@ public class PlacesAdapter extends ArrayAdapter<Place> {
             //Log.e("NewHolder", "position = " + position);
             holder.placeName = (TextView) convertView.findViewById(R.id.places_name_textview);
             holder.location = (ImageView) convertView.findViewById(R.id.location_image_view);
-            holder.combobox = (ImageView) convertView.findViewById(R.id.combobox_image_view);
+            holder.distanceTextView = (TextView) convertView.findViewById(R.id.distance_textview);
             holder.bookcount = (TextView) convertView.findViewById(R.id.book_count_textview);
             holder.shelf = (LinearLayout) convertView.findViewById(R.id.shelf);
-
-            holder.placeName.setText(getItem(position).getNamePlace());
-            holder.bookcount.setText(context.getResources().getString(R.string.b_count) + " " + getItem(position).getBookcount());
-            holder.combobox.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(context, "Combobox", Toast.LENGTH_SHORT).show();
-                }
-            });
-            holder.location.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(context, MapActivity.class);
-                    Bundle koszyk = new Bundle();
-                    koszyk.putBoolean("isPoint",true);
-                    koszyk.putDouble("longitude", getItem(position).getLongitude());
-                    koszyk.putDouble("latitude", getItem(position).getLatitude());
-                    i.putExtras(koszyk);
-                    context.startActivity(i);
-                }
-            });
-            holder.shelf.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent i = new Intent(context,BookshelfActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("name",getItem(position).getNamePlace());
-                    bundle.putDouble("longitude", getItem(position).getLongitude());
-                    bundle.putInt("bookcount", getItem(position).getBookcount());
-                    bundle.putDouble("latitude", getItem(position).getLatitude());
-                    i.putExtras(bundle);
-                    context.startActivity(i);
-                }
-            });
+            getItem(position).setListeners(holder, this, context);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -81,11 +54,12 @@ public class PlacesAdapter extends ArrayAdapter<Place> {
         return convertView;
     }
 
+
     static class ViewHolder {
         TextView placeName;
         TextView bookcount;
         ImageView location;
-        ImageView combobox;
+        TextView distanceTextView;
         LinearLayout shelf;
 
     }

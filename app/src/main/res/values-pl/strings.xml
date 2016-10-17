@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <string name="notifies_friend_request_rejected">Prośba o dodanie do przyjaciół odrzucona</string>
+    <string name="notifies_challenge_response_rejected">Odpowiedź na wyzwanie odrzucona</string>
+    <string name="notifies_challenge_response_accepted">Odpowiedź na wyzwanie zaakceptowana</string>
+    <string name="notifies_friend_request_accepted">Prośba o dodanie do przyjaciół zaakceptowana</string>
+    <string name="target_null">Nie wybrano adresata wyzwania</string>
+    <string name="wypozycz">Półka</string>
+    <string name="oddaj">Książka</string>
+    <string name="map">Mapa</string>
+    <string name="b_count">Liczba książek:</string>
+    <string name="b_add">Dodaj książkę</string>
+    <string name="b_title">&#0160;Tytuł</string>
+    <string name="b_author">&#0160;Autor</string>
+    <string name="b_year">&#0160;Rok wydania</string>
+    <string name="b_genre">&#0160;Liczba stron</string>
+    <string name="add_book_a">Dodaj książkę kodem kreskowym</string>
+    <string name="add_station">Dodaj stację</string>
+    <string name="add_book_m">Dodaj książkę ręcznie</string>
+    <string name="points">Twoje punkty:</string>
+    <string name="badges">Twoje odznaki:</string>
+    <string name="gtrank">Przejdź do rankingu:</string>
+    <string name="distance">Dystans:</string>
+    <string name="added_by">Dodał:</string>
+    <string name="books_null">Ta półka nie ma jeszcze książek</string>
+
     <string name="near_points">Punkty blisko Ciebie:</string>
     <plurals name="hours">
         <item quantity="one">godzina</item>
@@ -327,25 +351,6 @@
     <string name="notifies_new_challenge_request">Masz nowe wyzwanie</string>
     <string name="notifies_new_challenge_response">Masz nową odpowiedź na wyzwanie</string>
 
-    <string name="notifies_friend_request_rejected">Prośba o dodanie do przyjaciół odrzucona</string>
-    <string name="notifies_challenge_response_rejected">Odpowiedź na wyzwanie odrzucona</string>
-    <string name="notifies_challenge_response_accepted">Odpowiedź na wyzwanie zaakceptowana</string>
-    <string name="notifies_friend_request_accepted">Prośba o dodanie do przyjaciół zaakceptowana</string>
-    <string name="target_null">Nie wybrano adresata wyzwania</string>
-    <string name="wypozycz">Półka</string>
-    <string name="oddaj">Książka</string>
-    <string name="map">Mapa</string>
-    <string name="b_count">Liczba książek:</string>
-    <string name="b_add">Dodaj książkę</string>
-    <string name="b_title">&#0160;Tytuł</string>
-    <string name="b_author">&#0160;Autor</string>
-    <string name="b_year">&#0160;Rok wydania</string>
-    <string name="b_genre">&#0160;Liczba stron</string>
-    <string name="add_book_a">Dodaj książkę kodem kreskowym</string>
-    <string name="add_station">Dodaj stację</string>
-    <string name="add_book_m">Dodaj książkę ręcznie</string>
-    <string name="points">Twoje punkty:</string>
-    <string name="badges">Twoje odznaki:</string>
-    <string name="gtrank">Przejdź do rankingu:</string>
+
 
 </resources>

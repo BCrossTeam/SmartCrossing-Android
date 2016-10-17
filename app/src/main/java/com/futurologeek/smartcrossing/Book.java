@@ -3,26 +3,22 @@ package com.futurologeek.smartcrossing;
 public class Book {
     String title;
     String author;
-    String rok;
-    String kategoria;
-    String creator;
     int id;
-    String ISBN;
+    String year;
+
     enum Kategoria { Beletrystyka, Biografie, Biznes_i_inwestycje, Gotowanie, Historia, Komputery, Kryminały, Dla_dzieci, Polityka, Prawo, Religia, Romanse, SCI_FI, Zdrowie}
 
-    private Kategoria lololo = Kategoria.Beletrystyka;
 
-    public Book(String title, String author, String rok, String isbn){
+    public Book(int id, String title, String author){
         this.title = title;
         this.author = author;
-        this.rok = rok;
-        this.ISBN = isbn;
+        this.id = id;
     }
 
-    public Book(String title, String author, String rok){
+    public Book(String title, String author, String year){
         this.title = title;
         this.author = author;
-        this.rok = rok;
+        this.year = year;
     }
 
    public String getTitle(){

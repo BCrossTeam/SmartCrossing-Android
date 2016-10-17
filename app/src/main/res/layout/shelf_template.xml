@@ -76,12 +76,11 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="0.5">
 
-                <ImageView
-                    android:layout_width="@dimen/thirty"
-                    android:layout_height="@dimen/thirty"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:id="@+id/combobox_image_view"
-                    app:srcCompat="@drawable/contextmenu" />
+                    android:id="@+id/distance_textview" />
             </RelativeLayout>
         </TableRow>
     </TableRow>

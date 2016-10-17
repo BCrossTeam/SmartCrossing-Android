@@ -40,7 +40,6 @@ public class MapActivity extends FragmentActivity {
     double longitude;
     GoogleApiClient mGoogleApiClient;
     double latitude;
-    String url = "http://app.smartcrossing.amirecki.com/bookshelf";
 
     public static MapActivity newInstance() {
         MapActivity fragment = new MapActivity();
@@ -94,10 +93,10 @@ public class MapActivity extends FragmentActivity {
                             //mMap.animateCamera(CameraUpdateFactory.zoomIn());
                             // Zoom out to zoom level 10, animating with a duration of 2 seconds.
                             mMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
-                            /* float[] results = new float[1];
-                                Location.distanceBetween(51.0844578, 17.0234934, l.latitude, l.longitude, results);
+                        //     float[] results = new float[1];
+                             //   Location.distanceBetween(51.0844578, 17.0234934, l.latitude, l.longitude);
                                 //Toast.makeText(MapActivity.this, String.valueOf(results[0]), Toast.LENGTH_SHORT).show();
-                                */
+
                         }
                     });
                 }
@@ -117,7 +116,7 @@ public class MapActivity extends FragmentActivity {
             HttpHandler sh = new HttpHandler();
 
             // Making a request to url and getting response
-            String jsonStr = sh.makeServiceCall(url);
+            String jsonStr = sh.makeServiceCall(Constants.bookshelf_url);
 
             Log.e("tag", "Response from url: " + jsonStr);
 

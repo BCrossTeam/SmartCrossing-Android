@@ -61,20 +61,16 @@
 
     <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/hundred_fifty"
+        android:layout_height="@dimen/hundred_seventy_five"
         android:gravity="center"
         android:scrollbars="none"
         android:paddingLeft="@dimen/activity_horizontal_margin">
 
         <TableRow
     android:layout_width="fill_parent"
+    android:id="@+id/table_to_inflate"
     android:layout_height="fill_parent">
-            <include layout="@layout/bookshelf_list_template"/>
-            <include layout="@layout/bookshelf_list_template"/>
-            <include layout="@layout/bookshelf_list_template"/>
-            <include layout="@layout/bookshelf_list_template"/>
-            <include layout="@layout/bookshelf_list_template"/>
-            <include layout="@layout/bookshelf_list_template"/>
+
     </TableRow>
 
     </HorizontalScrollView>

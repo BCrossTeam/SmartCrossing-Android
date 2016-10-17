@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.Toast;
 
+import com.google.zxing.PlanarYUVLuminanceSource;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -26,6 +27,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class MainActivity extends AppCompatActivity {
     ListView booklist;
@@ -37,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     final Activity activity = this;
     ImageView plus;
     TableRow mapview;
-    String url = "http://app.smartcrossing.amirecki.com/bookshelf";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,20 @@ public class MainActivity extends AppCompatActivity {
         new GetContacts().execute();
         findViews();
         setListeners();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+        sortList();
+    }
+    public void sortList(){
+        Collections.sort(punkty, new Comparator<Place>() {
+            @Override
+            public int compare(Place c1, Place c2) {
+                return Float.compare(c1.getDistance(), c2.getDistance());
+            }
+        });
     }
 
     public void findViews(){
@@ -131,10 +148,8 @@ public class MainActivity extends AppCompatActivity {
                 String url = "https://www.googleapis.com/books/v1/volumes?q=ISBN:"+result.getContents();
                 Bundle koszyk = new Bundle();
                 koszyk.putString("jurl", url);
-                // Definiujemy cel
                 Intent cel = new Intent(this, AddBookActivity.class);
                 cel.putExtras(koszyk);
-                // Wysyłamy
                 startActivity(cel);
             }
 
@@ -156,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
             HttpHandler sh = new HttpHandler();
 
             // Making a request to url and getting response
-            String jsonStr = sh.makeServiceCall(url);
+            String jsonStr = sh.makeServiceCall(Constants.bookshelf_url);
 
             Log.e("tag", "Response from url: " + jsonStr);
 
@@ -170,18 +185,31 @@ public class MainActivity extends AppCompatActivity {
                         final double latitude = c.getDouble("bookshelf_latitude");
                         final double longitude = c.getDouble("bookshelf_longitude");
                         final String name = c.getString("bookshelf_name");
+                        int bookcount = 0;
+                        JSONArray books = c.getJSONArray("books");
+                        for(int j = 0; j< books.length();j++){
+                            bookcount++;
+                        }
+
                         Log.d("Leeel", latitude+ " " + longitude+ " " + name + " " + String.valueOf(id));
-                        Place plejs = new Place(id, name, latitude, longitude, -1);
+                        Place plejs = new Place(id, name, latitude, longitude, bookcount);
                         punkty.add(plejs);
+                    }
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                adapter=new PlacesAdapter(MainActivity.this,punkty);
+                                adapter=new PlacesAdapter(MainActivity.this, punkty);
                                 booklist.setAdapter(adapter);
                                 adapter.notifyDataSetChanged();
+                                float[] results = new float[1];
+                                for(Place pl:punkty){
+                                    Location.distanceBetween(51.0993389,17.0152863, pl.getLatitude(), pl.getLongitude(), results);
+                                    pl.setDistance(results[0]);
+                                }
+                                sortList();
                             }
                         });
-                    }
+
                 } catch (final JSONException e) {
                     Log.e("TAG", "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
