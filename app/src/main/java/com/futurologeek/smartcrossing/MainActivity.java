@@ -5,8 +5,11 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,25 +21,30 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     ListView booklist;
-    ArrayList<Place> listItems=new ArrayList<Place>();
     PlacesAdapter adapter;
     EditText searchEditText;
     TableRow settings;
     TableRow profile;
+    ArrayList<Place> punkty = new ArrayList<Place>();
     final Activity activity = this;
     ImageView plus;
     TableRow mapview;
+    String url = "http://app.smartcrossing.amirecki.com/bookshelf";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        new GetContacts().execute();
         findViews();
-
         setListeners();
     }
 
@@ -110,23 +118,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-        adapter=new PlacesAdapter(this, listItems);
-        booklist.setAdapter(adapter);
-        listItems.add(new Place("Wiśniowa",4, 51.0844578,17.0234934));
-        listItems.add(new Place("Mazowiecka",8, 51.1070619,17.0481559));
-        listItems.add(new Place("Gajowa",14,51.0924032,17.0384109));
-
-        listItems.add(new Place("Stanisława",5, 51.0986663,17.0390955));
-        listItems.add(new Place("Piękna",4,51.0849709,17.0522465));
-        listItems.add(new Place("Kasztanowa",8,51.0844352,17.0138016));
-        listItems.add(new Place("Powstańców",14,51.0893211,17.0138097));
-
-        listItems.add(new Place("Orląt",8,51.1077513,17.0177393));
-        listItems.add(new Place("Wyspiańskiego",14, 51.1071437,17.0588681));
-        adapter.notifyDataSetChanged();
-
     }
 
     @Override
@@ -153,4 +144,79 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    class GetContacts extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            HttpHandler sh = new HttpHandler();
+
+            // Making a request to url and getting response
+            String jsonStr = sh.makeServiceCall(url);
+
+            Log.e("tag", "Response from url: " + jsonStr);
+
+            if (jsonStr != null) {
+                try {
+                    JSONObject jsonObj = new JSONObject(jsonStr);
+                    JSONArray contacts = jsonObj.getJSONArray("bookshelves");
+                    for (int i = 0; i < contacts.length(); i++) {
+                        JSONObject c = contacts.getJSONObject(i);
+                        final int id = c.getInt("bookshelf_id");
+                        final double latitude = c.getDouble("bookshelf_latitude");
+                        final double longitude = c.getDouble("bookshelf_longitude");
+                        final String name = c.getString("bookshelf_name");
+                        Log.d("Leeel", latitude+ " " + longitude+ " " + name + " " + String.valueOf(id));
+                        Place plejs = new Place(id, name, latitude, longitude, -1);
+                        punkty.add(plejs);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                adapter=new PlacesAdapter(MainActivity.this,punkty);
+                                booklist.setAdapter(adapter);
+                                adapter.notifyDataSetChanged();
+                            }
+                        });
+                    }
+                } catch (final JSONException e) {
+                    Log.e("TAG", "Json parsing error: " + e.getMessage());
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(),
+                                    "Json parsing error: " + e.getMessage(),
+                                    Toast.LENGTH_LONG)
+                                    .show();
+                        }
+                    });
+
+                }
+            } else {
+                Log.e("TAG", "Couldn't get json from server.");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),
+                                "Couldn't get json from server. Check LogCat for possible errors!",
+                                Toast.LENGTH_LONG)
+                                .show();
+                    }
+                });
+
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+
+        }
+    }
 }

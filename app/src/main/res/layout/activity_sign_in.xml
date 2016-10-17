@@ -1,0 +1,137 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.futurologeek.smartcrossing.SignInActivity"
+    android:background="@drawable/perfekcyjnetlo"
+    android:id="@+id/mainlinearlayout">
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/forty"
+        android:id="@+id/sign_in_login_input"
+        android:hint="@string/login"
+        android:layout_centerHorizontal="true"
+        android:singleLine="true"
+        android:background="@color/fortyshadesofgrey"
+        android:imeOptions="actionNext"
+        android:paddingLeft="@dimen/five"
+        android:inputType="textNoSuggestions"
+        android:layout_marginLeft="@dimen/fifty"
+        android:layout_marginRight="@dimen/fifty"
+        android:layout_marginTop="@dimen/eighty" />
+
+
+
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/forty"
+        android:id="@+id/sign_in_password_input"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:paddingLeft="@dimen/five"
+        android:hint="@string/password"
+        android:singleLine="true"
+        android:gravity="center_vertical"
+        android:layout_centerHorizontal="true"
+        android:password="false"
+        android:background="@color/fortyshadesofgrey"
+        android:imeOptions="actionNext"
+        android:inputType="textPassword"
+        android:layout_below="@+id/sign_in_login_input"
+        android:layout_marginTop="@dimen/twenty"
+        android:layout_marginLeft="@dimen/fifty"
+        android:layout_marginRight="@dimen/fifty" />
+
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/forty"
+        android:background="@drawable/loginbutton"
+        android:id="@+id/sign_in_sing_in_button"
+        android:layout_below="@+id/sign_in_password_input"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="@dimen/thirty_five"
+        android:layout_marginRight="@dimen/fifty"
+        android:layout_marginLeft="@dimen/fifty">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sign_in"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/eighteen"/>
+
+
+        </RelativeLayout>
+
+
+    </TableRow>
+
+    <ImageView
+        android:layout_width="@dimen/two_hundred"
+        android:layout_height="@dimen/hundred_fifty"
+        android:id="@+id/imageView5"
+        android:src="@mipmap/ic_launcher"
+        android:layout_below="@+id/register_text_view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/thirty" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/singUp"
+        android:id="@+id/register_text_view"
+        android:layout_below="@+id/sign_in_sing_in_button"
+        android:layout_alignLeft="@+id/sign_in_sing_in_button"
+        android:layout_alignStart="@+id/sign_in_sing_in_button" />
+
+    <TableRow
+        android:layout_height="40dp"
+        android:layout_width="fill_parent"
+        android:id="@+id/loading_table_row"
+        android:layout_alignParentBottom="true"
+        android:visibility="invisible"
+        android:layout_centerHorizontal="true">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar2" />
+
+        <RelativeLayout
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/loadingtext"
+                android:text="@string/loadingloadingloading"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+        </RelativeLayout>
+    </TableRow>
+
+
+
+
+
+
+</RelativeLayout>

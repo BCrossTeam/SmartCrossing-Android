@@ -1,6 +1,7 @@
 <resources>
 
     <string-array name="categoryArray" translatable="false">
+        <item>Wybierz kategorie...</item>
         <item>Beletrystyka</item>
         <item>Biografie</item>
         <item>Biznes i inwestycje</item>
@@ -19,6 +20,7 @@
     </string-array>
 
     <string-array name="categoryValues" translatable="false">
+        <item>0</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
