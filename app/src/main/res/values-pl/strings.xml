@@ -18,11 +18,12 @@
     <string name="add_book_a">Dodaj książkę kodem kreskowym</string>
     <string name="add_station">Dodaj stację</string>
     <string name="add_book_m">Dodaj książkę ręcznie</string>
-    <string name="points">Twoje punkty:</string>
-    <string name="badges">Twoje odznaki:</string>
+    <string name="points">Punkty:</string>
+    <string name="badges">Odznaki:</string>
     <string name="gtrank">Przejdź do rankingu:</string>
     <string name="distance">Dystans:</string>
     <string name="added_by">Dodał:</string>
+    <string name="l_permission">Dodaj pozwolenie na lokalizacje aby korzystać z aplikacji</string>
     <string name="books_null">Ta półka nie ma jeszcze książek</string>
 
     <string name="near_points">Punkty blisko Ciebie:</string>

@@ -1,8 +1,13 @@
 package com.futurologeek.smartcrossing;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.AsyncTask;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -15,6 +20,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
@@ -22,6 +28,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Map;
+
+import static com.futurologeek.smartcrossing.R.id.map;
 
 public class MapActivity extends FragmentActivity {
 
@@ -29,7 +40,8 @@ public class MapActivity extends FragmentActivity {
     ArrayList<Bookshelf> punkty;
     boolean isPoint;
     double longitude;
-    GoogleApiClient mGoogleApiClient;
+    LatLng loc;
+            GoogleApiClient mGoogleApiClient;
     double latitude;
 
     public static MapActivity newInstance() {
@@ -52,47 +64,86 @@ public class MapActivity extends FragmentActivity {
             }
         }
 
-        ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMapAsync(new OnMapReadyCallback() {
+        if (isLocationPermission()) {
+            //TOdo: zadanie oparte na lokalizacji
+            loadMap();
+        } else {
+            Toast.makeText(MapActivity.this, getResources().getString(R.string.l_permission), Toast.LENGTH_SHORT).show();
+            requestPermission();
+        }
+    }
+
+    void loadMap() {
+        ((MapFragment) getFragmentManager().findFragmentById(map)).getMapAsync(new OnMapReadyCallback() {
             public void onMapReady(GoogleMap googleMap) {
                 if (!isPoint) {
                     mMap = googleMap;
                     mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
                         @Override
                         public void onMapLoaded() {
+                            if (ActivityCompat.checkSelfPermission(MapActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MapActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                                // TODO: Consider calling
+                                return;
+                            }
+                            mMap.setMyLocationEnabled(true);
+                            GoogleMap.OnMyLocationChangeListener myLocationChangeListener = new GoogleMap.OnMyLocationChangeListener() {
+                                @Override
+                                public void onMyLocationChange (Location location) {
+                                    loc = new LatLng (location.getLatitude(), location.getLongitude());
+                                    for(Bookshelf pkt : punkty){
+                                        pkt.setDistance(location.getLatitude(), location.getLongitude());
+                                    }
+                                    sortList();
+                                    LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                                    builder.include(new LatLng(punkty.get(0).getLatitude(), punkty.get(0).getLongitude()));
+                                    //Toast.makeText(MapActivity.this, punkty.get(0).getNamePlace() + " " + longitude + " " + latitude, Toast.LENGTH_SHORT).show();
+                                    builder.include(new LatLng(loc.latitude, loc.longitude));
+                                    LatLngBounds bounds = builder.build();
+                                    int padding = 200; // offset from edges of the map in pixels
+                                    CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+                                    mMap.animateCamera(cu);
+                                }
+                            };
+                            mMap.setOnMyLocationChangeListener(myLocationChangeListener);
+
                             for (Bookshelf l : punkty) {
                                 mMap.addMarker(new MarkerOptions().position(new LatLng(l.getLatitude(), l.getLongitude())).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title(l.getNamePlace()));
                             }
-                            LatLngBounds.Builder builder = new LatLngBounds.Builder();
-                            for (Bookshelf marker : punkty) {
-                                builder.include(new LatLng(marker.getLatitude(), marker.getLongitude()));
-                            }
-                            LatLngBounds bounds = builder.build();
-                            int padding = 200; // offset from edges of the map in pixels
-                            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
-                            mMap.animateCamera(cu);
                         }
                     });
                 } else {
                     mMap = googleMap;
                     final LatLng cordinates = new LatLng(latitude, longitude);
                     mMap.addMarker(new MarkerOptions().position(cordinates).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title(String.valueOf(latitude) + " " + String.valueOf(longitude)));
+                    if (ActivityCompat.checkSelfPermission(MapActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MapActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        return;
+                    }
+                    mMap.setMyLocationEnabled(true);
+                    GoogleMap.OnMyLocationChangeListener myLocationChangeListener = new GoogleMap.OnMyLocationChangeListener() {
+                        @Override
+                        public void onMyLocationChange (Location location) {
+                            LatLng loc = new LatLng (location.getLatitude(), location.getLongitude());
+                            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                            builder.include(new LatLng(loc.latitude, loc.longitude));
+                            builder.include(new LatLng(latitude, longitude));
+                            LatLngBounds bounds = builder.build();
+                            int padding = 200;
+                            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+                            mMap.animateCamera(cu);
+                        }
+                    };
+                    mMap.setOnMyLocationChangeListener(myLocationChangeListener);
                     mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
                         @Override
                         public void onMapLoaded() {
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cordinates, 15));
-                            // Zoom in, animating the camera.
-                            //mMap.animateCamera(CameraUpdateFactory.zoomIn());
-                            // Zoom out to zoom level 10, animating with a duration of 2 seconds.
-                            mMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
-                        //     float[] results = new float[1];
-                             //   Location.distanceBetween(51.0844578, 17.0234934, l.latitude, l.longitude);
-                                //Toast.makeText(MapActivity.this, String.valueOf(results[0]), Toast.LENGTH_SHORT).show();
+
 
                         }
                     });
                 }
-                }
-            });
+            }
+        });
     }
 
     class GetContacts extends AsyncTask<Void, Void, Void> {
@@ -161,6 +212,56 @@ public class MapActivity extends FragmentActivity {
 
 
         }
+    }
+
+
+    void requestPermission() {
+        if (!isLocationPermission()) {
+            ActivityCompat.requestPermissions(MapActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    69);
+        }
+    }
+
+
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 69: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (isLocationPermission()) {
+                        if (ActivityCompat.checkSelfPermission(MapActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MapActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        }
+                        loadMap();
+                        //Todo: pobieranie lokalizacji
+                    } else {
+                        Toast.makeText(MapActivity.this, this.getResources().getString(R.string.l_permission), Toast.LENGTH_LONG).show();
+                    }
+                }
+
+
+            }}
+    }
+
+    boolean isLocationPermission() {
+        if (ContextCompat.checkSelfPermission(MapActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public void sortList(){
+        Collections.sort(punkty, new Comparator<Bookshelf>() {
+            @Override
+            public int compare(Bookshelf c1, Bookshelf c2) {
+                return Float.compare(c1.getDistance(), c2.getDistance());
+            }
+        });
     }
 
 }

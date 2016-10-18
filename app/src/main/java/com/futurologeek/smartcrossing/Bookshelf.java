@@ -36,9 +36,6 @@ public class Bookshelf {
         this.longitude = longitude;
     }
 
-    void setDistance(float distance){
-        this.distance = distance;
-    }
 
     float getDistance(){
         return this.distance;
@@ -69,17 +66,22 @@ public class Bookshelf {
         this.bookcount = newcount;
     }
 
+    void setDistance(double latitude, double longitude){
+        float[] results = new float[1];
+        Location.distanceBetween(latitude, longitude, getLatitude(), getLongitude(), results);
+        distance = results[0];
+
+    }
+
 
     public void setListeners(final BookshelfAdapter.ViewHolder holder, BookshelfAdapter adapter, final Context context) {
     this.holder = holder;
     this.adapter = adapter;
 
-        float[] results = new float[1];
-        Location.distanceBetween(51.0993389,17.0152863, getLatitude(), getLongitude(), results);
-        setDistance(results[0]);
+        setDistance(51.0993389,17.0152863);
 
         NumberFormat formatter = new DecimalFormat("#0.00");
-        holder.distanceTextView.setText(String.valueOf(formatter.format(results[0]/1000))+" km");
+        holder.distanceTextView.setText(String.valueOf(formatter.format(distance/1000))+" km");
 
         holder.placeName.setText(getNamePlace());
         holder.bookcount.setText(context.getResources().getString(R.string.b_count) + " " + getBookcount());

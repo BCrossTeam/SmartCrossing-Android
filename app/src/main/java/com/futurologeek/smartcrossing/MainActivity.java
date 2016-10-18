@@ -1,11 +1,17 @@
 package com.futurologeek.smartcrossing;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -38,14 +45,34 @@ public class MainActivity extends AppCompatActivity {
     ImageView plus;
     TableRow mapview;
 
+    Intent intentThatCalled;
+    public double latitude;
+    public double longitude;
+    public LocationManager locationManager;
+    public Criteria criteria;
+    public String bestProvider;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new GetContacts().execute();
+        adapter = new BookshelfAdapter(MainActivity.this, punkty);
         findViews();
         setListeners();
+        intentThatCalled = getIntent();
+
+        if (isLocationPermission()) {
+            //TOdo: zadanie oparte na lokalizacji
+            new GetContacts().execute();
+        } else {
+            Toast.makeText(MainActivity.this, getResources().getString(R.string.l_permission), Toast.LENGTH_SHORT).show();
+            adapter.clear();
+            adapter.notifyDataSetChanged();
+            requestPermission();
+        }
+
+
     }
 
     @Override
@@ -53,7 +80,8 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();  // Always call the superclass method first
         sortList();
     }
-    public void sortList(){
+
+    public void sortList() {
         Collections.sort(punkty, new Comparator<Bookshelf>() {
             @Override
             public int compare(Bookshelf c1, Bookshelf c2) {
@@ -62,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void findViews(){
+    public void findViews() {
         booklist = (ListView) findViewById(R.id.book_list);
         settings = (TableRow) findViewById(R.id.settings_button);
         profile = (TableRow) findViewById(R.id.profile_button);
@@ -70,7 +98,8 @@ public class MainActivity extends AppCompatActivity {
         mapview = (TableRow) findViewById(R.id.map_button);
         searchEditText = (EditText) findViewById(R.id.search_edit_text);
     }
-    public void setListeners(){
+
+    public void setListeners() {
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -113,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, MapActivity.class);
                 Bundle koszyk = new Bundle();
-                koszyk.putBoolean("isPoint",false);
+                koszyk.putBoolean("isPoint", false);
                 i.putExtras(koszyk);
                 startActivity(i);
             }
@@ -128,6 +157,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, ProfileActivity.class);
+                //Todo: Pobieranie user id
+                Bundle koszyk = new Bundle();
+                koszyk.putString("u_id", String.valueOf(2));
+                i.putExtras(koszyk);
                 startActivity(i);
             }
         });
@@ -137,12 +170,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(result != null){
-            if(result.getContents()==null){
+        if (result != null) {
+            if (result.getContents() == null) {
                 Toast.makeText(this, "You cancelled the scanning", Toast.LENGTH_LONG).show();
-            }
-            else {
-                String url = "https://www.googleapis.com/books/v1/volumes?q=ISBN:"+result.getContents();
+            } else {
+                String url = Constants.gapi_url + result.getContents();
                 Bundle koszyk = new Bundle();
                 koszyk.putString("jurl", url);
                 Intent cel = new Intent(this, AddBookActivity.class);
@@ -150,8 +182,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(cel);
             }
 
-        }
-        else {
+        } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
@@ -184,24 +215,21 @@ public class MainActivity extends AppCompatActivity {
                         final String name = c.getString("bookshelf_name");
                         int bookcount = 0;
                         JSONArray books = c.getJSONArray("books");
-                        for(int j = 0; j< books.length();j++){
+                        for (int j = 0; j < books.length(); j++) {
                             bookcount++;
                         }
 
-                        Log.d("Leeel", latitude+ " " + longitude+ " " + name + " " + String.valueOf(id));
+                        Log.d("Leeel", latitude + " " + longitude + " " + name + " " + String.valueOf(id));
                         Bookshelf plejs = new Bookshelf(id, name, latitude, longitude, bookcount);
                         punkty.add(plejs);
                     }
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                adapter=new BookshelfAdapter(MainActivity.this, punkty);
-                                booklist.setAdapter(adapter);
-                                adapter.notifyDataSetChanged();
-                                float[] results = new float[1];
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            booklist.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
                                 for(Bookshelf pl:punkty){
-                                    Location.distanceBetween(51.0993389,17.0152863, pl.getLatitude(), pl.getLongitude(), results);
-                                    pl.setDistance(results[0]);
+                                    pl.setDistance(51.0993658,17.0152863);
                                 }
                                 sortList();
                             }
@@ -243,5 +271,48 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
+    }
+
+    void requestPermission() {
+        if (!isLocationPermission()) {
+            ActivityCompat.requestPermissions(MainActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    69);
+        }
+    }
+
+
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 69: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (isLocationPermission()) {
+                        if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                            Log.d("Pointless statement", "This statement is useless but android requires it to work properly");
+                        }
+                        //Todo: pobieranie lokalizacji
+                        new GetContacts().execute();
+                    } else {
+                        adapter.clear();
+                        adapter.notifyDataSetChanged();
+                        Toast.makeText(MainActivity.this, this.getResources().getString(R.string.l_permission), Toast.LENGTH_LONG).show();
+                    }
+                }
+
+
+            }}
+    }
+
+    boolean isLocationPermission() {
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 }

@@ -12,13 +12,13 @@
     <string name="add_book_m">Add book manually</string>
     <string name="add_book_a">Add book by barcode</string>
     <string name="add_station">Add station</string>
-    <string name="points">Your points:</string>
-    <string name="badges">Your badges:</string>
+    <string name="points">Points:</string>
+    <string name="badges">Badges:</string>
     <string name="gtrank">Go to ranking:</string>
     <string name="distance">Distance: </string>
     <string name="added_by">Added by:</string>
     <string name="books_null">This bookshelf doesn\'t have books yet</string>
-
+    <string name="l_permission">Grant location\t permission to use this app</string>
 
     <!-- Stringi dziedziczone -->
 

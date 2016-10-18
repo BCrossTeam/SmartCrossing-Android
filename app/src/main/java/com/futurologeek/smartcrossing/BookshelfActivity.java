@@ -49,7 +49,8 @@ public class BookshelfActivity extends FragmentActivity {
         new GetContacts().execute();
         if (getIntent().getExtras() != null) {
             Bundle przekazanedane = getIntent().getExtras();
-            name.setText(przekazanedane.getString("name"));
+            final String nejm = przekazanedane.getString("name");
+            name.setText(nejm);
             longitude = przekazanedane.getDouble("longitude");
             latitude = przekazanedane.getDouble("latitude");
             bookcount = przekazanedane.getInt("bookcount");
@@ -66,7 +67,7 @@ public class BookshelfActivity extends FragmentActivity {
                     googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 15));
                     googleMap.animateCamera(CameraUpdateFactory.zoomIn());
                     googleMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
-                    mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+                    mMap.addMarker(new MarkerOptions().position(sydney).title(nejm));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
                 }
@@ -92,7 +93,7 @@ public class BookshelfActivity extends FragmentActivity {
             HttpHandler sh = new HttpHandler();
 
             // Making a request to url and getting response
-            String jsonStr = sh.makeServiceCall("https://api.smartcrossing.pl/bookshelf/"+String.valueOf(ajdi)+"/book");
+            String jsonStr = sh.makeServiceCall(Constants.bookshelf_url+String.valueOf(ajdi)+"/book");
 
 
             Log.e("tag", "Response from url: " + jsonStr);
