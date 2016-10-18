@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_bookshelf"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.futurologeek.smartcrossing.BookshelfActivity"
+    android:background="@drawable/perfekcyjnetlo"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/fifty">
+
+        <TextView
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content"
+            android:id="@+id/username_tv" />
+    </RelativeLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:background="@color/semiwhite"
+        android:layout_marginLeft="@dimen/twenty"
+        android:layout_marginRight="@dimen/twenty"
+        android:layout_height="@dimen/two"/>
+
+    <TableRow
+android:layout_width="fill_parent"
+android:layout_height="wrap_content">
+
+        <TextView
+            android:text="@string/points"
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/twenty_two"
+            android:layout_marginLeft="@dimen/twenty"
+            android:layout_height="wrap_content"
+            android:id="@+id/title_points_tv" />
+
+        <RelativeLayout
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent">
+
+
+
+                <TextView
+                android:text="@string/gtrank"
+                android:layout_width="wrap_content"
+                android:textSize="@dimen/twenty_two"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/twenty"
+                android:layout_height="wrap_content"
+                android:id="@+id/rank" />
+
+
+        </RelativeLayout>
+    </TableRow>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/forty"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="@dimen/twenty"
+            android:layout_height="wrap_content"
+            android:id="@+id/points_tv" />
+
+    </RelativeLayout>
+
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="@string/badges"
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/twenty"
+            android:layout_marginLeft="@dimen/twenty_two"
+            android:layout_height="wrap_content"
+            android:id="@+id/badges_textview" />
+    </TableRow>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fifty"
+        android:gravity="center"
+        android:scrollbars="none"
+        android:paddingLeft="@dimen/activity_horizontal_margin">
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:id="@+id/table_to_inflate_badges"
+            android:layout_height="fill_parent">
+
+            <include layout="@layout/badge_item"/>
+
+            <include layout="@layout/badge_item"/>
+
+            <include layout="@layout/badge_item"/>
+
+            <include layout="@layout/badge_item"/>
+
+            <include layout="@layout/badge_item"/>
+
+            <include layout="@layout/badge_item"/>
+
+            <include layout="@layout/badge_item"/>
+
+
+
+        </TableRow>
+
+    </HorizontalScrollView>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="@string/books"
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/twenty"
+            android:layout_marginLeft="@dimen/twenty_two"
+            android:layout_height="wrap_content"
+            android:id="@+id/books_textview" />
+    </TableRow>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/hundred_fifty"
+        android:gravity="center"
+        android:scrollbars="none"
+        android:paddingLeft="@dimen/activity_horizontal_margin">
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:id="@+id/table_to_inflate"
+            android:layout_height="fill_parent">
+
+            <include layout="@layout/book_list_item_in_bookshelf"/>
+
+            <include layout="@layout/book_list_item_in_bookshelf"/>
+
+            <include layout="@layout/book_list_item_in_bookshelf"/>
+
+            <include layout="@layout/book_list_item_in_bookshelf"/>
+
+            <include layout="@layout/book_list_item_in_bookshelf"/>
+
+            <include layout="@layout/book_list_item_in_bookshelf"/>
+
+            <include layout="@layout/book_list_item_in_bookshelf"/>
+
+            <include layout="@layout/book_list_item_in_bookshelf"/>
+
+        </TableRow>
+
+    </HorizontalScrollView>
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:id="@+id/relative_with_ui"
+        android:layout_alignParentBottom="true"
+        android:layout_height="@dimen/eighty_five"
+        android:weightSum="3"
+        android:gravity="center">
+
+        <android.support.percent.PercentRelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="fill_parent">
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/loginbutton"
+                android:gravity="center"
+                app:layout_widthPercent="85%"
+                app:layout_heightPercent="45%"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_centerInParent="true"
+                android:id="@+id/profile_button"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile"
+                    />
+
+
+            </TableRow>
+
+        </android.support.percent.PercentRelativeLayout>
+
+
+        <android.support.percent.PercentRelativeLayout
+            android:layout_width="0dp"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_weight="1"
+            android:layout_height="fill_parent">
+
+            <ImageView
+                app:layout_widthPercent="85%"
+                app:layout_heightPercent="85%"
+                android:src="@drawable/floatingbuttonimage"
+                android:id="@+id/add_button"
+                android:layout_centerInParent="true" />
+
+        </android.support.percent.PercentRelativeLayout>
+
+
+        <android.support.percent.PercentRelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_height="fill_parent">
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/loginbutton"
+                android:gravity="center"
+                app:layout_widthPercent="85%"
+                app:layout_heightPercent="45%"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_centerInParent="true"
+                android:id="@+id/settings_button"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings"/>
+
+            </TableRow>
+
+        </android.support.percent.PercentRelativeLayout>
+
+    </TableRow>
+    </RelativeLayout>
+
+    </LinearLayout>

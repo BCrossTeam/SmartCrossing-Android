@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="@dimen/hundred"
+    android:layout_height="@dimen/hundred">
+
+    <RelativeLayout
+        android:layout_width="@dimen/fifty"
+        android:layout_height="@dimen/fifty">
+
+    <ImageView
+        android:layout_width="@dimen/twenty_five"
+        android:layout_height="@dimen/twenty_five"
+        android:layout_centerInParent="true"
+        android:src="@drawable/badge"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -17,7 +17,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.new_activity_profile);
         findViews();
         if(getIntent().getExtras()!=null){
             Bundle przekazanedane = getIntent().getExtras();

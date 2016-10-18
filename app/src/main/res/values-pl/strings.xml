@@ -19,8 +19,9 @@
     <string name="add_station">Dodaj stację</string>
     <string name="add_book_m">Dodaj książkę ręcznie</string>
     <string name="points">Punkty:</string>
+    <string name="books">Książki:</string>
     <string name="badges">Odznaki:</string>
-    <string name="gtrank">Przejdź do rankingu:</string>
+    <string name="gtrank">Ranking</string>
     <string name="distance">Dystans:</string>
     <string name="added_by">Dodał:</string>
     <string name="l_permission">Dodaj pozwolenie na lokalizacje aby korzystać z aplikacji</string>

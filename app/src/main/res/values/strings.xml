@@ -14,8 +14,9 @@
     <string name="add_station">Add station</string>
     <string name="points">Points:</string>
     <string name="badges">Badges:</string>
-    <string name="gtrank">Go to ranking:</string>
+    <string name="gtrank">Top list</string>
     <string name="distance">Distance: </string>
+    <string name="books">Books:</string>
     <string name="added_by">Added by:</string>
     <string name="books_null">This bookshelf doesn\'t have books yet</string>
     <string name="l_permission">Grant location\t permission to use this app</string>

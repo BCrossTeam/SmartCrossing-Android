@@ -44,7 +44,7 @@ public class BookshelfActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bookshelf);
+        setContentView(R.layout.new_activity_bookshelf);
         findViews();
         new GetContacts().execute();
         if (getIntent().getExtras() != null) {
