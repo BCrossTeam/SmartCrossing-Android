@@ -24,6 +24,8 @@
     <string name="gtrank">Ranking</string>
     <string name="distance">Dystans:</string>
     <string name="added_by">Dodał:</string>
+    <string name="main_act">Strona główna</string>
+
     <string name="l_permission">Dodaj pozwolenie na lokalizacje aby korzystać z aplikacji</string>
     <string name="books_null">Ta półka nie ma jeszcze książek</string>
 

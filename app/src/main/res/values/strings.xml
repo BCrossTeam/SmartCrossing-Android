@@ -20,6 +20,8 @@
     <string name="added_by">Added by:</string>
     <string name="books_null">This bookshelf doesn\'t have books yet</string>
     <string name="l_permission">Grant location\t permission to use this app</string>
+    <string name="main_act">Home screen</string>
+
 
     <!-- Stringi dziedziczone -->
 

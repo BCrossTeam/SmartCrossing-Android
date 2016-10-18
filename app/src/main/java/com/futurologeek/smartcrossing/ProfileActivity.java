@@ -19,6 +19,8 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_activity_profile);
         findViews();
+        ToolbarHandler handler = new ToolbarHandler(ProfileActivity.this, ToolbarHandler.buttonVariation.Main);
+        handler.setListeners();
         if(getIntent().getExtras()!=null){
             Bundle przekazanedane = getIntent().getExtras();
             id  = przekazanedane.getString("u_id");

@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        settings.setOnClickListener(new View.OnClickListener() {
+       /* settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "Ustawienia", Toast.LENGTH_SHORT).show();
@@ -156,14 +156,12 @@ public class MainActivity extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, ProfileActivity.class);
-                //Todo: Pobieranie user id
-                Bundle koszyk = new Bundle();
-                koszyk.putString("u_id", String.valueOf(2));
-                i.putExtras(koszyk);
-                startActivity(i);
+
             }
-        });
+        }); */
+
+        ToolbarHandler handler = new ToolbarHandler(MainActivity.this, ToolbarHandler.buttonVariation.Profile);
+        handler.setListeners();
 
     }
 
