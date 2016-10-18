@@ -41,6 +41,7 @@ public class MapActivity extends FragmentActivity {
     boolean isPoint;
     double longitude;
     LatLng loc;
+    boolean firstFit;
             GoogleApiClient mGoogleApiClient;
     double latitude;
 
@@ -77,6 +78,7 @@ public class MapActivity extends FragmentActivity {
         ((MapFragment) getFragmentManager().findFragmentById(map)).getMapAsync(new OnMapReadyCallback() {
             public void onMapReady(GoogleMap googleMap) {
                 if (!isPoint) {
+                    firstFit = false;
                     mMap = googleMap;
                     mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
                         @Override
@@ -89,7 +91,8 @@ public class MapActivity extends FragmentActivity {
                             GoogleMap.OnMyLocationChangeListener myLocationChangeListener = new GoogleMap.OnMyLocationChangeListener() {
                                 @Override
                                 public void onMyLocationChange (Location location) {
-                                    loc = new LatLng (location.getLatitude(), location.getLongitude());
+                                    if(!firstFit){
+                                        loc = new LatLng (location.getLatitude(), location.getLongitude());
                                     for(Bookshelf pkt : punkty){
                                         pkt.setDistance(location.getLatitude(), location.getLongitude());
                                     }
@@ -102,6 +105,8 @@ public class MapActivity extends FragmentActivity {
                                     int padding = 200; // offset from edges of the map in pixels
                                     CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
                                     mMap.animateCamera(cu);
+                                        firstFit = true;
+                                    }
                                 }
                             };
                             mMap.setOnMyLocationChangeListener(myLocationChangeListener);
