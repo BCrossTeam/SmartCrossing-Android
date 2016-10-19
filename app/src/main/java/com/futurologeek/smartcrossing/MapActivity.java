@@ -9,6 +9,8 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -27,12 +29,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Map;
+import java.util.Random;
 
+import im.delight.android.location.SimpleLocation;
+
+import static com.futurologeek.smartcrossing.R.id.bookcount;
 import static com.futurologeek.smartcrossing.R.id.map;
+import static com.futurologeek.smartcrossing.R.id.tvTitle;
 
 public class MapActivity extends FragmentActivity {
 
@@ -41,9 +50,51 @@ public class MapActivity extends FragmentActivity {
     boolean isPoint;
     double longitude;
     LatLng loc;
+    String pointname;
     boolean firstFit;
-            GoogleApiClient mGoogleApiClient;
     double latitude;
+
+    class MyInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
+        private final View myContentsView;
+        double pos = 0;
+        double lat, longi;
+        SimpleLocation location;
+        NumberFormat formatter = new DecimalFormat("#0.00");
+
+        MyInfoWindowAdapter() {
+            myContentsView = getLayoutInflater().inflate(R.layout.custom_marker_info, null);
+            if (isLocationPermission()) {
+                location = new SimpleLocation(MapActivity.this);
+
+                if (!location.hasLocationEnabled()) {
+                    SimpleLocation.openSettings(MapActivity.this);
+                }
+                if (location != null) {
+                    lat = location.getLatitude();
+                    longi = location.getLongitude();
+                }
+            }
+        }
+
+        @Override
+        public View getInfoWindow(Marker marker) {
+            return null;
+        }
+
+        @Override
+        public View getInfoContents(Marker marker) {
+            SimpleLocation loc = new SimpleLocation(MapActivity.this);
+            pos =  loc.calculateDistance(marker.getPosition().latitude, marker.getPosition().longitude, lat, longi);
+            // Toast.makeText(MapActivity.this, lat + " " + longi, Toast.LENGTH_SHORT).show();
+            TextView tvTitle = ((TextView)myContentsView.findViewById(R.id.title));
+            tvTitle.setText(marker.getTitle());
+            TextView tvDistance = ((TextView)myContentsView.findViewById(R.id.distance));
+            tvDistance.setText(getResources().getString(R.string.distance) +  formatter.format(pos/1000)+" km");
+            TextView bookCount = ((TextView)myContentsView.findViewById(R.id.bookcount));
+            return myContentsView;
+
+        }
+    }
 
     public static MapActivity newInstance() {
         MapActivity fragment = new MapActivity();
@@ -62,6 +113,7 @@ public class MapActivity extends FragmentActivity {
             if (isPoint) {
                 longitude = przekazanedane.getDouble("longitude");
                 latitude = przekazanedane.getDouble("latitude");
+                pointname = przekazanedane.getString("name");
             }
         }
 
@@ -87,6 +139,7 @@ public class MapActivity extends FragmentActivity {
                                 // TODO: Consider calling
                                 return;
                             }
+                            mMap.setInfoWindowAdapter(new MyInfoWindowAdapter());
                             mMap.setMyLocationEnabled(true);
                             GoogleMap.OnMyLocationChangeListener myLocationChangeListener = new GoogleMap.OnMyLocationChangeListener() {
                                 @Override
@@ -118,8 +171,9 @@ public class MapActivity extends FragmentActivity {
                     });
                 } else {
                     mMap = googleMap;
+                    mMap.setInfoWindowAdapter(new MyInfoWindowAdapter());
                     final LatLng cordinates = new LatLng(latitude, longitude);
-                    mMap.addMarker(new MarkerOptions().position(cordinates).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title(String.valueOf(latitude) + " " + String.valueOf(longitude)));
+                    mMap.addMarker(new MarkerOptions().position(cordinates).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title(pointname));
                     if (ActivityCompat.checkSelfPermission(MapActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MapActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         // TODO: Consider calling
                         return;

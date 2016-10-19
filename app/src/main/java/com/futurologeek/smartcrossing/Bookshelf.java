@@ -94,6 +94,7 @@ public class Bookshelf {
                 koszyk.putBoolean("isPoint",true);
                 koszyk.putDouble("longitude", getLongitude());
                 koszyk.putDouble("latitude", getLatitude());
+                koszyk.putString("name", name);
                 i.putExtras(koszyk);
                 context.startActivity(i);
             }

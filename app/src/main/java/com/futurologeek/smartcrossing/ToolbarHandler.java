@@ -66,12 +66,12 @@ public class ToolbarHandler {
         }
 
 
-
-
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ctx, "Settings", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(ctx, AddPointActivity.class);
+                ctx.startActivity(i);
+                ctx.finish();
             }
         });
     }
