@@ -77,7 +77,96 @@
 
     </TableRow>
 
-    </LinearLayout>
+        <RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/forty">
+
+
+            <TextView
+                android:text="@string/year"
+                android:layout_width="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/twenty"
+                android:layout_height="wrap_content"
+                android:id="@+id/year_textview"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/forty">
+
+
+            <TextView
+                android:text="@string/cat"
+                android:layout_width="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/twenty"
+                android:layout_height="wrap_content"
+                android:id="@+id/category_textview"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+        </RelativeLayout>
+
+        <RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/forty">
+
+
+    <TextView
+        android:text="@string/isbn"
+        android:layout_width="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/twenty"
+        android:layout_height="wrap_content"
+        android:id="@+id/isbn_textview"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+</RelativeLayout>
+
+</LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/sixty">
+
+
+        <TextView
+            android:text="@string/added_by"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/twenty"
+            android:layout_height="wrap_content"
+            android:id="@+id/added_by_textview"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+    </RelativeLayout>
+
+
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/forty">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/forty"
+        android:background="@drawable/loginbutton"
+        android:id="@+id/visit_profile"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/visit_profile"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/eighteen"/>
+
+
+</RelativeLayout>
+
+</RelativeLayout>
 
     <RelativeLayout
             android:layout_width="fill_parent"

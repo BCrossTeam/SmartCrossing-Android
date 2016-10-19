@@ -8,6 +8,7 @@
     <string name="b_title">&#0160;Title</string>
     <string name="b_author">&#0160;Author</string>
     <string name="b_year">&#0160;Year</string>
+    <string name="year">&#0160;Year: </string>
     <string name="b_genre">&#0160;Page count</string>
     <string name="add_book_m">Add book manually</string>
     <string name="add_book_a">Add book by barcode</string>
@@ -20,6 +21,9 @@
     <string name="books_null">This bookshelf doesn\'t have books yet</string>
     <string name="set_category">Choose category</string>
     <string name="set_date">Choose date od Release</string>
+    <string name="cat">Category: </string>
+    <string name="isbn">ISBN: </string>
+    <string name="visit_profile">Visit profile </string>
 
 
     <!-- Stringi dziedziczone -->

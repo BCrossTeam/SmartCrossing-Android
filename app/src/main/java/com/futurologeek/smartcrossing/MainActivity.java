@@ -159,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setTitle(MainActivity.this.getResources().getString(R.string.select_src));
                 RelativeLayout takePhotoRelative = (RelativeLayout) dialog.findViewById(R.id.add_a);
                 RelativeLayout choosePhotoRelative = (RelativeLayout) dialog.findViewById(R.id.add_m);
+                RelativeLayout addStationRelative = (RelativeLayout) dialog.findViewById(R.id.add_p);
                 takePhotoRelative.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -173,6 +174,15 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 searchEditText.setFocusable(true);
+
+                addStationRelative.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(MainActivity.this, AddPointActivity.class);
+                        startActivity(i);
+                        dialog.dismiss();
+                    }
+                });
 
                 choosePhotoRelative.setOnClickListener(new View.OnClickListener() {
                     @Override
