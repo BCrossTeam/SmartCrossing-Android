@@ -31,12 +31,17 @@ public class ToolbarHandler {
                 profileButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent i = new Intent(ctx, ProfileActivity.class);
-                        //Todo: Pobieranie user id
-                        Bundle koszyk = new Bundle();
-                        koszyk.putString("u_id", String.valueOf(Constants.uid));
-                        i.putExtras(koszyk);
-                        ctx.startActivity(i);
+                        if(NetworkStatus.checkNetworkStatus(ctx)){
+                            Intent i = new Intent(ctx, ProfileActivity.class);
+                            //Todo: Pobieranie user id
+                            Bundle koszyk = new Bundle();
+                            koszyk.putString("u_id", String.valueOf(Constants.uid));
+                            i.putExtras(koszyk);
+                            ctx.startActivity(i);
+                        } else {
+                            Toast.makeText(ctx, ctx.getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
+                        }
+
                     }
                 });
                 break;

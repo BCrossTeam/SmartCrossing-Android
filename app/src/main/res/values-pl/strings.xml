@@ -367,6 +367,16 @@
 
     <string name="return_book_confirm_1">Jesteś pewien, że chcesz oddać książkę </string>
     <string name="return_book_confirm_2">na tą półkę?</string>
+    <string name="no_network">Błąd: brak połączenia z siecią</string>
+
+    <string name="add_point_instruction">Kliknij i przytrzymaj aby dodać,\nby ponowić zrób to jeszcze raz.\nPotem naciśnij \"DODAJ\" </string>
+    <string name="add">DODAJ</string>
+
+    <string name="latitude">Szerokość geograficzna:</string>
+    <string name="longitude">Długość geograficzna:</string>
+    <string name="st_name">&#0160;Nazwa półki</string>
+
+
 
 
 

@@ -3,20 +3,26 @@ package com.futurologeek.smartcrossing;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.usage.NetworkStats;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TableRow;
@@ -70,8 +76,12 @@ public class MainActivity extends AppCompatActivity {
                 longitude = location.getLongitude();
                 adapter = new BookshelfAdapter(MainActivity.this, punkty);
             }
+            if(NetworkStatus.checkNetworkStatus(this)){
+              new GetContacts().execute();
+            } else {
+                Toast.makeText(this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
+            }
 
-            new GetContacts().execute();
         } else {
                 Toast.makeText(MainActivity.this, getResources().getString(R.string.l_permission), Toast.LENGTH_SHORT).show();
             adapter.clear();
@@ -182,11 +192,16 @@ public class MainActivity extends AppCompatActivity {
         mapview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, MapActivity.class);
-                Bundle koszyk = new Bundle();
-                koszyk.putBoolean("isPoint", false);
-                i.putExtras(koszyk);
-                startActivity(i);
+                if(NetworkStatus.checkNetworkStatus(MainActivity.this)){
+                    Intent i = new Intent(MainActivity.this, MapActivity.class);
+                    Bundle koszyk = new Bundle();
+                    koszyk.putBoolean("isPoint", false);
+                    i.putExtras(koszyk);
+                    startActivity(i);
+                } else {
+                    Toast.makeText(MainActivity.this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
+                }
+
             }
         });
        /* settings.setOnClickListener(new View.OnClickListener() {

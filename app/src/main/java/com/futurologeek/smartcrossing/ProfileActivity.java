@@ -3,10 +3,13 @@ package com.futurologeek.smartcrossing;
 import android.app.Dialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,11 +36,13 @@ public class ProfileActivity extends AppCompatActivity {
         if(getIntent().getExtras()!=null){
             Bundle przekazanedane = getIntent().getExtras();
             id  = przekazanedane.getString("u_id");
-            new GetContacts().execute();
-            new getUserBooks().execute();
+            if(NetworkStatus.checkNetworkStatus(this)){
+                new GetContacts().execute();
+                new getUserBooks().execute();
+            } else {
+                Toast.makeText(this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
+            }
         }
-
-
     }
 
     public void findViews(){

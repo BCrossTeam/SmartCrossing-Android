@@ -477,7 +477,14 @@
 
     <string name="not_this_book">Click here if it isn\'t your book</string>
     <string name="clear">Clear</string>
+    <string name="no_network">Error: no network connection</string>
 
+    <string name="add_point_instruction">Click and hold to add point,\nif your point is in wrong place \ndo it once again.  Then click \"Add\" </string>
+    <string name="add">ADD</string>
+
+    <string name="latitude">Latitude:</string>
+    <string name="longitude">Longitude:</string>
+    <string name="st_name">&#0160;Bookshelf\'s name</string>
 
 
 </resources>

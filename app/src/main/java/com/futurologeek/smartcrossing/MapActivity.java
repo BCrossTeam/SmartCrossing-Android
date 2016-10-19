@@ -4,12 +4,14 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -106,7 +108,19 @@ public class MapActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         punkty = new ArrayList<Bookshelf>();
-        new GetContacts().execute();
+        if(NetworkStatus.checkNetworkStatus(this)){
+            new GetContacts().execute();
+
+            if (isLocationPermission()) {
+                loadMap();
+            } else {
+                Toast.makeText(MapActivity.this, getResources().getString(R.string.l_permission), Toast.LENGTH_SHORT).show();
+                requestPermission();
+            }
+        } else {
+            Toast.makeText(this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
+        }
+
         if (getIntent().getExtras() != null) {
             Bundle przekazanedane = getIntent().getExtras();
             isPoint = przekazanedane.getBoolean("isPoint");
@@ -117,13 +131,7 @@ public class MapActivity extends FragmentActivity {
             }
         }
 
-        if (isLocationPermission()) {
-            //TOdo: zadanie oparte na lokalizacji
-            loadMap();
-        } else {
-            Toast.makeText(MapActivity.this, getResources().getString(R.string.l_permission), Toast.LENGTH_SHORT).show();
-            requestPermission();
-        }
+
     }
 
     void loadMap() {
@@ -144,20 +152,32 @@ public class MapActivity extends FragmentActivity {
                             GoogleMap.OnMyLocationChangeListener myLocationChangeListener = new GoogleMap.OnMyLocationChangeListener() {
                                 @Override
                                 public void onMyLocationChange (Location location) {
+                                    double lat, longi;
                                     if(!firstFit){
-                                        loc = new LatLng (location.getLatitude(), location.getLongitude());
-                                    for(Bookshelf pkt : punkty){
-                                        pkt.setDistance(location.getLatitude(), location.getLongitude());
-                                    }
-                                    sortList();
-                                    LatLngBounds.Builder builder = new LatLngBounds.Builder();
-                                    builder.include(new LatLng(punkty.get(0).getLatitude(), punkty.get(0).getLongitude()));
-                                    //Toast.makeText(MapActivity.this, punkty.get(0).getNamePlace() + " " + longitude + " " + latitude, Toast.LENGTH_SHORT).show();
-                                    builder.include(new LatLng(loc.latitude, loc.longitude));
-                                    LatLngBounds bounds = builder.build();
-                                    int padding = 200; // offset from edges of the map in pixels
-                                    CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
-                                    mMap.animateCamera(cu);
+                                        SimpleLocation simplelocation = new SimpleLocation(MapActivity.this);
+
+                                        if (!simplelocation.hasLocationEnabled()) {
+                                            SimpleLocation.openSettings(MapActivity.this);
+                                        }
+                                        if (location != null) {
+                                            lat = location.getLatitude();
+                                            longi = location.getLongitude();
+                                            loc = new LatLng (lat, longi);
+
+                                            for(Bookshelf pkt : punkty){
+                                                pkt.setDistance(lat, longi);
+                                            }
+
+                                            sortList();
+                                            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+
+                                            builder.include(new LatLng(punkty.get(0).getLatitude(), punkty.get(0).getLongitude()));
+                                            builder.include(new LatLng(loc.latitude, loc.longitude));
+                                            LatLngBounds bounds = builder.build();
+                                            int padding = 200; // offset from edges of the map in pixels
+                                            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+                                            mMap.animateCamera(cu);
+                                        }
                                         firstFit = true;
                                     }
                                 }

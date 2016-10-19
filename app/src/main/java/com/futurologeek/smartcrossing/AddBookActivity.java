@@ -65,7 +65,12 @@ public class AddBookActivity extends AppCompatActivity {
         if(getIntent().getExtras()!=null){
             Bundle przekazanedane = getIntent().getExtras();
             url  = przekazanedane.getString("jurl");
-            new GetContacts().execute();
+            if(NetworkStatus.checkNetworkStatus(this)){
+                new GetContacts().execute();
+            } else {
+                Toast.makeText(this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
+            }
+
         }
 
     }
@@ -335,6 +340,10 @@ public class AddBookActivity extends AppCompatActivity {
     }
 
     public void goToCropActivity(boolean itsOkayToBeNull, boolean calendarIsOkay) {
+        if(!NetworkStatus.checkNetworkStatus(AddBookActivity.this)) {
+            Toast.makeText(AddBookActivity.this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
+            return;
+        }
         Bundle b = new Bundle();
 
         String title = addTitle.getText().toString();

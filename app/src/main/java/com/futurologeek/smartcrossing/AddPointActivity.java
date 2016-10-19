@@ -1,6 +1,7 @@
 package com.futurologeek.smartcrossing;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.support.v4.app.ActivityCompat;
@@ -8,6 +9,10 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -27,11 +32,19 @@ public class AddPointActivity extends FragmentActivity {
     private GoogleMap mMap;
     double latitude;
     double longitude;
+    Marker newMarker;
+    double markLongi, markLati;
+    boolean firstMarker = false;
+    boolean firstPositionUpdate = true;
+    private Button add_point_button;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_point);
+        findViews();
+        setListeners();
 
         if (isLocationPermission()) {
             //Todo: zadanie oparte na lokalizacji
@@ -48,11 +61,18 @@ public class AddPointActivity extends FragmentActivity {
                 mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
                     @Override
                     public void onMapLongClick(LatLng latLng) {
-                        Marker newMarker = mMap.addMarker(new MarkerOptions()
+                        if(firstMarker){
+                            newMarker.remove();
+                        }
+                        newMarker = mMap.addMarker(new MarkerOptions()
                                 .position(latLng)
                                 .snippet(latLng.toString()));
+                        markLati = latLng.latitude;
+                        markLongi = latLng.longitude;
 
                         newMarker.setTitle(newMarker.getId());
+                        add_point_button.setEnabled(true);
+                        firstMarker = true;
                     }
                 });
                 final LatLng cordinates = new LatLng(latitude, longitude);
@@ -63,9 +83,13 @@ public class AddPointActivity extends FragmentActivity {
                 GoogleMap.OnMyLocationChangeListener myLocationChangeListener = new GoogleMap.OnMyLocationChangeListener() {
                     @Override
                     public void onMyLocationChange(Location location) {
-                        LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
-                        CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(loc, 15);
-                        mMap.animateCamera(yourLocation);
+                        if(firstPositionUpdate){
+                            LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
+                            CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(loc, 15);
+                            mMap.animateCamera(yourLocation);
+                            firstPositionUpdate = false;
+                        }
+
                     }
                 };
                 mMap.setOnMyLocationChangeListener(myLocationChangeListener);
@@ -76,6 +100,26 @@ public class AddPointActivity extends FragmentActivity {
 
                     }
                 });
+            }
+        });
+    }
+
+    public void findViews(){
+        add_point_button = (Button) findViewById(R.id.add_point_button);
+    }
+
+    public void setListeners(){
+        add_point_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog dialog = new Dialog(AddPointActivity.this);
+                dialog.setContentView(R.layout.bookshelf_request_popup);
+                TextView tv_lati = (TextView) dialog.findViewById(R.id.latitude);
+                TextView tv_longi = (TextView) dialog.findViewById(R.id.longitude);
+                tv_lati.setText(String.valueOf(markLati));
+                tv_longi.setText(String.valueOf(markLongi));
+                dialog.setTitle(getResources().getString(R.string.b_add));
+                dialog.show();
             }
         });
     }

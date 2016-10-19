@@ -7,12 +7,14 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -54,7 +56,12 @@ public class BookshelfActivity extends FragmentActivity {
         setContentView(R.layout.new_activity_bookshelf);
         findViews();
         setListeners();
-        new GetContacts().execute();
+        if(NetworkStatus.checkNetworkStatus(this)){
+            new GetContacts().execute();
+        } else {
+            Toast.makeText(this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
+        }
+
         if (getIntent().getExtras() != null) {
             Bundle przekazanedane = getIntent().getExtras();
             final String nejm = przekazanedane.getString("name");
