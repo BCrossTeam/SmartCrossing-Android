@@ -45,6 +45,7 @@ public class AddBookActivity extends AppCompatActivity {
     ImageView arrow;
     RelativeLayout add_photo_relative;
     LinearLayout mainLinearLayout;
+    ImageView choosePhotoIco;
 
     final String fname = "img_" + System.currentTimeMillis() + ".jpg";
     private static final int SELECT_PICTURE = 0;
@@ -76,6 +77,7 @@ public class AddBookActivity extends AppCompatActivity {
         arrow = (ImageView) findViewById(R.id.arrow);
         year =(NumberPicker) findViewById(R.id.numberPicker);
         mainLinearLayout = (LinearLayout) findViewById(R.id.mainlinearlayout);
+        choosePhotoIco = (ImageView) findViewById(R.id.choose_photo_ic);
     }
 
     public void setListeners(){
@@ -172,6 +174,16 @@ public class AddBookActivity extends AppCompatActivity {
                             public void run() {
                                 addTitle.setText(title);
                                 addAuthor.setText(creators);
+
+                                Snackbar.make(mainLinearLayout, getString(R.string.not_this_book), Snackbar.LENGTH_LONG)
+                                        .setAction(getString(R.string.clear), new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                addTitle.setText("");
+                                                addAuthor.setText("");
+                                            }
+                                        })
+                                        .show();
                             }
                         });
 
@@ -271,10 +283,12 @@ public class AddBookActivity extends AppCompatActivity {
                 Uri selectedImageUri = data.getData();
                 if (selectedImageUri != null) {
                     file = selectedImageUri;
+                    choosePhotoIco.setColorFilter(AddBookActivity.this.getResources().getColor(R.color.greenlight));
                     AppController.showToast(R.string.photo_added, Toast.LENGTH_SHORT);;
                 }
             } else if (requestCode == 96) {
                 if (imageToUploadUri != null) {
+                    choosePhotoIco.setColorFilter(AddBookActivity.this.getResources().getColor(R.color.greenlight));
                     file = imageToUploadUri;
                     AppController.showToast(R.string.photo_added, Toast.LENGTH_SHORT);
                 }
@@ -328,11 +342,11 @@ public class AddBookActivity extends AppCompatActivity {
 
 
         if(title.equals("")){
-            Toast.makeText(this, getResources().getString(R.string.title_null), Toast.LENGTH_SHORT).show();
+            Snackbar.make(mainLinearLayout, getString(R.string.title_null), Snackbar.LENGTH_LONG).show();
             return;
         }
         if(author.equals("")){
-            Toast.makeText(this, getResources().getString(R.string.desc_null), Toast.LENGTH_SHORT).show();
+            Snackbar.make(mainLinearLayout, getString(R.string.desc_null), Snackbar.LENGTH_LONG).show();
             return;
         }
 

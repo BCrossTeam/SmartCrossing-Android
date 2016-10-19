@@ -34,7 +34,7 @@ public class ToolbarHandler {
                         Intent i = new Intent(ctx, ProfileActivity.class);
                         //Todo: Pobieranie user id
                         Bundle koszyk = new Bundle();
-                        koszyk.putString("u_id", String.valueOf(2));
+                        koszyk.putString("u_id", String.valueOf(Constants.uid));
                         i.putExtras(koszyk);
                         ctx.startActivity(i);
                     }

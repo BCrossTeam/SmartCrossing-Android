@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -34,11 +35,11 @@ public class BookListAdapter extends ArrayAdapter<Book> {
             holder.tvtitle = (TextView) convertView.findViewById(R.id.tvTitle);
             holder.tvauthor = (TextView) convertView.findViewById(R.id.tvAuthor);
             holder.ivimage = (ImageView) convertView.findViewById(R.id.ivBookCover);
-
+            holder.whole = (RelativeLayout) convertView.findViewById(R.id.whole_layout);
             holder.tvtitle.setText(getItem(position).getTitle());
             holder.tvauthor.setText(getItem(position).getAuthor());
             holder.ivimage.setImageResource(R.drawable.nocover);
-
+            getItem(position).setListeners(holder, this, context);
             convertView.setTag(holder);
         }
 
@@ -53,5 +54,6 @@ public class BookListAdapter extends ArrayAdapter<Book> {
         TextView  tvtitle;
         TextView  tvauthor;
         ImageView ivimage;
+        RelativeLayout whole;
     }
 }

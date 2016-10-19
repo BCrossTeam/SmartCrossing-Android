@@ -146,22 +146,6 @@ android:layout_height="wrap_content">
             android:id="@+id/table_to_inflate"
             android:layout_height="fill_parent">
 
-            <include layout="@layout/book_list_item_in_bookshelf"/>
-
-            <include layout="@layout/book_list_item_in_bookshelf"/>
-
-            <include layout="@layout/book_list_item_in_bookshelf"/>
-
-            <include layout="@layout/book_list_item_in_bookshelf"/>
-
-            <include layout="@layout/book_list_item_in_bookshelf"/>
-
-            <include layout="@layout/book_list_item_in_bookshelf"/>
-
-            <include layout="@layout/book_list_item_in_bookshelf"/>
-
-            <include layout="@layout/book_list_item_in_bookshelf"/>
-
         </TableRow>
 
     </HorizontalScrollView>

@@ -240,7 +240,7 @@
 
     <string name="sendticket">Report</string>
     <string name="readlog">Read</string>
-    <string name="confirm">CONFIRM</string>
+    <string name="confirm">Confirm</string>
     <string name="complete_challenge">Complete challenge</string>
     <string name="complete_challenge_message">&#160;Additional message</string>
     <string name="complete_challenge_gz">Congratz from Challengetic team\nfor completing challenge!</string>
@@ -373,6 +373,8 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="book_without_content">Are you sure you want to add book without cover?</string>
+    <string name="return_book_confirm_1">Are you sure you want to add book </string>
+    <string name="return_book_confirm_2">to  this bookshelf?</string>
     <string name="wrong_date">Are you sure that published date is </string>
 
     <string name="acc_not_activated">Account not activated, would you like to resend activation e-mail?</string>
@@ -471,6 +473,11 @@
     <string name="no_book">Couldn\'t find book by barcode. Do you want to add it manually or cancel operation?</string>
     <string name="cancel">Cancel</string>
     <string name="add_m">Add manually</string>
+
+
+    <string name="not_this_book">Click here if it isn\'t your book</string>
+    <string name="clear">Clear</string>
+
 
 
 </resources>

@@ -39,6 +39,7 @@ public class BookshelfActivity extends FragmentActivity {
     int ajdi;
     private TableRow inflejtTable;
     ArrayList<Book> ksiazki = new ArrayList<Book>();
+    ArrayList<Book> user_books = new ArrayList<Book>();
     int bookcount;
     public ImageView plus;
     public BookListAdapter bookListAdapter;
@@ -97,24 +98,18 @@ public class BookshelfActivity extends FragmentActivity {
         });
     }
     public void chooseBookDialog(){
-        final Dialog dialog = new Dialog(BookshelfActivity.this);
-        dialog.setContentView(R.layout.add_book_dialog);
-        dialog.setTitle(getResources().getString(R.string.b_add));
-        ListView lista = (ListView)dialog.findViewById(R.id.listView);
-        bookListAdapter = new BookListAdapter(BookshelfActivity.this, ksiazki);
-        lista.setAdapter(bookListAdapter);
-        dialog.show();
+        new getUserBooks().execute();
     }
     class GetContacts extends AsyncTask<Void, Void, Void> {
 
-        @Override
-        protected void onPreExecute() {
+                @Override
+                protected void onPreExecute() {
 
-        }
+                }
 
-        @Override
-        protected Void doInBackground(Void... arg0) {
-            HttpHandler sh = new HttpHandler();
+                @Override
+                protected Void doInBackground(Void... arg0) {
+                    HttpHandler sh = new HttpHandler();
 
             // Making a request to url and getting response
             String jsonStr = sh.makeServiceCall(Constants.bookshelf_url+String.valueOf(ajdi)+"/book");
@@ -158,6 +153,79 @@ public class BookshelfActivity extends FragmentActivity {
                                 inflejtTable.addView(view);
                             }
 
+                        }
+                    });
+
+                } catch (final JSONException e) {
+                    Log.e("TAG", "Json parsing error: " + e.getMessage());
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(),
+                                    "Json parsing error: " + e.getMessage(),
+                                    Toast.LENGTH_LONG)
+                                    .show();
+                        }
+                    });
+
+                }
+            } else {
+                Log.e("TAG", "Couldn't get json from server.");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),
+                                "Couldn't get json from server. Check LogCat for possible errors!",
+                                Toast.LENGTH_LONG)
+                                .show();
+                    }
+                });
+
+            }
+
+            return null;
+        }
+    }
+
+    class getUserBooks extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            HttpHandler sh = new HttpHandler();
+
+            // Making a request to url and getting response
+            String jsonStr = sh.makeServiceCall(Constants.user_url+Constants.uid+"/book");
+
+            Log.e("tag", "Response from url: " + jsonStr);
+
+            if (jsonStr != null) {
+                try {
+                    JSONObject jsonObj = new JSONObject(jsonStr);
+                    JSONArray contacts = jsonObj.getJSONArray("user_borrowed_books");
+                    user_books.clear();
+                    for (int i = 0; i < contacts.length(); i++) {
+                        JSONObject c = contacts.getJSONObject(i);
+                        final String title = c.getString("book_title");
+                        final int id = c.getInt("book_id");
+                        final String author = c.getString("book_author");
+                        Book ksiazka = new Book(id, title, author);
+                        user_books.add(ksiazka);
+                    }
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            final Dialog dialog = new Dialog(BookshelfActivity.this);
+                            dialog.setContentView(R.layout.add_book_dialog);
+                            dialog.setTitle(getResources().getString(R.string.b_add));
+                            ListView lista = (ListView)dialog.findViewById(R.id.listView);
+                            bookListAdapter = new BookListAdapter(BookshelfActivity.this, user_books);
+                            lista.setAdapter(bookListAdapter);
+                            dialog.show();
                         }
                     });
 

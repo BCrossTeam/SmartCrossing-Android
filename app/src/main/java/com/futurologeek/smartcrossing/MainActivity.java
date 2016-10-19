@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
             if(location!=null){
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();
-                adapter = new BookshelfAdapter(MainActivity.this, punkty, latitude, longitude);
+                adapter = new BookshelfAdapter(MainActivity.this, punkty);
             }
 
             new GetContacts().execute();
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
             if(location!=null){
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();
-                adapter = new BookshelfAdapter(MainActivity.this, punkty, latitude, longitude);
+                adapter = new BookshelfAdapter(MainActivity.this, punkty);
             }
             location.beginUpdates();
 

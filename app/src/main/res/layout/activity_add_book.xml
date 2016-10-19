@@ -163,7 +163,7 @@ android:layout_height="@dimen/forty"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             app:srcCompat="@drawable/add_photo_ico"
-            android:id="@+id/imageView3" />
+            android:id="@+id/choose_photo_ic" />
     </RelativeLayout>
 
     <TableRow

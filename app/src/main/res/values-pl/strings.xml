@@ -150,7 +150,7 @@
     <string name="sendticket">Zgłoś</string>
     <string name="readlog">Czytaj</string>
     <string name="LOCAL_RESULT_USER_SIGNED_OUT">Wylogowano lokalnie.</string>
-    <string name="confirm">POTWIERDŹ</string>
+    <string name="confirm">Potwierdź</string>
     <string name="complete_challenge">Ukończ wyzwanie</string>
     <string name="complete_challenge_message">&#160;Dodatkowa wiadomość</string>
     <string name="complete_challenge_gz">Gratulacje od Zespołu Challengetic\nza wykonanie wyzwania!</string>
@@ -361,6 +361,12 @@
     <string name="no_book">Nie można znaleźć książki po kodzie. Chcesz dodać ją ręcznie czy anulować?</string>
     <string name="cancel">Anuluj</string>
     <string name="add_m">Dodaj ręcznie</string>
+
+    <string name="not_this_book">Kliknij tutaj jeśli to nie jest Twoja książka</string>
+    <string name="clear">Wyczyść</string>
+
+    <string name="return_book_confirm_1">Jesteś pewien, że chcesz oddać książkę </string>
+    <string name="return_book_confirm_2">na tą półkę?</string>
 
 
 

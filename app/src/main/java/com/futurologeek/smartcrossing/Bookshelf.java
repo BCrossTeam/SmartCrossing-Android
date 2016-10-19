@@ -74,7 +74,7 @@ public class Bookshelf {
     }
 
 
-    public void setListeners(final BookshelfAdapter.ViewHolder holder, BookshelfAdapter adapter, final Context context, double latitude, double longitude) {
+    public void setListeners(final BookshelfAdapter.ViewHolder holder, BookshelfAdapter adapter, final Context context) {
     this.holder = holder;
     this.adapter = adapter;
 

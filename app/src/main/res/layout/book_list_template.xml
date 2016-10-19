@@ -5,21 +5,22 @@
     android:layout_width="@dimen/three_hundred_fifty_two"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@drawable/border">
+    android:background="#000000"
+    android:id="@+id/whole_layout">
 
     <ImageView
         android:id="@+id/ivBookCover"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_margin="8dp"
-        app:srcCompat="@drawable/nocover" />
+     />
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/ivBookCover"
-        android:text="phpMyAdminphpMyAdminphpMyAdmin"
+        android:text=""
         android:textSize="@dimen/fifteen"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
