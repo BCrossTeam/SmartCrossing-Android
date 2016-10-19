@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
             new GetContacts().execute();
         } else {
-            Toast.makeText(MainActivity.this, getResources().getString(R.string.l_permission), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.l_permission), Toast.LENGTH_SHORT).show();
             adapter.clear();
             adapter.notifyDataSetChanged();
             requestPermission();

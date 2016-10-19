@@ -1,21 +1,30 @@
 package com.futurologeek.smartcrossing;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Calendar;
+
+
 public class AddBookActivity extends AppCompatActivity {
     String url = "";
     String creators = "";
-    EditText addTitle, addAuthor, addYear, addPageCount;
-
+    EditText addTitle, addAuthor;
+    NumberPicker year;
+    ImageView arrow;
+    int cyear = Calendar.getInstance().get(Calendar.YEAR);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,11 +42,22 @@ public class AddBookActivity extends AppCompatActivity {
     public void findViews(){
         addTitle =   (EditText) findViewById(R.id.add_title);
         addAuthor = (EditText) findViewById(R.id.add_author);
-        addYear =  (EditText) findViewById(R.id.add_year);
+        arrow = (ImageView) findViewById(R.id.arrow);
+        year =(NumberPicker) findViewById(R.id.numberPicker);
+        year.setMinValue(1800);
+        year.setMaxValue(cyear);
+        year.setWrapSelectorWheel(false);
+        year.setValue(cyear);
     }
 
     public void setListeners(){
-
+        arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              //  Intent i = new Intent(AddBookActivity.this,AddCoverActivity.class);
+              //  startActivity(i);
+            }
+        });
     }
 
     class GetContacts extends AsyncTask<Void, Void, Void> {
@@ -77,7 +97,6 @@ public class AddBookActivity extends AppCompatActivity {
                             public void run() {
                                 addTitle.setText(title);
                                 addAuthor.setText(creators);
-                                addYear.setText(year);
                             }
                         });
 
