@@ -354,6 +354,9 @@
     <string name="notifies_new_friend_request">Masz nowe zaproszenie do znajomych</string>
     <string name="notifies_new_challenge_request">Masz nowe wyzwanie</string>
     <string name="notifies_new_challenge_response">Masz nową odpowiedź na wyzwanie</string>
+    <string name="set_category">Wybierz kategorię</string>
+    <string name="set_date">Ustaw datę wydania</string>
+
 
 
 

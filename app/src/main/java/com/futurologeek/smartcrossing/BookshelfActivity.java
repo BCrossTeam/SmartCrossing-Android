@@ -1,6 +1,8 @@
 package com.futurologeek.smartcrossing;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,6 +11,9 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +40,8 @@ public class BookshelfActivity extends FragmentActivity {
     private TableRow inflejtTable;
     ArrayList<Book> ksiazki = new ArrayList<Book>();
     int bookcount;
-
+    public ImageView plus;
+    public BookListAdapter bookListAdapter;
     public static BookshelfActivity newInstance() {
         BookshelfActivity fragment = new BookshelfActivity();
         return fragment;
@@ -46,6 +52,7 @@ public class BookshelfActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_activity_bookshelf);
         findViews();
+        setListeners();
         new GetContacts().execute();
         if (getIntent().getExtras() != null) {
             Bundle przekazanedane = getIntent().getExtras();
@@ -79,8 +86,25 @@ public class BookshelfActivity extends FragmentActivity {
         name = (TextView) findViewById(R.id.name);
         tvBookCount = (TextView) findViewById(R.id.tv_book_count);
         inflejtTable = (TableRow) findViewById(R.id.table_to_inflate);
+        plus = (ImageView) findViewById(R.id.add_button);
     }
-
+    public void setListeners() {
+        plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chooseBookDialog();
+            }
+        });
+    }
+    public void chooseBookDialog(){
+        final Dialog dialog = new Dialog(BookshelfActivity.this);
+        dialog.setContentView(R.layout.add_book_dialog);
+        dialog.setTitle(getResources().getString(R.string.b_add));
+        ListView lista = (ListView)dialog.findViewById(R.id.listView);
+        bookListAdapter = new BookListAdapter(BookshelfActivity.this, ksiazki);
+        lista.setAdapter(bookListAdapter);
+        dialog.show();
+    }
     class GetContacts extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -167,4 +191,5 @@ public class BookshelfActivity extends FragmentActivity {
             return null;
         }
     }
+
 }
