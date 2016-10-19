@@ -339,7 +339,7 @@
 
     <string name="yes">Tak</string>
     <string name="no">Nie</string>
-    <string name="challenge_without_content">Jesteś pewien, że chcesz dodać wyzwanie bez zdjęcia?</string>
+    <string name="book_without_content">Jesteś pewien, że chcesz dodać książkę bez okładki?</string>
     <string name="ERROR_USER_INVALID_PASSWORD_LIMIT_EXCEEDED_DYNAMIC">Przekroczono limit nieudanych prób logowania. Logowanie zostanie odblokowane za %s</string>
     <string name="acc_not_activated">Konto nieaktywowane, czy chcesz wysłać ponownie mail aktywacyjny?</string>
     <string name="acc_deactivated">Konto nieaktywowane, czy chcesz wysłać mail reaktywacyjny?</string>
@@ -348,7 +348,7 @@
     <string name="time_null">Nie wybrano godziny</string>
     <string name="date_null">Nie wybrano daty</string>
     <string name="title_null">Nie wpisano tytułu</string>
-    <string name="desc_null">Nie wpisano opisu</string>
+    <string name="desc_null">Nie wpisano autora</string>
 
 
     <string name="notifies_new_friend_request">Masz nowe zaproszenie do znajomych</string>
@@ -356,6 +356,11 @@
     <string name="notifies_new_challenge_response">Masz nową odpowiedź na wyzwanie</string>
     <string name="set_category">Wybierz kategorię</string>
     <string name="set_date">Ustaw datę wydania</string>
+
+    <string name="wrong_date">Jesteś pewien, że data publikacji to </string>
+    <string name="no_book">Nie można znaleźć książki po kodzie. Chcesz dodać ją ręcznie czy anulować?</string>
+    <string name="cancel">Anuluj</string>
+    <string name="add_m">Dodaj ręcznie</string>
 
 
 

@@ -2,13 +2,16 @@ package com.futurologeek.smartcrossing;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Messenger;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -29,6 +32,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
@@ -82,8 +87,7 @@ public class AddBookActivity extends AppCompatActivity {
         arrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              //  Intent i = new Intent(AddBookActivity.this,AddCoverActivity.class);
-              //  startActivity(i);
+              goToCropActivity(false, false);
             }
         });
 
@@ -99,9 +103,9 @@ public class AddBookActivity extends AppCompatActivity {
                 takePhotoRelative.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (ActivityCompat.checkSelfPermission(AddBookActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                        if (ActivityCompat.checkSelfPermission(AddBookActivity.this, Manifest.permission.CAMERA)
                                 != PackageManager.PERMISSION_GRANTED) {
-                            requestCameraPermission();
+                            requestCameraPermission(true);
                             dialog.dismiss();
                         } else {
                             openImageIntent(true);
@@ -116,7 +120,7 @@ public class AddBookActivity extends AppCompatActivity {
 
                         if (ActivityCompat.checkSelfPermission(AddBookActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
                                 != PackageManager.PERMISSION_GRANTED) {
-                            requestCameraPermission();
+                            requestCameraPermission(false);
                             dialog.dismiss();
                         } else {
                             openImageIntent(false);
@@ -179,10 +183,31 @@ public class AddBookActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(getApplicationContext(),
-                                    "Json parsing error: " + e.getMessage(),
-                                    Toast.LENGTH_LONG)
-                                    .show();
+                            AlertDialog.Builder builder = new AlertDialog.Builder(AddBookActivity.this);
+                            builder.setCancelable(false);
+                            builder.setTitle(getResources().getString(R.string.confirm));
+                            builder.setMessage(getResources().getString(R.string.no_book));
+
+                            builder.setPositiveButton(getResources().getString(R.string.add_m), new DialogInterface.OnClickListener() {
+
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    return;
+                                }
+                            });
+
+                            builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                }
+                            });
+
+                            AlertDialog alert = builder.create();
+                            alert.setCancelable(false);
+                            alert.show();
+                            return;
                         }
                     });
 
@@ -257,23 +282,134 @@ public class AddBookActivity extends AppCompatActivity {
         }
     }
 
-    private void requestCameraPermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            Snackbar.make(mainLinearLayout, getString(R.string.app_doesnt_have_gallery_permission), Snackbar.LENGTH_LONG)
-                    .setAction(getString(R.string.grant_permission), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            ActivityCompat.requestPermissions(AddBookActivity.this,
-                                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                                    REQUEST_CAMERA);
-                        }
-                    })
-                    .show();
+    private void requestCameraPermission(boolean isCamera) {
+        if(!isCamera){
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                Snackbar.make(mainLinearLayout, getString(R.string.app_doesnt_have_gallery_permission), Snackbar.LENGTH_LONG)
+                        .setAction(getString(R.string.grant_permission), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                ActivityCompat.requestPermissions(AddBookActivity.this,
+                                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                        REQUEST_CAMERA);
+                            }
+                        })
+                        .show();
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        SELECT_PICTURE);
+            }
         } else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                    SELECT_PICTURE);
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.CAMERA)) {
+                Snackbar.make(mainLinearLayout, getString(R.string.app_doesnt_have_gallery_permission), Snackbar.LENGTH_LONG)
+                        .setAction(getString(R.string.grant_permission), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                ActivityCompat.requestPermissions(AddBookActivity.this,
+                                        new String[]{Manifest.permission.CAMERA},
+                                        REQUEST_CAMERA);
+                            }
+                        })
+                        .show();
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
+                        REQUEST_CAMERA);
+            }
+        }
+    }
+
+    public void goToCropActivity(boolean itsOkayToBeNull, boolean calendarIsOkay) {
+        Bundle b = new Bundle();
+
+        String title = addTitle.getText().toString();
+        String author = addAuthor.getText().toString();
+
+
+        if(title.equals("")){
+            Toast.makeText(this, getResources().getString(R.string.title_null), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(author.equals("")){
+            Toast.makeText(this, getResources().getString(R.string.desc_null), Toast.LENGTH_SHORT).show();
+            return;
         }
 
+
+        if(!calendarIsOkay){
+            if(year.getValue() == cyear){
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setCancelable(false);
+                builder.setTitle(getResources().getString(R.string.confirm));
+                builder.setMessage(getResources().getString(R.string.wrong_date)+" "+cyear+"?");
+
+                builder.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        goToCropActivity(false, true);
+                        dialog.dismiss();
+                        return;
+                    }
+                });
+
+                builder.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog alert = builder.create();
+                alert.setCancelable(false);
+                alert.show();
+                return;
+            }
+        }
+
+
+        if (file == null && !itsOkayToBeNull) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setCancelable(false);
+            builder.setTitle(getResources().getString(R.string.confirm));
+            builder.setMessage(getResources().getString(R.string.book_without_content));
+
+            builder.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+
+                public void onClick(DialogInterface dialog, int which) {
+                    goToCropActivity(true, true);
+                    dialog.dismiss();
+                    return;
+                }
+            });
+
+            builder.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+
+            AlertDialog alert = builder.create();
+            alert.setCancelable(false);
+            alert.show();
+
+        } else if (file == null && itsOkayToBeNull) {
+           //TOdo: wysyłanie bez okładki
+            Toast.makeText(this, "Bez okladki", Toast.LENGTH_SHORT).show();
+        } else {
+            Intent cel = new Intent(this, com.futurologeek.smartcrossing.crop.CropImageActivity.class);
+            cel.setData(file);
+            b.putInt("year", year.getValue());
+            cel.putExtra("aspect_x", 14);
+            cel.putExtra("aspect_y", 22);
+            b.putString("title", title);
+            b.putString("author", author);
+            cel.putExtras(b);
+            startActivity(cel);
+            finish();
+        }
     }
 }

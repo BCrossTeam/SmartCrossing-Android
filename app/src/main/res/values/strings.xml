@@ -372,7 +372,8 @@
     <string name="didnt_accept">You must accept this challenge before adding response.</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="challenge_without_content">Are you sure you want to add challenge without content?</string>
+    <string name="book_without_content">Are you sure you want to add book without cover?</string>
+    <string name="wrong_date">Are you sure that published date is </string>
 
     <string name="acc_not_activated">Account not activated, would you like to resend activation e-mail?</string>
     <string name="acc_deactivated">Account deactivated, would you like to send reactivation e-mail?</string>
@@ -383,7 +384,7 @@
     <string name="time_null">Choose hour</string>
     <string name="date_null">Choose date</string>
     <string name="title_null">Enter the title</string>
-    <string name="desc_null">Enter the description</string>
+    <string name="desc_null">Enter the author</string>
 
     <string name="notifies_new_friend_request">New friend request</string>
     <string name="notifies_new_challenge_request">New challenge request</string>
@@ -466,6 +467,10 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+
+    <string name="no_book">Couldn\'t find book by barcode. Do you want to add it manually or cancel operation?</string>
+    <string name="cancel">Cancel</string>
+    <string name="add_m">Add manually</string>
 
 
 </resources>

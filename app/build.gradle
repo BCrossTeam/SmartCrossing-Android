@@ -46,4 +46,5 @@ dependencies {
     compile 'com.android.support:support-vector-drawable:24.2.1'
     testCompile 'junit:junit:4.12'
     compile 'com.github.delight-im:Android-SimpleLocation:v1.0.1'
+    compile 'io.reactivex:rxjava:1.0.10'
 }
