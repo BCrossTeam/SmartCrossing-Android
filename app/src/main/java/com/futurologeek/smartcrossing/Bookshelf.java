@@ -74,11 +74,11 @@ public class Bookshelf {
     }
 
 
-    public void setListeners(final BookshelfAdapter.ViewHolder holder, BookshelfAdapter adapter, final Context context) {
+    public void setListeners(final BookshelfAdapter.ViewHolder holder, BookshelfAdapter adapter, final Context context, double latitude, double longitude) {
     this.holder = holder;
     this.adapter = adapter;
 
-        setDistance(51.0993389,17.0152863);
+       //setDistance(latitude, longitude);
 
         NumberFormat formatter = new DecimalFormat("#0.00");
         holder.distanceTextView.setText(String.valueOf(formatter.format(distance/1000))+" km");

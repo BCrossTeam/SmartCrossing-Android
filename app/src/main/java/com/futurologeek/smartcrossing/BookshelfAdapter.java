@@ -14,12 +14,24 @@ import java.util.ArrayList;
 public class BookshelfAdapter extends ArrayAdapter<Bookshelf> {
     private final Context context;
     private final ArrayList<Bookshelf> itemsArrayList;
+    double latitude;
+    double longitude;
 
     public BookshelfAdapter(Context context, ArrayList<Bookshelf> itemsArrayList) {
         super(context, R.layout.shelf_template, itemsArrayList);
         this.context = context;
         this.itemsArrayList = itemsArrayList;
     }
+
+    public BookshelfAdapter(Context context, ArrayList<Bookshelf> itemsArrayList, double latitude, double longitude) {
+        super(context, R.layout.shelf_template, itemsArrayList);
+        this.context = context;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.itemsArrayList = itemsArrayList;
+    }
+
+
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -36,7 +48,7 @@ public class BookshelfAdapter extends ArrayAdapter<Bookshelf> {
             holder.distanceTextView = (TextView) convertView.findViewById(R.id.distance_textview);
             holder.bookcount = (TextView) convertView.findViewById(R.id.book_count_textview);
             holder.shelf = (LinearLayout) convertView.findViewById(R.id.shelf);
-            getItem(position).setListeners(holder, this, context);
+            getItem(position).setListeners(holder, this, context, this.latitude, this.longitude);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();

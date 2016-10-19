@@ -34,6 +34,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import im.delight.android.location.SimpleLocation;
+
 public class MainActivity extends AppCompatActivity {
     ListView booklist;
     BookshelfAdapter adapter;
@@ -42,28 +44,33 @@ public class MainActivity extends AppCompatActivity {
     TableRow profile;
     ArrayList<Bookshelf> punkty = new ArrayList<Bookshelf>();
     final Activity activity = this;
+
     ImageView plus;
     TableRow mapview;
+    SimpleLocation location;
+    double latitude, longitude;
 
-    Intent intentThatCalled;
-    public double latitude;
-    public double longitude;
-    public LocationManager locationManager;
-    public Criteria criteria;
-    public String bestProvider;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        adapter = new BookshelfAdapter(MainActivity.this, punkty);
+        adapter = new BookshelfAdapter(this, punkty);
         findViews();
         setListeners();
-        intentThatCalled = getIntent();
-
         if (isLocationPermission()) {
-            //TOdo: zadanie oparte na lokalizacji
+            location = new SimpleLocation(this);
+
+            if (!location.hasLocationEnabled()) {
+                SimpleLocation.openSettings(this);
+            }
+            if(location!=null){
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+                adapter = new BookshelfAdapter(MainActivity.this, punkty, latitude, longitude);
+            }
+
             new GetContacts().execute();
         } else {
             Toast.makeText(MainActivity.this, getResources().getString(R.string.l_permission), Toast.LENGTH_SHORT).show();
@@ -76,10 +83,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();  // Always call the superclass method first
-        sortList();
+    protected void onResume() {
+        super.onResume();
+
+        // make the device update its location
+        location.beginUpdates();
+
+        // ...
     }
+
+    @Override
+    protected void onPause() {
+        // stop location updates (saves battery)
+        location.endUpdates();
+
+        // ...
+
+        super.onPause();
+    }
+
 
     public void sortList() {
         Collections.sort(punkty, new Comparator<Bookshelf>() {
@@ -136,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
 
         mapview.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -217,7 +240,6 @@ public class MainActivity extends AppCompatActivity {
                             bookcount++;
                         }
 
-                        Log.d("Leeel", latitude + " " + longitude + " " + name + " " + String.valueOf(id));
                         Bookshelf plejs = new Bookshelf(id, name, latitude, longitude, bookcount);
                         punkty.add(plejs);
                     }
@@ -226,9 +248,9 @@ public class MainActivity extends AppCompatActivity {
                         public void run() {
                             booklist.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
-                                for(Bookshelf pl:punkty){
-                                    pl.setDistance(51.0993658,17.0152863);
-                                }
+                            for(Bookshelf pl:punkty){
+                                    pl.setDistance(latitude, longitude);
+                                     }
                                 sortList();
                             }
                         });
