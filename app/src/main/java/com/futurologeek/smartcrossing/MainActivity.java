@@ -86,18 +86,37 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        // make the device update its location
-        location.beginUpdates();
+        if (isLocationPermission()) {
+            location = new SimpleLocation(this);
+            if (!location.hasLocationEnabled()) {
+                SimpleLocation.openSettings(this);
+            }
+            if(location!=null){
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+                adapter = new BookshelfAdapter(MainActivity.this, punkty, latitude, longitude);
+            }
+            location.beginUpdates();
 
-        // ...
+        } else {
+            Toast.makeText(MainActivity.this, getResources().getString(R.string.l_permission), Toast.LENGTH_SHORT).show();
+            adapter.clear();
+            adapter.notifyDataSetChanged();
+            requestPermission();
+        }
     }
 
     @Override
     protected void onPause() {
-        // stop location updates (saves battery)
-        location.endUpdates();
+        if (isLocationPermission()) {
+            location.endUpdates();
 
-        // ...
+        } else {
+            Toast.makeText(MainActivity.this, getResources().getString(R.string.l_permission), Toast.LENGTH_SHORT).show();
+            adapter.clear();
+            adapter.notifyDataSetChanged();
+            requestPermission();
+        }
 
         super.onPause();
     }

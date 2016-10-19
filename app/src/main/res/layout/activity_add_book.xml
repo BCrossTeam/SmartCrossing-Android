@@ -8,33 +8,12 @@
     android:id="@+id/mainlinearlayout">
 
     <TableRow
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/fifty">
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:text="@string/b_add"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:id="@+id/act_title"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textStyle="normal|bold"
-                android:textAllCaps="false" />
-        </RelativeLayout>
-
-    </TableRow>
-
-    <TableRow
         android:layout_width="match_parent"
         android:layout_height="@dimen/eighty"
         android:layout_marginLeft="@dimen/twenty"
         android:layout_marginRight="@dimen/twenty"
-        android:layout_marginBottom="@dimen/five">
+        android:layout_marginBottom="@dimen/five"
+        android:layout_marginTop="@dimen/fifteen">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -118,7 +97,7 @@
         android:layout_marginLeft="@dimen/twenty"
         android:layout_marginRight="@dimen/twenty"
         android:layout_marginBottom="@dimen/five" >
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -140,19 +119,20 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:id="@+id/numberPicker"
+                android:layout_gravity="center"
                 android:layout_below="@+id/date"
                 android:layout_marginBottom="@dimen/five"
                 android:layout_centerHorizontal="true" />
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
 
     </TableRow>
 
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="@dimen/eighty"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/twenty"
         android:layout_marginRight="@dimen/twenty"
         android:layout_marginBottom="@dimen/five" >
@@ -160,27 +140,31 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:text="@string/set_category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/twenty_five"
-                android:textStyle="normal|bold"
-                android:id="@+id/choose"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="@dimen/five" />
-
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:id="@+id/spinner"
                 android:entries="@array/categoryArray"
-                android:layout_below="@+id/choose"
                 android:layout_centerHorizontal="true" />
         </RelativeLayout>
 
     </TableRow>
+
+    <RelativeLayout
+android:layout_width="fill_parent"
+        android:background="@color/transparent_white"
+android:layout_height="@dimen/forty"
+        android:layout_marginLeft="@dimen/twenty"
+        android:layout_marginRight="@dimen/twenty"
+        android:id="@+id/add_photo_relative">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:srcCompat="@drawable/add_photo_ico"
+            android:id="@+id/imageView3" />
+    </RelativeLayout>
 
     <TableRow
         android:layout_width="fill_parent"
