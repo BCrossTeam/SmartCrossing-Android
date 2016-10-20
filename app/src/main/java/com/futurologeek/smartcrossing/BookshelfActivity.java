@@ -74,7 +74,7 @@ public class BookshelfActivity extends FragmentActivity {
         findViews();
         setListeners();
 
-        ToolbarHandler handler = new ToolbarHandler(this, ToolbarHandler.buttonVariation.Main);
+        ToolbarHandler handler = new ToolbarHandler(this, ToolbarHandler.buttonVariation.Bookshelf);
         handler.setListeners();
 
         if (getIntent().getExtras() != null) {

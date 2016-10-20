@@ -97,6 +97,7 @@ public class BookActivity extends AppCompatActivity {
                                         koszyk.putString("u_id", String.valueOf(creator_id));
                                         i.putExtras(koszyk);
                                         startActivity(i);
+                                        finish();
                                     } else {
                                         Toast.makeText(BookActivity.this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
                                     }
