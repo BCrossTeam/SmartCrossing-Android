@@ -19,28 +19,33 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class BookActivity extends AppCompatActivity {
-    private WebView webview;
-    private EditText number_edittext;
-    private Button setwebviewbutton;
-    private Button parseButton;
-    private String creators = "";
+
     private TextView titleTextView, authorTextView, dateTextView, isbnTextView, addedByTextView, categoryTextView;
     private RelativeLayout visitProfile;
+    int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book);
+        findViews();
+
+        if(getIntent().getExtras()!=null) {
+            Bundle przekazanedane = getIntent().getExtras();
+            id = przekazanedane.getInt("ajdi");
+            new getUserBooks().execute();
+        }
+    }
+
+    public void findViews(){
         titleTextView = (TextView) findViewById(R.id.title_textview);
         authorTextView= (TextView) findViewById(R.id.author_textview);
-
+        visitProfile = (RelativeLayout) findViewById(R.id.visit_profile);
         dateTextView = (TextView) findViewById(R.id.year_textview);
         categoryTextView = (TextView) findViewById(R.id.category_textview);
         addedByTextView= (TextView) findViewById(R.id.added_by_textview);
         isbnTextView= (TextView) findViewById(R.id.isbn_textview);
-        new getUserBooks().execute();
     }
-
     class getUserBooks extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -53,7 +58,7 @@ public class BookActivity extends AppCompatActivity {
             HttpHandler sh = new HttpHandler();
 
             // Making a request to url and getting response
-            String jsonStr = sh.makeServiceCall(Constants.book_url+5);
+            String jsonStr = sh.makeServiceCall(Constants.book_url+id);
 
             Log.e("tag", "Response from url: " + jsonStr);
 

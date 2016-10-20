@@ -1,0 +1,80 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:background="?attr/selectableItemBackground" >
+
+    <TextView android:id="@android:id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:maxLines="1"
+        android:textSize="16sp"
+        android:textColor="?android:attr/textColorPrimary"
+        android:ellipsize="marquee"
+        android:fadingEdge="horizontal"/>
+
+    <TextView
+        android:id="@android:id/summary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:textSize="14sp"
+        android:textColor="?android:attr/textColorSecondary"
+        android:maxLines="10"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical">
+
+        <SeekBar
+            android:id="@+id/seekbar"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_width="@dimen/msbp_seekbar_width"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/value_holder"
+            android:layout_toStartOf="@+id/value_holder" />
+
+        <LinearLayout
+            android:id="@+id/value_holder"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:clickable="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:orientation="vertical"
+            android:layout_width="50dp">
+
+
+
+                    <TextView
+                        android:id="@+id/seekbar_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="4dp"
+                        android:textSize="14sp"
+                        android:textColor="?android:attr/textColorSecondary"
+                        android:maxLines="1"/>
+                    <TextView
+                        android:id="@+id/measurement_unit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:maxLines="1"
+                        android:ellipsize="marquee"
+                        android:textColor="?android:attr/textColorSecondary"/>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

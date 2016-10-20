@@ -9,7 +9,8 @@
 
     <RelativeLayout
 android:layout_width="@dimen/hundred"
-android:layout_height="@dimen/hundred_fifty">
+android:layout_height="@dimen/hundred_fifty"
+        android:id="@+id/whole">
 
 <ImageView
         android:layout_height="@dimen/hundred"

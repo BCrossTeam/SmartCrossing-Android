@@ -61,7 +61,11 @@
         <activity android:name=".AddPointActivity"></activity>
 
         <activity
-            android:name=".crop.CropImageActivity"
+        android:name=".crop.CropImageActivity"
+        android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".SettingsActivity"
             android:screenOrientation="portrait" />
     </application>
 

@@ -74,9 +74,8 @@ public class ToolbarHandler {
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ctx, BookActivity.class);
+                Intent i = new Intent(ctx, SettingsActivity.class);
                 ctx.startActivity(i);
-                ctx.finish();
             }
         });
     }

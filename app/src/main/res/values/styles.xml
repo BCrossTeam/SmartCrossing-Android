@@ -118,4 +118,12 @@
         <item name="windowActionBarOverlay">true</item>
     </style>
 
+    <style parent="Theme.AppCompat.Light.Dialog.Alert" name="MSB_Dialog_Default">
+
+    <item name="colorPrimary">@color/color_dialog</item>
+
+    <item name="colorAccent">@color/color_dialog</item>
+
+    </style>
+
 </resources>

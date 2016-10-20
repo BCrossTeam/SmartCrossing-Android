@@ -4,5 +4,10 @@
     <color name="crop__button_text">#666666</color>
     <color name="crop__selector_pressed">#1a000000</color>
     <color name="crop__selector_focused">#77000000</color>
+    <item type="color" name="color_bottom_line_enabled">#BDBDBD</item>
+
+    <item type="color" name="color_bottom_line_disabled">#EEEEEE</item>
+
+    <item type="color" name="color_dialog">#607D8B</item>
 
 </resources>

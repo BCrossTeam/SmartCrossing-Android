@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.api.services.books.Books;
@@ -46,7 +47,7 @@ public class AddBookActivity extends AppCompatActivity {
     RelativeLayout add_photo_relative;
     LinearLayout mainLinearLayout;
     ImageView choosePhotoIco;
-
+    private Spinner catSelector;
     final String fname = "img_" + System.currentTimeMillis() + ".jpg";
     private static final int SELECT_PICTURE = 0;
     private static final int REQUEST_CAMERA = 1;
@@ -83,6 +84,7 @@ public class AddBookActivity extends AppCompatActivity {
         year =(NumberPicker) findViewById(R.id.numberPicker);
         mainLinearLayout = (LinearLayout) findViewById(R.id.mainlinearlayout);
         choosePhotoIco = (ImageView) findViewById(R.id.choose_photo_ic);
+        catSelector = (Spinner) findViewById(R.id.cat_selector);
     }
 
     public void setListeners(){
@@ -359,6 +361,10 @@ public class AddBookActivity extends AppCompatActivity {
             return;
         }
 
+       if(catSelector.getSelectedItemPosition()==0){
+           Snackbar.make(mainLinearLayout, getString(R.string.cat_null), Snackbar.LENGTH_LONG).show();
+           return;
+       }
 
         if(!calendarIsOkay){
             if(year.getValue() == cyear){
@@ -426,6 +432,7 @@ public class AddBookActivity extends AppCompatActivity {
             Intent cel = new Intent(this, com.futurologeek.smartcrossing.crop.CropImageActivity.class);
             cel.setData(file);
             b.putInt("year", year.getValue());
+            b.putString("cat", catSelector.getSelectedItem().toString());
             cel.putExtra("aspect_x", 14);
             cel.putExtra("aspect_y", 22);
             b.putString("title", title);

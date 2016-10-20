@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,15 +40,26 @@ public class BookshelfActivity extends FragmentActivity {
     double longitude;
     double latitude;
     int ajdi;
+    int b_id;
     private TableRow inflejtTable;
     ArrayList<Book> ksiazki = new ArrayList<Book>();
+    int zmiennik = 0;
     ArrayList<Book> user_books = new ArrayList<Book>();
     int bookcount;
     public ImageView plus;
     public BookListAdapter bookListAdapter;
+
     public static BookshelfActivity newInstance() {
         BookshelfActivity fragment = new BookshelfActivity();
         return fragment;
+    }
+
+    void runAsync() {
+        if (NetworkStatus.checkNetworkStatus(this)) {
+            new GetContacts().execute();
+        } else {
+            Toast.makeText(this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -56,7 +68,7 @@ public class BookshelfActivity extends FragmentActivity {
         setContentView(R.layout.new_activity_bookshelf);
         findViews();
         setListeners();
-        if(NetworkStatus.checkNetworkStatus(this)){
+        if (NetworkStatus.checkNetworkStatus(this)) {
             new GetContacts().execute();
         } else {
             Toast.makeText(this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
@@ -96,6 +108,7 @@ public class BookshelfActivity extends FragmentActivity {
         inflejtTable = (TableRow) findViewById(R.id.table_to_inflate);
         plus = (ImageView) findViewById(R.id.add_button);
     }
+
     public void setListeners() {
         plus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,22 +117,24 @@ public class BookshelfActivity extends FragmentActivity {
             }
         });
     }
-    public void chooseBookDialog(){
+
+    public void chooseBookDialog() {
         new getUserBooks().execute();
     }
+
     class GetContacts extends AsyncTask<Void, Void, Void> {
 
-                @Override
-                protected void onPreExecute() {
+        @Override
+        protected void onPreExecute() {
 
-                }
+        }
 
-                @Override
-                protected Void doInBackground(Void... arg0) {
-                    HttpHandler sh = new HttpHandler();
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            HttpHandler sh = new HttpHandler();
 
             // Making a request to url and getting response
-            String jsonStr = sh.makeServiceCall(Constants.bookshelf_url+String.valueOf(ajdi)+"/book");
+            String jsonStr = sh.makeServiceCall(Constants.bookshelf_url + String.valueOf(ajdi) + "/book");
 
 
             Log.e("tag", "Response from url: " + jsonStr);
@@ -139,24 +154,28 @@ public class BookshelfActivity extends FragmentActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if(ksiazki.size()>0){
-                                for(Book k: ksiazki){
-                                    LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService
-                                            (Context.LAYOUT_INFLATER_SERVICE);
-                                    View view = inflater.inflate(R.layout.book_list_item_in_bookshelf,null);
+
+                            if (ksiazki.size() > 0) {
+                                LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService
+                                        (Context.LAYOUT_INFLATER_SERVICE);
+                                for (Book k : ksiazki) {
+                                    View view = inflater.inflate(R.layout.book_list_item_in_bookshelf, null);
+                                    RelativeLayout whole = (RelativeLayout) view.findViewById(R.id.whole);
+                                    b_id = k.getId();
                                     TextView txt = (TextView) view.findViewById(R.id.title_textview);
-                                    if(k.getTitle().length()>18){
-                                        txt.setText(k.getTitle().substring(0, 17)+"...");
+                                    if (k.getTitle().length() > 18) {
+                                        txt.setText(k.getTitle().substring(0, 17) + "...");
                                     } else {
                                         txt.setText(k.getTitle());
                                     }
-
+                                    CustomOnClickListener list = new CustomOnClickListener(k, view);
+                                    list.setListener();
                                     inflejtTable.addView(view);
                                 }
                             } else {
-                                LayoutInflater inflater = (LayoutInflater)getApplicationContext().getSystemService
+                                LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService
                                         (Context.LAYOUT_INFLATER_SERVICE);
-                                View view = inflater.inflate(R.layout.no_books,null);
+                                View view = inflater.inflate(R.layout.no_books, null);
                                 inflejtTable.addView(view);
                             }
 
@@ -172,6 +191,7 @@ public class BookshelfActivity extends FragmentActivity {
                                     "Json parsing error: " + e.getMessage(),
                                     Toast.LENGTH_LONG)
                                     .show();
+
                         }
                     });
 
@@ -185,6 +205,12 @@ public class BookshelfActivity extends FragmentActivity {
                                 "Couldn't get json from server. Check LogCat for possible errors!",
                                 Toast.LENGTH_LONG)
                                 .show();
+                        zmiennik++;
+                        if (zmiennik < 5) {
+                            runAsync();
+                        }
+
+                        return;
                     }
                 });
 
@@ -206,7 +232,7 @@ public class BookshelfActivity extends FragmentActivity {
             HttpHandler sh = new HttpHandler();
 
             // Making a request to url and getting response
-            String jsonStr = sh.makeServiceCall(Constants.user_url+Constants.uid+"/book");
+            String jsonStr = sh.makeServiceCall(Constants.user_url + Constants.uid + "/book");
 
             Log.e("tag", "Response from url: " + jsonStr);
 
@@ -229,7 +255,7 @@ public class BookshelfActivity extends FragmentActivity {
                             final Dialog dialog = new Dialog(BookshelfActivity.this);
                             dialog.setContentView(R.layout.add_book_dialog);
                             dialog.setTitle(getResources().getString(R.string.b_add));
-                            ListView lista = (ListView)dialog.findViewById(R.id.listView);
+                            ListView lista = (ListView) dialog.findViewById(R.id.listView);
                             bookListAdapter = new BookListAdapter(BookshelfActivity.this, user_books);
                             lista.setAdapter(bookListAdapter);
                             dialog.show();
@@ -267,4 +293,27 @@ public class BookshelfActivity extends FragmentActivity {
         }
     }
 
+    public class CustomOnClickListener {
+        Book ks;
+        View v;
+
+        public CustomOnClickListener(Book ks, View v) {
+            this.ks = ks;
+            this.v = v;
+        }
+
+        public void setListener(){
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle b = new Bundle();
+                    b.putInt("ajdi", ks.getId());
+                    Intent i = new Intent(BookshelfActivity.this,BookActivity.class);
+                    i.putExtras(b);
+                    startActivity(i);
+                }
+            });
+        }
+
+    }
 }

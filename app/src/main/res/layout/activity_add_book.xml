@@ -143,7 +143,7 @@
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:id="@+id/spinner"
+                android:id="@+id/cat_selector"
                 android:entries="@array/categoryArray"
                 android:layout_centerHorizontal="true" />
         </RelativeLayout>

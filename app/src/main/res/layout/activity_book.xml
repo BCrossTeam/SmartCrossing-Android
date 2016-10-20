@@ -45,7 +45,7 @@
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -172,89 +172,87 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
-        <RelativeLayout
+        <TableRow
             android:layout_width="fill_parent"
             android:id="@+id/relative_with_ui"
-            android:layout_height="@dimen/eighty_five"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+            android:layout_height="@dimen/eighty_five"
+            android:weightSum="3"
             android:gravity="center">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/sixty"
-                android:layout_centerHorizontal="true"
-                android:layout_alignBottom="@+id/add_button">
+            <android.support.percent.PercentRelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="fill_parent">
 
                 <TableRow
-                    android:layout_width="@dimen/hundred"
-                    android:layout_height="@dimen/forty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/loginbutton"
-                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    app:layout_widthPercent="85%"
+                    app:layout_heightPercent="45%"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_centerInParent="true"
                     android:id="@+id/profile_button"
-                    android:layout_alignParentLeft="true"
-                    android:gravity="center"
-                    android:layout_marginLeft="@dimen/twenty"
-                    android:layout_marginTop="@dimen/five">
-
-                    <RelativeLayout
+                    >
+                    <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="fill_parent">
+                        android:layout_height="wrap_content"
+                        android:text="@string/profile"
+                        android:id="@+id/first_button_textview" />
 
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/profile"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:textSize="@dimen/eighteen" />
-
-                    </RelativeLayout>
 
                 </TableRow>
+
+            </android.support.percent.PercentRelativeLayout>
+
+
+            <android.support.percent.PercentRelativeLayout
+                android:layout_width="0dp"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_weight="1"
+                android:layout_height="fill_parent">
+
+                <ImageView
+                    app:layout_widthPercent="85%"
+                    app:layout_heightPercent="85%"
+                    android:src="@drawable/floatingbuttonimage"
+                    android:id="@+id/add_button"
+                    android:layout_centerInParent="true" />
+
+            </android.support.percent.PercentRelativeLayout>
+
+
+            <android.support.percent.PercentRelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_height="fill_parent">
 
                 <TableRow
-                    android:layout_width="@dimen/hundred"
-                    android:layout_height="@dimen/forty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/loginbutton"
-                    android:id="@+id/settings_button"
                     android:gravity="center"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/twenty"
-                    android:layout_marginTop="@dimen/five">
+                    app:layout_widthPercent="85%"
+                    app:layout_heightPercent="45%"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_centerInParent="true"
+                    android:id="@+id/settings_button"
+                    >
 
-                    <RelativeLayout
+                    <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="fill_parent">
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/settings"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:textSize="@dimen/eighteen" />
-
-                    </RelativeLayout>
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings"
+                        android:id="@+id/second_button_textview" />
 
                 </TableRow>
 
-            </RelativeLayout>
+            </android.support.percent.PercentRelativeLayout>
 
-            <ImageView
-                android:layout_width="@dimen/eighty"
-                android:layout_height="@dimen/eighty"
-                android:src="@drawable/floatingbuttonimage"
-                android:id="@+id/add_button"
-                app:srcCompat="@drawable/floatingbuttonimage"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentTop="true" />
-
-        </RelativeLayout>
+        </TableRow>
 
     </RelativeLayout>
 

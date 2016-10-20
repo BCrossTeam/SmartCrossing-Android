@@ -70,7 +70,7 @@ public class CropImageActivity extends MonitoredActivityReportingLifeCycle {
     public String filePath;
     private Uri sourceUri;
     private Uri saveUri;
-
+    String cat;
     private Boolean isDirectFilePath;
     private String title;
     private String description;
@@ -111,6 +111,7 @@ public class CropImageActivity extends MonitoredActivityReportingLifeCycle {
 
     public void booleanHandler() {
         title = getIntent().getExtras().getString("title");
+        cat = getIntent().getExtras().getString("cat");
         author = getIntent().getExtras().getString("author");
         book_year = getIntent().getExtras().getInt("year");
         isDirectFilePath = getIntent().getExtras().getBoolean("isDirectFilePath");

@@ -39,6 +39,7 @@ dependencies {
     compile 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
     compile 'com.google.apis:google-api-services-books:v1-rev88-1.22.0'
     compile 'com.android.support:design:23.4.0'
+    compile 'com.android.support:preference-v7:24.2.1'
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:percent:24.2.1'
     compile 'com.google.android.gms:play-services-maps:9.6.1'
@@ -47,4 +48,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.github.delight-im:Android-SimpleLocation:v1.0.1'
     compile 'io.reactivex:rxjava:1.0.10'
+    //compile 'com.pavelsikun:material-seekbar-preference:2.1.0'
 }

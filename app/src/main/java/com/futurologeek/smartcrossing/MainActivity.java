@@ -92,10 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
+    public void getLoc(){
         if (isLocationPermission()) {
             location = new SimpleLocation(this);
             if (!location.hasLocationEnabled()) {
@@ -114,6 +111,36 @@ public class MainActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
             requestPermission();
         }
+        if(latitude==0||longitude==0){
+            getLoc();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (isLocationPermission()) {
+            location = new SimpleLocation(this);
+            if (!location.hasLocationEnabled()) {
+                SimpleLocation.openSettings(this);
+            }
+            if(location!=null){
+               // latitude = location.getLatitude();
+              //  longitude = location.getLongitude();
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+                adapter = new BookshelfAdapter(MainActivity.this, punkty);
+            }
+            location.beginUpdates();
+
+        } else {
+            Toast.makeText(MainActivity.this, getResources().getString(R.string.l_permission), Toast.LENGTH_SHORT).show();
+            adapter.clear();
+            adapter.notifyDataSetChanged();
+            requestPermission();
+        }
+
     }
 
     @Override
@@ -292,6 +319,9 @@ public class MainActivity extends AppCompatActivity {
                         public void run() {
                             booklist.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
+                            if(longitude==0||latitude==0){
+                                getLoc();
+                            }
                             for(Bookshelf pl:punkty){
                                     pl.setDistance(latitude, longitude);
                                      }
@@ -357,10 +387,26 @@ public class MainActivity extends AppCompatActivity {
                         if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                             Log.d("Pointless statement", "This statement is useless but android requires it to work properly");
                         }
-                        //Todo: pobieranie lokalizacji
                         new GetContacts().execute();
                     } else {
-                        adapter.clear();
+                        adapter.clear(); if (isLocationPermission()) {
+                            location = new SimpleLocation(this);
+                            if (!location.hasLocationEnabled()) {
+                                SimpleLocation.openSettings(this);
+                            }
+                            if(location!=null){
+                                latitude = location.getLatitude();
+                                longitude = location.getLongitude();
+                                adapter = new BookshelfAdapter(MainActivity.this, punkty);
+                            }
+                            location.beginUpdates();
+
+                        } else {
+                            Toast.makeText(MainActivity.this, getResources().getString(R.string.l_permission), Toast.LENGTH_SHORT).show();
+                            adapter.clear();
+                            adapter.notifyDataSetChanged();
+                            requestPermission();
+                        }
                         adapter.notifyDataSetChanged();
                         Toast.makeText(MainActivity.this, this.getResources().getString(R.string.l_permission), Toast.LENGTH_LONG).show();
                     }

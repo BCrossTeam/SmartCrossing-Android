@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sample="http://schemas.android.com/apk/res-auto">>
+
+
+           <CheckBoxPreference android:title="@string/change_units" android:key="unit"
+               android:summary="km"/>
+
+    <CheckBoxPreference android:title="@string/show_points" android:key="cam_focus"
+        android:summary="@string/p_nearest"/>
+
+    <com.futurologeek.smartcrossing.seekbar.SeekBarPreference
+        android:key="radius"
+        android:title="@string/set_radius"
+        android:summary="@string/of_searching_bs"
+        sample:msbp_dialogEnabled="false"
+        android:defaultValue="30"
+        sample:msbp_minValue="5"
+        sample:msbp_maxValue="160"
+        sample:msbp_interval="1"
+        sample:msbp_measurementUnit="km"
+        />
+
+
+
+</PreferenceScreen>
+
+
