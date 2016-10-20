@@ -18,7 +18,7 @@
     <string name="gtrank">Go to ranking:</string>
     <string name="distance">Distance: </string>
     <string name="added_by">Added by:</string>
-    <string name="books_null">This bookshelf doesn\'t have books yet</string>
+    <string name="books_null">There is no books here</string>
     <string name="set_category">Choose category</string>
     <string name="set_date">Choose date od Release</string>
     <string name="cat">Category: </string>

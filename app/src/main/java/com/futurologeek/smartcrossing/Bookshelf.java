@@ -1,10 +1,13 @@
 package com.futurologeek.smartcrossing;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -18,6 +21,7 @@ public class Bookshelf {
     float distance;
     BookshelfAdapter.ViewHolder holder;
     BookshelfAdapter adapter;
+    boolean isKM;
 
 
     public Bookshelf(int id, String name, double latitude, double longitude, int bookcount){
@@ -66,10 +70,19 @@ public class Bookshelf {
         this.bookcount = newcount;
     }
 
-    void setDistance(double latitude, double longitude){
+    void setDistance(double latitude, double longitude, Context context){
         float[] results = new float[1];
+        SharedPreferences preferences = context.getSharedPreferences(Constants.shared, Context.MODE_PRIVATE);
+
+        isKM = preferences.getBoolean("isKM",true);
+
         Location.distanceBetween(latitude, longitude, getLatitude(), getLongitude(), results);
-        distance = results[0];
+        if(isKM){
+            distance = (results[0]/1000);
+        } else {
+            distance = (float) ((results[0])/1000/1.6);
+        }
+
 
     }
 
@@ -80,8 +93,17 @@ public class Bookshelf {
 
        //setDistance(latitude, longitude);
 
+        SharedPreferences preferences = context.getSharedPreferences(Constants.shared, Context.MODE_PRIVATE);
+
+        isKM = preferences.getBoolean("isKM",true);
+
         NumberFormat formatter = new DecimalFormat("#0.00");
-        holder.distanceTextView.setText(String.valueOf(formatter.format(distance/1000))+" km");
+        if(isKM){
+            holder.distanceTextView.setText(String.valueOf(formatter.format(distance))+" km");
+        } else {
+            holder.distanceTextView.setText(String.valueOf(formatter.format(distance))+" "+context.getResources().getString(R.string.mile));
+        }
+
 
         holder.placeName.setText(getNamePlace());
         holder.bookcount.setText(context.getResources().getString(R.string.b_count) + " " + getBookcount());

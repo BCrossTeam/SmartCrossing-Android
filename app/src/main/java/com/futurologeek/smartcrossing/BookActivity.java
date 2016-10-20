@@ -1,5 +1,6 @@
 package com.futurologeek.smartcrossing;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -84,6 +85,17 @@ public class BookActivity extends AppCompatActivity {
                             dateTextView.setText(getResources().getString(R.string.year)+" "+pub_date);
                             isbnTextView.setText(getResources().getString(R.string.isbn)+" "+ISBN);
                             addedByTextView.setText(getResources().getString(R.string.added_by)+" "+creator_id);
+                            visitProfile.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent i = new Intent(BookActivity.this, ProfileActivity.class);
+                                    //Todo: Pobieranie user id
+                                    Bundle koszyk = new Bundle();
+                                    koszyk.putString("u_id", String.valueOf(creator_id));
+                                    i.putExtras(koszyk);
+                                    startActivity(i);
+                                }
+                            });
                         }
                     });
 

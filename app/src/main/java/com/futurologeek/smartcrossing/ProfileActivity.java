@@ -1,11 +1,14 @@
 package com.futurologeek.smartcrossing;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -130,7 +133,7 @@ public class ProfileActivity extends AppCompatActivity {
             HttpHandler sh = new HttpHandler();
 
             // Making a request to url and getting response
-            String jsonStr = sh.makeServiceCall(Constants.user_url+Constants.uid+"/book");
+            String jsonStr = sh.makeServiceCall(Constants.user_url+id+"/book");
 
             Log.e("tag", "Response from url: " + jsonStr);
 
@@ -150,16 +153,27 @@ public class ProfileActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                        for(Book k: user_books){
-                            View child = View.inflate(ProfileActivity.this, R.layout.book_list_item_in_bookshelf, null);
-                            TextView title = (TextView) child.findViewById(R.id.title_textview);
-                            if(k.getTitle().length()>18){
-                                title.setText(k.getTitle().substring(0, 17)+"...");
+
+                            if(user_books.size()>0){
+                                for(Book k: user_books) {
+                                    View child = View.inflate(ProfileActivity.this, R.layout.book_list_item_in_bookshelf, null);
+                                    TextView title = (TextView) child.findViewById(R.id.title_textview);
+                                    if (k.getTitle().length() > 18) {
+                                        title.setText(k.getTitle().substring(0, 17) + "...");
+                                    } else {
+                                        title.setText(k.getTitle());
+                                    }
+                                    tableToInflejt.addView(child);
+                                    CustomOnClickListener list = new CustomOnClickListener(k, child);
+                                    list.setListener();
+                                }
                             } else {
-                                title.setText(k.getTitle());
+                                LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService
+                                        (Context.LAYOUT_INFLATER_SERVICE);
+                                View view = inflater.inflate(R.layout.no_books, null);
+                                tableToInflejt.addView(view);
                             }
-                            tableToInflejt.addView(child);
-                        }
+
                         }
                     });
 
@@ -192,5 +206,29 @@ public class ProfileActivity extends AppCompatActivity {
 
             return null;
         }
+    }
+
+    public class CustomOnClickListener {
+        Book ks;
+        View v;
+
+        public CustomOnClickListener(Book ks, View v) {
+            this.ks = ks;
+            this.v = v;
+        }
+
+        public void setListener(){
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle b = new Bundle();
+                    b.putInt("ajdi", ks.getId());
+                    Intent i = new Intent(ProfileActivity.this,BookActivity.class);
+                    i.putExtras(b);
+                    startActivity(i);
+                }
+            });
+        }
+
     }
 }

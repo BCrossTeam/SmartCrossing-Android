@@ -7,6 +7,7 @@ import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.futurologeek.smartcrossing.seekbar.SeekBarPreference;
 
@@ -16,6 +17,7 @@ public class SettingsActivity extends PreferenceActivity {
     CheckBoxPreference units;
     CheckBoxPreference camFocus;
     SeekBarPreference radius;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,13 +25,14 @@ public class SettingsActivity extends PreferenceActivity {
         addPreferencesFromResource(R.xml.activity_settings);
         instance = this;
         SharedPreferences preferences = getSharedPreferences(Constants.shared, Context.MODE_PRIVATE);
-        final SharedPreferences.Editor editor = preferences.edit();
+        editor = preferences.edit();
 
 
        units    = (CheckBoxPreference) findPreference("unit");
        camFocus = (CheckBoxPreference) findPreference("cam_focus");
        radius = (SeekBarPreference) findPreference("radius");
-        units.setChecked(preferences.getBoolean("isKM",false));
+
+       // units.setChecked(preferences.getBoolean("isKM",false));
         if(units.isChecked()){
             units.setSummary(getResources().getString(R.string.mile));
             radius.setMeasurementUnit(getResources().getString(R.string.mile));
@@ -42,7 +45,7 @@ public class SettingsActivity extends PreferenceActivity {
             radius.setCurrentValue((int) (radius.getCurrentValue()*1.60));
         }
 
-        camFocus.setChecked(preferences.getBoolean("isPoint",false));
+       //camFocus.setChecked(preferences.getBoolean("isPoint",true));
         if(camFocus.isChecked()){
             camFocus.setSummary(getResources().getString(R.string.P_all));
         } else {
@@ -64,20 +67,27 @@ public class SettingsActivity extends PreferenceActivity {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 if (newValue.toString().equals("true")) {
+                    units.setChecked(false);
+                    units.setChecked(true);
                     preference.setSummary(getResources().getString(R.string.mile));
                     radius.setMeasurementUnit(getResources().getString(R.string.mile));
                     radius.setMaxValue(100);
                     radius.setCurrentValue((int) (radius.getCurrentValue()/1.60));
-                    editor.putBoolean("isKM", false);
+                    editor.putInt("radius", radius.getCurrentValue());
                     editor.apply();
+
                 } else {
                     preference.setSummary(getResources().getString(R.string.km));
-                    editor.putBoolean("isKM", true);
+                    units.setChecked(true);
+                    units.setChecked(false);
                     radius.setMeasurementUnit(getResources().getString(R.string.km));
                     radius.setMaxValue(160);
                     radius.setCurrentValue((int) (radius.getCurrentValue()*1.60));
+                    editor.putInt("radius", radius.getCurrentValue());
                     editor.apply();
                 }
+                editor.putBoolean("isKM", !(Boolean) newValue);
+                editor.commit();
                 return true;
             }
         });
@@ -87,14 +97,12 @@ public class SettingsActivity extends PreferenceActivity {
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 if (newValue.toString().equals("true")) {
                     preference.setSummary(getResources().getString(R.string.P_all));
-                    editor.putBoolean("isPoint", false);
-                    editor.apply();
                 } else {
                     preference.setSummary(getResources().getString(R.string.near_points));
-                    editor.putBoolean("isPoint", true);
-                    editor.apply();
                 }
-                return true;
+                editor.putBoolean("isPoint", (Boolean) newValue);
+                editor.commit();
+            return true;
             }
         });
     }

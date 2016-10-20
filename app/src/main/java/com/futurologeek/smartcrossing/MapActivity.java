@@ -1,6 +1,8 @@
 package com.futurologeek.smartcrossing;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -36,6 +38,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 
@@ -85,13 +88,19 @@ public class MapActivity extends FragmentActivity {
 
         @Override
         public View getInfoContents(Marker marker) {
+            SharedPreferences preferences = getSharedPreferences(Constants.shared, Context.MODE_PRIVATE);
             SimpleLocation loc = new SimpleLocation(MapActivity.this);
             pos =  loc.calculateDistance(marker.getPosition().latitude, marker.getPosition().longitude, lat, longi);
             // Toast.makeText(MapActivity.this, lat + " " + longi, Toast.LENGTH_SHORT).show();
             TextView tvTitle = ((TextView)myContentsView.findViewById(R.id.title));
             tvTitle.setText(marker.getTitle());
             TextView tvDistance = ((TextView)myContentsView.findViewById(R.id.distance));
-            tvDistance.setText(getResources().getString(R.string.distance) +  formatter.format(pos/1000)+" km");
+            if(preferences.getBoolean("isKM",false)){
+                tvDistance.setText(getResources().getString(R.string.distance) +  formatter.format(pos/1000)+" km");
+            } else {
+                tvDistance.setText(getResources().getString(R.string.distance) +  formatter.format((pos/1000)/1.6) +getResources().getString(R.string.mile));
+            }
+
             TextView bookCount = ((TextView)myContentsView.findViewById(R.id.bookcount));
             return myContentsView;
 
@@ -165,18 +174,40 @@ public class MapActivity extends FragmentActivity {
                                             loc = new LatLng (lat, longi);
 
                                             for(Bookshelf pkt : punkty){
-                                                pkt.setDistance(lat, longi);
+                                                pkt.setDistance(lat, longi, MapActivity.this);
                                             }
 
-                                            sortList();
-                                            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                                            SharedPreferences preferences = getSharedPreferences(Constants.shared, Context.MODE_PRIVATE);
 
-                                            builder.include(new LatLng(punkty.get(0).getLatitude(), punkty.get(0).getLongitude()));
-                                            builder.include(new LatLng(loc.latitude, loc.longitude));
-                                            LatLngBounds bounds = builder.build();
-                                            int padding = 200; // offset from edges of the map in pixels
-                                            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
-                                            mMap.animateCamera(cu);
+                                            for (Iterator<Bookshelf> iter = punkty.listIterator(); iter.hasNext(); ) {
+                                                Bookshelf a = iter.next();
+                                                if (a.getDistance()>preferences.getInt("radius",30)) {
+                                                    // Toast.makeText(MainActivity.this, "Za duzy dist"+a.getDistance()+" max "+preferences.getInt("radius",30), Toast.LENGTH_SHORT).show();
+                                                    iter.remove();
+                                                }
+                                            }
+
+                                            if(preferences.getBoolean("isPoint",false)){
+                                                LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                                                for(Bookshelf pkt : punkty){
+                                                    builder.include(new LatLng(pkt.getLatitude(), pkt.getLongitude()));
+                                                }
+                                                builder.include(new LatLng(loc.latitude, loc.longitude));
+                                                LatLngBounds bounds = builder.build();
+                                                int padding = 200; // offset from edges of the map in pixels
+                                                CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+                                                mMap.animateCamera(cu);
+                                            } else {
+                                               sortList();
+                                                LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                                                builder.include(new LatLng(punkty.get(0).getLatitude(), punkty.get(0).getLongitude()));
+                                                builder.include(new LatLng(loc.latitude, loc.longitude));
+                                                LatLngBounds bounds = builder.build();
+                                                int padding = 200; // offset from edges of the map in pixels
+                                                CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+                                                mMap.animateCamera(cu);
+                                            }
+
                                         }
                                         firstFit = true;
                                     }

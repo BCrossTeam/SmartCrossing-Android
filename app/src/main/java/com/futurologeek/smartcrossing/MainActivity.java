@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.app.usage.NetworkStats;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -20,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -39,6 +41,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 
 import im.delight.android.location.SimpleLocation;
 
@@ -50,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     TableRow profile;
     ArrayList<Bookshelf> punkty = new ArrayList<Bookshelf>();
     final Activity activity = this;
-
+    Boolean nextResume = false;
     ImageView plus;
     TableRow mapview;
     SimpleLocation location;
@@ -113,6 +116,8 @@ public class MainActivity extends AppCompatActivity {
         }
         if(latitude==0||longitude==0){
             getLoc();
+        } else {
+            new GetContacts().execute();
         }
     }
 
@@ -132,8 +137,11 @@ public class MainActivity extends AppCompatActivity {
                 longitude = location.getLongitude();
                 adapter = new BookshelfAdapter(MainActivity.this, punkty);
             }
-            location.beginUpdates();
-
+                if(nextResume){
+                    new GetContacts().execute();
+                } else {
+                    nextResume = true;
+                }
         } else {
             Toast.makeText(MainActivity.this, getResources().getString(R.string.l_permission), Toast.LENGTH_SHORT).show();
             adapter.clear();
@@ -141,13 +149,16 @@ public class MainActivity extends AppCompatActivity {
             requestPermission();
         }
 
+
+
     }
 
     @Override
     protected void onPause() {
         if (isLocationPermission()) {
             location.endUpdates();
-
+            adapter.clear();
+            adapter.notifyDataSetChanged();
         } else {
             Toast.makeText(MainActivity.this, getResources().getString(R.string.l_permission), Toast.LENGTH_SHORT).show();
             adapter.clear();
@@ -321,11 +332,23 @@ public class MainActivity extends AppCompatActivity {
                             adapter.notifyDataSetChanged();
                             if(longitude==0||latitude==0){
                                 getLoc();
-                            }
-                            for(Bookshelf pl:punkty){
-                                    pl.setDistance(latitude, longitude);
-                                     }
+                                return;
+                            } else {
+                                for(Bookshelf pl:punkty){
+                                    pl.setDistance(latitude, longitude, MainActivity.this);
+                                }
+                                SharedPreferences preferences = getSharedPreferences(Constants.shared, Context.MODE_PRIVATE);
+
+
+                                for (Iterator<Bookshelf> iter = punkty.listIterator(); iter.hasNext(); ) {
+                                    Bookshelf a = iter.next();
+                                    if (a.getDistance()>preferences.getInt("radius",30)) {
+                                       // Toast.makeText(MainActivity.this, "Za duzy dist"+a.getDistance()+" max "+preferences.getInt("radius",30), Toast.LENGTH_SHORT).show();
+                                        iter.remove();
+                                    }
+                                }
                                 sortList();
+                            }
                             }
                         });
 

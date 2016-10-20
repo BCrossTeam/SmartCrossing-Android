@@ -6,10 +6,12 @@
 
 
            <CheckBoxPreference android:title="@string/change_units" android:key="unit"
-               android:summary="km"/>
+               android:summary="km"
+               android:defaultValue="true"/>
 
     <CheckBoxPreference android:title="@string/show_points" android:key="cam_focus"
-        android:summary="@string/p_nearest"/>
+        android:summary="@string/p_nearest"
+        android:defaultValue="true"/>
 
     <com.futurologeek.smartcrossing.seekbar.SeekBarPreference
         android:key="radius"
