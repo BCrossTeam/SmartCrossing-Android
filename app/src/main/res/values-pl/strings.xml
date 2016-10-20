@@ -368,6 +368,7 @@
 
     <string name="not_this_book">Kliknij tutaj jeśli to nie jest Twoja książka</string>
     <string name="clear">Wyczyść</string>
+    <string name="gps_turned_off">Błąd: GPS jest wyłączony</string>
 
     <string name="return_book_confirm_1">Jesteś pewien, że chcesz oddać książkę </string>
     <string name="return_book_confirm_2">na tą półkę?</string>

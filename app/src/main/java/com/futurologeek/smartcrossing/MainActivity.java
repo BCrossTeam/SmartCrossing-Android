@@ -68,37 +68,14 @@ public class MainActivity extends AppCompatActivity {
         adapter = new BookshelfAdapter(this, punkty);
         findViews();
         setListeners();
-        if (isLocationPermission()) {
-            location = new SimpleLocation(this);
-
-
-            if(location!=null){
-                latitude = location.getLatitude();
-                longitude = location.getLongitude();
-                adapter = new BookshelfAdapter(MainActivity.this, punkty);
-            }
-            if(NetworkStatus.checkNetworkStatus(this)){
-              new GetContacts().execute();
-            } else {
-                Toast.makeText(this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
-            }
-
-        } else {
-                Toast.makeText(MainActivity.this, getResources().getString(R.string.l_permission), Toast.LENGTH_SHORT).show();
-            adapter.clear();
-            adapter.notifyDataSetChanged();
-            requestPermission();
-        }
-
-
     }
 
     public void getLoc(){
+        location = new SimpleLocation(this);
+        if(!location.hasLocationEnabled()){
+            Toast.makeText(activity, getResources().getString(R.string.gps_turned_off), Toast.LENGTH_SHORT).show();
+        }
         if (isLocationPermission()) {
-            location = new SimpleLocation(this);
-            if (!location.hasLocationEnabled()) {
-                SimpleLocation.openSettings(this);
-            }
             if(location!=null){
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();
@@ -111,11 +88,17 @@ public class MainActivity extends AppCompatActivity {
             adapter.clear();
             adapter.notifyDataSetChanged();
             requestPermission();
+            return;
         }
-        if(latitude==0||longitude==0){
+
+        if((latitude==0||longitude==0)&&(location.hasLocationEnabled()&&isLocationPermission())){
             getLoc();
-        } else {
-            new GetContacts().execute();
+        } else if(location.hasLocationEnabled()&&isLocationPermission()&&((latitude!=0||longitude!=0))) {
+            if(NetworkStatus.checkNetworkStatus(this)){
+                new GetContacts().execute();
+            } else {
+                Toast.makeText(this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
+            }
         }
     }
 
@@ -123,46 +106,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        if (isLocationPermission()) {
-            location = new SimpleLocation(this);
-
-            if(location!=null){
-               // latitude = location.getLatitude();
-              //  longitude = location.getLongitude();
-                latitude = location.getLatitude();
-                longitude = location.getLongitude();
-                adapter = new BookshelfAdapter(MainActivity.this, punkty);
-            }
-                if(nextResume){
-                    new GetContacts().execute();
-                } else {
-                    nextResume = true;
-                }
-        } else {
-            Toast.makeText(MainActivity.this, getResources().getString(R.string.l_permission), Toast.LENGTH_SHORT).show();
-            adapter.clear();
-            adapter.notifyDataSetChanged();
-            requestPermission();
-        }
-
+        getLoc();
 
 
     }
 
     @Override
     protected void onPause() {
-        if (isLocationPermission()) {
-            location.endUpdates();
-            adapter.clear();
-            adapter.notifyDataSetChanged();
-        } else {
-            Toast.makeText(MainActivity.this, getResources().getString(R.string.l_permission), Toast.LENGTH_SHORT).show();
-            adapter.clear();
-            adapter.notifyDataSetChanged();
-            requestPermission();
-        }
-
-        super.onPause();
+    location.endUpdates();
+    adapter.clear();
+    adapter.notifyDataSetChanged();
+    super.onPause();
     }
 
 
@@ -179,71 +133,30 @@ public class MainActivity extends AppCompatActivity {
         booklist = (ListView) findViewById(R.id.book_list);
         settings = (TableRow) findViewById(R.id.settings_button);
         profile = (TableRow) findViewById(R.id.profile_button);
-        plus = (ImageView) findViewById(R.id.add_button);
         mapview = (TableRow) findViewById(R.id.map_button);
         searchEditText = (EditText) findViewById(R.id.search_edit_text);
     }
 
     public void setListeners() {
-        plus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                final Dialog dialog = new Dialog(MainActivity.this);
-                dialog.setContentView(R.layout.add_book_prompt);
-                dialog.setTitle(MainActivity.this.getResources().getString(R.string.select_src));
-                RelativeLayout takePhotoRelative = (RelativeLayout) dialog.findViewById(R.id.add_a);
-                RelativeLayout choosePhotoRelative = (RelativeLayout) dialog.findViewById(R.id.add_m);
-                RelativeLayout addStationRelative = (RelativeLayout) dialog.findViewById(R.id.add_p);
-                takePhotoRelative.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        IntentIntegrator integrator = new IntentIntegrator(activity);
-                        integrator.setDesiredBarcodeFormats(IntentIntegrator.PRODUCT_CODE_TYPES);
-                        integrator.setPrompt("Scan");
-                        integrator.setCameraId(0);
-                        integrator.setBeepEnabled(false);
-                        integrator.setBarcodeImageEnabled(true);
-                        integrator.initiateScan();
-                        dialog.dismiss();
-                    }
-                });
-                searchEditText.setFocusable(true);
 
-                addStationRelative.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent i = new Intent(MainActivity.this, AddPointActivity.class);
-                        startActivity(i);
-                        dialog.dismiss();
-                    }
-                });
-
-                choosePhotoRelative.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent i = new Intent(MainActivity.this, AddBookActivity.class);
-                        startActivity(i);
-                        dialog.dismiss();
-
-                    }
-                });
-                dialog.show();
-
-            }
-        });
 
 
         mapview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(NetworkStatus.checkNetworkStatus(MainActivity.this)){
-                    Intent i = new Intent(MainActivity.this, MapActivity.class);
-                    Bundle koszyk = new Bundle();
-                    koszyk.putBoolean("isPoint", false);
-                    i.putExtras(koszyk);
-                    startActivity(i);
+                if(!location.hasLocationEnabled()){
+                    SimpleLocation.openSettings(MainActivity.this);
+                    return;
                 } else {
-                    Toast.makeText(MainActivity.this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
+                    if (NetworkStatus.checkNetworkStatus(MainActivity.this)) {
+                        Intent i = new Intent(MainActivity.this, MapActivity.class);
+                        Bundle koszyk = new Bundle();
+                        koszyk.putBoolean("isPoint", false);
+                        i.putExtras(koszyk);
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(MainActivity.this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
+                    }
                 }
 
             }
@@ -402,32 +315,7 @@ public class MainActivity extends AppCompatActivity {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if (isLocationPermission()) {
-                        if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                            Log.d("Pointless statement", "This statement is useless but android requires it to work properly");
-                        }
-                        new GetContacts().execute();
-                    } else {
-                        adapter.clear(); if (isLocationPermission()) {
-                            location = new SimpleLocation(this);
-
-
-                            if(location!=null){
-                                latitude = location.getLatitude();
-                                longitude = location.getLongitude();
-                                adapter = new BookshelfAdapter(MainActivity.this, punkty);
-                            }
-                            location.beginUpdates();
-
-                        } else {
-                            Toast.makeText(MainActivity.this, getResources().getString(R.string.l_permission), Toast.LENGTH_SHORT).show();
-                            adapter.clear();
-                            adapter.notifyDataSetChanged();
-                            requestPermission();
-                        }
-                        adapter.notifyDataSetChanged();
-                        Toast.makeText(MainActivity.this, this.getResources().getString(R.string.l_permission), Toast.LENGTH_LONG).show();
-                    }
+                        getLoc();
                 }
 
 

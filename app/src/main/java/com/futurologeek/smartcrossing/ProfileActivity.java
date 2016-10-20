@@ -222,11 +222,16 @@ public class ProfileActivity extends AppCompatActivity {
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Bundle b = new Bundle();
-                    b.putInt("ajdi", ks.getId());
-                    Intent i = new Intent(ProfileActivity.this,BookActivity.class);
-                    i.putExtras(b);
-                    startActivity(i);
+                    if (NetworkStatus.checkNetworkStatus(ProfileActivity.this)) {
+                        Bundle b = new Bundle();
+                        b.putInt("ajdi", ks.getId());
+                        Intent i = new Intent(ProfileActivity.this,BookActivity.class);
+                        i.putExtras(b);
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(ProfileActivity.this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
+                    }
+
                 }
             });
         }

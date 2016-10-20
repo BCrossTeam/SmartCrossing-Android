@@ -74,6 +74,9 @@ public class BookshelfActivity extends FragmentActivity {
         findViews();
         setListeners();
 
+        ToolbarHandler handler = new ToolbarHandler(this, ToolbarHandler.buttonVariation.Main);
+        handler.setListeners();
+
         if (getIntent().getExtras() != null) {
             Bundle przekazanedane = getIntent().getExtras();
             final String nejm = przekazanedane.getString("name");
@@ -134,14 +137,23 @@ public class BookshelfActivity extends FragmentActivity {
         borrowBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new getUserBooks(true).execute();
+                if (NetworkStatus.checkNetworkStatus(BookshelfActivity.this)) {
+                    new getUserBooks(true).execute();
+                } else {
+                    Toast.makeText(BookshelfActivity.this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
         returnBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new getUserBooks(false).execute();
+                if (NetworkStatus.checkNetworkStatus(BookshelfActivity.this)) {
+                    new getUserBooks(false).execute();
+                } else {
+                    Toast.makeText(BookshelfActivity.this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -349,11 +361,16 @@ public class BookshelfActivity extends FragmentActivity {
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Bundle b = new Bundle();
-                    b.putInt("ajdi", ks.getId());
-                    Intent i = new Intent(BookshelfActivity.this,BookActivity.class);
-                    i.putExtras(b);
-                    startActivity(i);
+                    if (NetworkStatus.checkNetworkStatus(BookshelfActivity.this)) {
+                        Bundle b = new Bundle();
+                        b.putInt("ajdi", ks.getId());
+                        Intent i = new Intent(BookshelfActivity.this,BookActivity.class);
+                        i.putExtras(b);
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(BookshelfActivity.this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
+                    }
+
                 }
             });
         }
