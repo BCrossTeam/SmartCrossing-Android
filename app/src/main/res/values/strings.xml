@@ -24,7 +24,6 @@
     <string name="cat">Category: </string>
     <string name="isbn">ISBN: </string>
     <string name="visit_profile">Visit profile </string>
-    <string name="main_act">Home</string>
 
     <string name="borrow_book">Borrow book</string>
     <string name="return_book">Return book</string>
@@ -363,7 +362,7 @@
     <string name="new_friend_request">New friend request</string>
     <string name="friend_request_accepted">Friend request accepted</string>
     <string name="friend_request_rejected">Friend request rejected</string>
-
+    <string name="main_act">Home screen</string>
     <string name="crop_your_photo">Crop your photo</string>
     <string name="take_your_photo">Take photo</string>
     <string name="choose_source">Choose source</string>
@@ -389,7 +388,7 @@
 
 
     <string name="wrong_date">Are you sure that published date is </string>
-
+    <string name="books">Books:</string>
     <string name="acc_not_activated">Account not activated, would you like to resend activation e-mail?</string>
     <string name="acc_deactivated">Account deactivated, would you like to send reactivation e-mail?</string>
 
@@ -509,7 +508,6 @@
 
     <string name="p_nearest">Nearest</string>
     <string name="P_all">All in radius</string>
-
 
 
     <string name="of_searching_bs">of searching bookshelves</string>
