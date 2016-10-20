@@ -30,6 +30,8 @@ public class BookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book);
         findViews();
+        ToolbarHandler handler = new ToolbarHandler(this, ToolbarHandler.buttonVariation.Main);
+        handler.setListeners();
 
         if(getIntent().getExtras()!=null) {
             Bundle przekazanedane = getIntent().getExtras();
@@ -88,12 +90,18 @@ public class BookActivity extends AppCompatActivity {
                             visitProfile.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Intent i = new Intent(BookActivity.this, ProfileActivity.class);
-                                    //Todo: Pobieranie user id
-                                    Bundle koszyk = new Bundle();
-                                    koszyk.putString("u_id", String.valueOf(creator_id));
-                                    i.putExtras(koszyk);
-                                    startActivity(i);
+                                    if (NetworkStatus.checkNetworkStatus(BookActivity.this)) {
+                                        Intent i = new Intent(BookActivity.this, ProfileActivity.class);
+                                        //Todo: Pobieranie user id
+                                        Bundle koszyk = new Bundle();
+                                        koszyk.putString("u_id", String.valueOf(creator_id));
+                                        i.putExtras(koszyk);
+                                        startActivity(i);
+                                        finish();
+                                    } else {
+                                        Toast.makeText(BookActivity.this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
+                                    }
+
                                 }
                             });
                         }

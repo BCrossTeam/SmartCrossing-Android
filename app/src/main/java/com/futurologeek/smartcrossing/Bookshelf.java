@@ -12,6 +12,8 @@ import android.widget.Toast;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
+import im.delight.android.location.SimpleLocation;
+
 public class Bookshelf {
     private String name;
     private int bookcount;
@@ -111,6 +113,11 @@ public class Bookshelf {
         holder.location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SimpleLocation location = new SimpleLocation(context);
+                if(!location.hasLocationEnabled()){
+                    Toast.makeText(context, context.getResources().getString(R.string.gps_turned_off), Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Intent i = new Intent(context, MapActivity.class);
                 Bundle koszyk = new Bundle();
                 koszyk.putBoolean("isPoint",true);
@@ -124,15 +131,20 @@ public class Bookshelf {
         holder.shelf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(context,BookshelfActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putInt("id",getId());
-                bundle.putString("name",getNamePlace());
-                bundle.putDouble("longitude", getLongitude());
-                bundle.putInt("bookcount", getBookcount());
-                bundle.putDouble("latitude", getLatitude());
-                i.putExtras(bundle);
-                context.startActivity(i);
+                if (NetworkStatus.checkNetworkStatus(context)) {
+                    Intent i = new Intent(context,BookshelfActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id",getId());
+                    bundle.putString("name",getNamePlace());
+                    bundle.putDouble("longitude", getLongitude());
+                    bundle.putInt("bookcount", getBookcount());
+                    bundle.putDouble("latitude", getLatitude());
+                    i.putExtras(bundle);
+                    context.startActivity(i);
+                } else {
+                    Toast.makeText(context, context.getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
+                }
+
             }
         });
     }

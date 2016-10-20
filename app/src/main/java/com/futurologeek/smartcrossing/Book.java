@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.View;
+import android.widget.Toast;
 
 public class Book {
     String title;
@@ -44,64 +45,75 @@ public class Book {
         this.holder = holder;
         this.adapter = adapter;
 
+
         if(!isBorrow){
             holder.whole.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    builder.setCancelable(false);
-                    builder.setTitle(context.getResources().getString(R.string.confirm));
-                    builder.setMessage(context.getResources().getString(R.string.return_book_confirm_1)+" \""+getTitle()+ "\" " + context.getResources().getString(R.string.return_book_confirm_2));
+                    if (NetworkStatus.checkNetworkStatus(context)) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        builder.setCancelable(false);
+                        builder.setTitle(context.getResources().getString(R.string.confirm));
+                        builder.setMessage(context.getResources().getString(R.string.return_book_confirm_1)+" \""+getTitle()+ "\" " + context.getResources().getString(R.string.return_book_confirm_2));
 
-                    builder.setPositiveButton(context.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+                        builder.setPositiveButton(context.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
 
-                        public void onClick(DialogInterface dialog, int which) {
-                            //Todo: dodaj ksiazke do półki
-                            dialog.dismiss();
-                            return;
-                        }
-                    });
+                            public void onClick(DialogInterface dialog, int which) {
+                                //Todo: dodaj ksiazke do półki
+                                dialog.dismiss();
+                                return;
+                            }
+                        });
 
-                    builder.setNegativeButton(context.getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+                        builder.setNegativeButton(context.getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
 
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    AlertDialog alert = builder.create();
-                    alert.setCancelable(false);
-                    alert.show();
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        AlertDialog alert = builder.create();
+                        alert.setCancelable(false);
+                        alert.show();
+                    } else {
+                        Toast.makeText(context, context.getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
+                    }
+
                 }
             });
         } else {
             holder.whole.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    builder.setCancelable(false);
-                    builder.setTitle(context.getResources().getString(R.string.confirm));
-                    builder.setMessage(context.getResources().getString(R.string.borrow_book_confirm_1)+" \""+getTitle()+ "\" " + context.getResources().getString(R.string.borrow_book_confirm_2));
+                    if (NetworkStatus.checkNetworkStatus(context)) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        builder.setCancelable(false);
+                        builder.setTitle(context.getResources().getString(R.string.confirm));
+                        builder.setMessage(context.getResources().getString(R.string.borrow_book_confirm_1)+" \""+getTitle()+ "\" " + context.getResources().getString(R.string.borrow_book_confirm_2));
 
-                    builder.setPositiveButton(context.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+                        builder.setPositiveButton(context.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
 
-                        public void onClick(DialogInterface dialog, int which) {
-                            //Todo: Wypożycz książkę z półki
-                            dialog.dismiss();
-                            return;
-                        }
-                    });
+                            public void onClick(DialogInterface dialog, int which) {
+                                //Todo: Wypożycz książkę z półki
+                                dialog.dismiss();
+                                return;
+                            }
+                        });
 
-                    builder.setNegativeButton(context.getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+                        builder.setNegativeButton(context.getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
 
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    AlertDialog alert = builder.create();
-                    alert.setCancelable(false);
-                    alert.show();
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        AlertDialog alert = builder.create();
+                        alert.setCancelable(false);
+                        alert.show();
+                    } else {
+                        Toast.makeText(context, context.getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
+                    }
+
                 }
             });
 

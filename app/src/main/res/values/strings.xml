@@ -386,6 +386,10 @@
     <string name="borrow_book_confirm_1">Are you sure you want to borrow book </string>
     <string name="borrow_book_confirm_2">from that bookshelf?</string>
 
+    <string name="gps_turned_off">Error: GPS turned off</string>
+
+
+    <string name="books">Books:</string>
 
     <string name="wrong_date">Are you sure that published date is </string>
     <string name="books">Books:</string>
