@@ -26,7 +26,8 @@
     <string name="visit_profile">Visit profile </string>
     <string name="main_act">Home</string>
 
-
+    <string name="borrow_book">Borrow book</string>
+    <string name="return_book">Return book</string>
 
 
     <!-- Stringi dziedziczone -->
@@ -380,8 +381,13 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="book_without_content">Are you sure you want to add book without cover?</string>
+
     <string name="return_book_confirm_1">Are you sure you want to add book </string>
     <string name="return_book_confirm_2">to  this bookshelf?</string>
+    <string name="borrow_book_confirm_1">Are you sure you want to borrow book </string>
+    <string name="borrow_book_confirm_2">from that bookshelf?</string>
+
+
     <string name="wrong_date">Are you sure that published date is </string>
 
     <string name="acc_not_activated">Account not activated, would you like to resend activation e-mail?</string>

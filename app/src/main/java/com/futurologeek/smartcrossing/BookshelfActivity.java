@@ -27,6 +27,9 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.api.services.books.Books;
+import com.google.api.services.books.model.*;
+import com.google.zxing.integration.android.IntentIntegrator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -66,6 +69,7 @@ public class BookshelfActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_activity_bookshelf);
+        bookListAdapter = new BookListAdapter(BookshelfActivity.this, user_books, false);
         findViews();
         setListeners();
         if (NetworkStatus.checkNetworkStatus(this)) {
@@ -119,7 +123,28 @@ public class BookshelfActivity extends FragmentActivity {
     }
 
     public void chooseBookDialog() {
-        new getUserBooks().execute();
+
+        final Dialog dialog = new Dialog(BookshelfActivity.this);
+        dialog.setContentView(R.layout.return_or_borrow_prompt);
+        dialog.setTitle(BookshelfActivity.this.getResources().getString(R.string.select_src));
+        RelativeLayout borrowBook = (RelativeLayout) dialog.findViewById(R.id.borrow_book);
+        RelativeLayout returnBook = (RelativeLayout) dialog.findViewById(R.id.return_book);
+        borrowBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new getUserBooks(true).execute();
+            }
+        });
+
+        returnBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new getUserBooks(false).execute();
+            }
+        });
+
+        dialog.show();
+
     }
 
     class GetContacts extends AsyncTask<Void, Void, Void> {
@@ -221,7 +246,12 @@ public class BookshelfActivity extends FragmentActivity {
     }
 
     class getUserBooks extends AsyncTask<Void, Void, Void> {
+        Boolean isBorrow;
 
+        public getUserBooks(Boolean isBorrow){
+            super();
+            this.isBorrow = isBorrow;
+        }
         @Override
         protected void onPreExecute() {
 
@@ -230,25 +260,36 @@ public class BookshelfActivity extends FragmentActivity {
         @Override
         protected Void doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
+            String jsonStr;
+            if(!isBorrow){
+                jsonStr = sh.makeServiceCall(Constants.user_url + Constants.uid + "/book");
+            } else {
+                jsonStr = sh.makeServiceCall(Constants.bookshelf_url + ajdi + "/book");
+            }
 
-            // Making a request to url and getting response
-            String jsonStr = sh.makeServiceCall(Constants.user_url + Constants.uid + "/book");
 
             Log.e("tag", "Response from url: " + jsonStr);
 
             if (jsonStr != null) {
                 try {
-                    JSONObject jsonObj = new JSONObject(jsonStr);
-                    JSONArray contacts = jsonObj.getJSONArray("user_borrowed_books");
-                    user_books.clear();
-                    for (int i = 0; i < contacts.length(); i++) {
-                        JSONObject c = contacts.getJSONObject(i);
-                        final String title = c.getString("book_title");
-                        final int id = c.getInt("book_id");
-                        final String author = c.getString("book_author");
-                        Book ksiazka = new Book(id, title, author);
-                        user_books.add(ksiazka);
-                    }
+                        JSONObject jsonObj = new JSONObject(jsonStr);
+                        JSONArray contacts;
+                        if(!isBorrow){
+                           contacts = jsonObj.getJSONArray("user_borrowed_books");
+                        } else {
+                            contacts = jsonObj.getJSONArray("bookshelf_books");
+                        }
+
+                        user_books.clear();
+
+                        for (int i = 0; i < contacts.length(); i++) {
+                            JSONObject c = contacts.getJSONObject(i);
+                            final String title = c.getString("book_title");
+                            final int id = c.getInt("book_id");
+                            final String author = c.getString("book_author");
+                            Book ksiazka = new Book(id, title, author);
+                            user_books.add(ksiazka);
+                        }
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -256,7 +297,12 @@ public class BookshelfActivity extends FragmentActivity {
                             dialog.setContentView(R.layout.add_book_dialog);
                             dialog.setTitle(getResources().getString(R.string.b_add));
                             ListView lista = (ListView) dialog.findViewById(R.id.listView);
-                            bookListAdapter = new BookListAdapter(BookshelfActivity.this, user_books);
+                            if(isBorrow){
+                                bookListAdapter = new BookListAdapter(BookshelfActivity.this, user_books, true);
+                            } else {
+                                bookListAdapter = new BookListAdapter(BookshelfActivity.this, user_books, false);
+                            }
+
                             lista.setAdapter(bookListAdapter);
                             dialog.show();
                         }

@@ -15,10 +15,12 @@ import java.util.ArrayList;
 public class BookListAdapter extends ArrayAdapter<Book> {
     private final Context context;
     private final ArrayList<Book> itemsArrayList;
+    private Boolean isBorrow = false;
 
-    public BookListAdapter(Context context, ArrayList<Book> itemsArrayList) {
+    public BookListAdapter(Context context, ArrayList<Book> itemsArrayList, Boolean isBorrow) {
         super(context, R.layout.book_list_template, itemsArrayList);
         this.context = context;
+        this.isBorrow = isBorrow;
         this.itemsArrayList = itemsArrayList;
     }
 
@@ -39,7 +41,7 @@ public class BookListAdapter extends ArrayAdapter<Book> {
             holder.tvtitle.setText(getItem(position).getTitle());
             holder.tvauthor.setText(getItem(position).getAuthor());
             holder.ivimage.setImageResource(R.drawable.nocover);
-            getItem(position).setListeners(holder, this, context);
+            getItem(position).setListeners(holder, this, context, isBorrow);
             convertView.setTag(holder);
         }
 

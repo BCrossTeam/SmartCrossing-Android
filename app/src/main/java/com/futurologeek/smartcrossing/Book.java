@@ -40,39 +40,73 @@ public class Book {
         return this.author;
     }
 
-    public void setListeners(final BookListAdapter.ViewHolder holder, BookListAdapter adapter, final Context context) {
+    public void setListeners(final BookListAdapter.ViewHolder holder, BookListAdapter adapter, final Context context, Boolean isBorrow) {
         this.holder = holder;
         this.adapter = adapter;
 
-        holder.whole.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setCancelable(false);
-                builder.setTitle(context.getResources().getString(R.string.confirm));
-                builder.setMessage(context.getResources().getString(R.string.return_book_confirm_1)+" \""+getTitle()+ "\" " + context.getResources().getString(R.string.return_book_confirm_2));
+        if(!isBorrow){
+            holder.whole.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setCancelable(false);
+                    builder.setTitle(context.getResources().getString(R.string.confirm));
+                    builder.setMessage(context.getResources().getString(R.string.return_book_confirm_1)+" \""+getTitle()+ "\" " + context.getResources().getString(R.string.return_book_confirm_2));
 
-                builder.setPositiveButton(context.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+                    builder.setPositiveButton(context.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
 
-                    public void onClick(DialogInterface dialog, int which) {
-                       //Todo: dodaj ksiazke do półki
-                        dialog.dismiss();
-                        return;
-                    }
-                });
+                        public void onClick(DialogInterface dialog, int which) {
+                            //Todo: dodaj ksiazke do półki
+                            dialog.dismiss();
+                            return;
+                        }
+                    });
 
-                builder.setNegativeButton(context.getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+                    builder.setNegativeButton(context.getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
 
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                AlertDialog alert = builder.create();
-                alert.setCancelable(false);
-                alert.show();
-            }
-        });
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    AlertDialog alert = builder.create();
+                    alert.setCancelable(false);
+                    alert.show();
+                }
+            });
+        } else {
+            holder.whole.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setCancelable(false);
+                    builder.setTitle(context.getResources().getString(R.string.confirm));
+                    builder.setMessage(context.getResources().getString(R.string.borrow_book_confirm_1)+" \""+getTitle()+ "\" " + context.getResources().getString(R.string.borrow_book_confirm_2));
+
+                    builder.setPositiveButton(context.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int which) {
+                            //Todo: Wypożycz książkę z półki
+                            dialog.dismiss();
+                            return;
+                        }
+                    });
+
+                    builder.setNegativeButton(context.getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    AlertDialog alert = builder.create();
+                    alert.setCancelable(false);
+                    alert.show();
+                }
+            });
+
+        }
+
     }
 
 

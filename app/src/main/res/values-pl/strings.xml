@@ -29,6 +29,9 @@
     <string name="l_permission">Dodaj pozwolenie na lokalizacje aby korzystać z aplikacji</string>
     <string name="books_null">Nie ma tu jeszcze książek</string>
 
+    <string name="borrow_book">Wypożycz książkę</string>
+    <string name="return_book">Zwróć książkę</string>
+
 
     <plurals name="hours">
         <item quantity="one">godzina</item>
@@ -368,6 +371,9 @@
 
     <string name="return_book_confirm_1">Jesteś pewien, że chcesz oddać książkę </string>
     <string name="return_book_confirm_2">na tą półkę?</string>
+    <string name="borrow_book_confirm_1">Jesteś pewien, że wypożyczyć książkę </string>
+    <string name="borrow_book_confirm_2">z tej półki?</string>
+
     <string name="no_network">Błąd: brak połączenia z siecią</string>
 
     <string name="add_point_instruction">Kliknij i przytrzymaj aby dodać,\nby ponowić zrób to jeszcze raz.\nPotem naciśnij \"DODAJ\" </string>
