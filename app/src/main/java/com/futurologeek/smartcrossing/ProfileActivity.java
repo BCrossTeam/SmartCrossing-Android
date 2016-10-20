@@ -36,6 +36,7 @@ public class ProfileActivity extends AppCompatActivity {
         findViews();
         ToolbarHandler handler = new ToolbarHandler(ProfileActivity.this, ToolbarHandler.buttonVariation.Main);
         handler.setListeners();
+
         if(getIntent().getExtras()!=null){
             Bundle przekazanedane = getIntent().getExtras();
             id  = przekazanedane.getString("u_id");

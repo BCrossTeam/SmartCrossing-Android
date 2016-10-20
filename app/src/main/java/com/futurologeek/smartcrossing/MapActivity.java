@@ -71,9 +71,7 @@ public class MapActivity extends FragmentActivity {
             if (isLocationPermission()) {
                 location = new SimpleLocation(MapActivity.this);
 
-                if (!location.hasLocationEnabled()) {
-                    SimpleLocation.openSettings(MapActivity.this);
-                }
+
                 if (location != null) {
                     lat = location.getLatitude();
                     longi = location.getLongitude();
@@ -165,9 +163,7 @@ public class MapActivity extends FragmentActivity {
                                     if(!firstFit){
                                         SimpleLocation simplelocation = new SimpleLocation(MapActivity.this);
 
-                                        if (!simplelocation.hasLocationEnabled()) {
-                                            SimpleLocation.openSettings(MapActivity.this);
-                                        }
+
                                         if (location != null) {
                                             lat = location.getLatitude();
                                             longi = location.getLongitude();
@@ -216,7 +212,7 @@ public class MapActivity extends FragmentActivity {
                             mMap.setOnMyLocationChangeListener(myLocationChangeListener);
 
                             for (Bookshelf l : punkty) {
-                                mMap.addMarker(new MarkerOptions().position(new LatLng(l.getLatitude(), l.getLongitude())).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title(l.getNamePlace()));
+                                mMap.addMarker(new MarkerOptions().position(new LatLng(l.getLatitude(), l.getLongitude())).icon(BitmapDescriptorFactory.fromResource(R.drawable.custom_marker)).title(l.getNamePlace()));
                             }
                         }
                     });
@@ -224,7 +220,7 @@ public class MapActivity extends FragmentActivity {
                     mMap = googleMap;
                     mMap.setInfoWindowAdapter(new MyInfoWindowAdapter());
                     final LatLng cordinates = new LatLng(latitude, longitude);
-                    mMap.addMarker(new MarkerOptions().position(cordinates).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).title(pointname));
+                    mMap.addMarker(new MarkerOptions().position(cordinates).icon(BitmapDescriptorFactory.fromResource(R.drawable.custom_marker)).title(pointname));
                     if (ActivityCompat.checkSelfPermission(MapActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MapActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         // TODO: Consider calling
                         return;

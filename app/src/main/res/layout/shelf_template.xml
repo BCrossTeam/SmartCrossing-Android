@@ -66,7 +66,7 @@
                 <ImageView
                     android:layout_width="@dimen/forty"
                     android:layout_height="@dimen/forty"
-                    app:srcCompat="@drawable/googlelocationico"
+                    app:srcCompat="@drawable/custom_marker_transparent"
                     android:layout_centerInParent="true"
                     android:id="@+id/location_image_view" />
             </RelativeLayout>

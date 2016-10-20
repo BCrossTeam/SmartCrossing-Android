@@ -71,9 +71,7 @@ public class MainActivity extends AppCompatActivity {
         if (isLocationPermission()) {
             location = new SimpleLocation(this);
 
-            if (!location.hasLocationEnabled()) {
-                SimpleLocation.openSettings(this);
-            }
+
             if(location!=null){
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();
@@ -127,9 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (isLocationPermission()) {
             location = new SimpleLocation(this);
-            if (!location.hasLocationEnabled()) {
-                SimpleLocation.openSettings(this);
-            }
+
             if(location!=null){
                // latitude = location.getLatitude();
               //  longitude = location.getLongitude();
@@ -414,9 +410,8 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         adapter.clear(); if (isLocationPermission()) {
                             location = new SimpleLocation(this);
-                            if (!location.hasLocationEnabled()) {
-                                SimpleLocation.openSettings(this);
-                            }
+
+
                             if(location!=null){
                                 latitude = location.getLatitude();
                                 longitude = location.getLongitude();

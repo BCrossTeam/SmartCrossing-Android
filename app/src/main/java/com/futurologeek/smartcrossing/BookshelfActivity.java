@@ -25,6 +25,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.api.services.books.Books;
@@ -72,11 +73,6 @@ public class BookshelfActivity extends FragmentActivity {
         bookListAdapter = new BookListAdapter(BookshelfActivity.this, user_books, false);
         findViews();
         setListeners();
-        if (NetworkStatus.checkNetworkStatus(this)) {
-            new GetContacts().execute();
-        } else {
-            Toast.makeText(this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
-        }
 
         if (getIntent().getExtras() != null) {
             Bundle przekazanedane = getIntent().getExtras();
@@ -88,6 +84,12 @@ public class BookshelfActivity extends FragmentActivity {
             ajdi = przekazanedane.getInt("id");
             tvBookCount.setText(this.getResources().getString(R.string.b_count) + " " + bookcount);
 
+            if (NetworkStatus.checkNetworkStatus(this)) {
+                new GetContacts().execute();
+            } else {
+                Toast.makeText(this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
+            }
+
 
             ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMapAsync(new OnMapReadyCallback() {
                 @RequiresApi(api = Build.VERSION_CODES.M)
@@ -98,7 +100,7 @@ public class BookshelfActivity extends FragmentActivity {
                     googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 15));
                     googleMap.animateCamera(CameraUpdateFactory.zoomIn());
                     googleMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
-                    mMap.addMarker(new MarkerOptions().position(sydney).title(nejm));
+                    mMap.addMarker(new MarkerOptions().position(sydney).title(nejm).icon(BitmapDescriptorFactory.fromResource(R.drawable.custom_marker)));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
                 }
@@ -230,11 +232,6 @@ public class BookshelfActivity extends FragmentActivity {
                                 "Couldn't get json from server. Check LogCat for possible errors!",
                                 Toast.LENGTH_LONG)
                                 .show();
-                        zmiennik++;
-                        if (zmiennik < 5) {
-                            runAsync();
-                        }
-
                         return;
                     }
                 });
