@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.IntegerRes;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -28,7 +29,7 @@ public class ProfileActivity extends AppCompatActivity {
     String id;
     ArrayList<Book> user_books = new ArrayList<Book>();
     TableRow tableToInflejt;
-    TextView rank;
+    RelativeLayout rank;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
         usernametv = (TextView) findViewById(R.id.username_tv);
         scoretv = (TextView) findViewById(R.id.points_tv);
         tableToInflejt = (TableRow) findViewById(R.id.table_to_inflate);
-        rank = (TextView) findViewById(R.id.rank);
+        rank = (RelativeLayout) findViewById(R.id.go_to_ranking);
     }
 
     public void setListeners(){
@@ -63,6 +64,9 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(ProfileActivity.this, RankingActivity.class);
+                Bundle b = new Bundle();
+                b.putInt("u_id", Integer.parseInt(id));
+                i.putExtras(b);
                 startActivity(i);
             }
         });

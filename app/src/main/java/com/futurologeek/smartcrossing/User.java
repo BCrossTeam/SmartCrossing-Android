@@ -23,13 +23,13 @@ public class User {
         this.rankpos = rankpos;
     }
 
-    public void setListeners(final RankAdapter.ViewHolder holder, RankAdapter adapter, final Context context) {
+    public void setListeners(final RankAdapter.ViewHolder holder, RankAdapter adapter, final Context context, int urankId) {
         this.holder = holder;
         this.adapter = adapter;
         holder.user_tv.setText(name);
         holder.points_tv.setText(String.valueOf(points));
         holder.nr_tv.setText(String.valueOf(rankpos));
-        if(id==Constants.uid){
+        if(id==urankId){
             holder.user_tv.setTypeface(null, Typeface.BOLD);
             holder.points_tv.setTypeface(null, Typeface.BOLD);
             holder.nr_tv.setTypeface(null, Typeface.BOLD);

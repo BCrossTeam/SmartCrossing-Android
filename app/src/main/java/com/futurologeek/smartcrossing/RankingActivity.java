@@ -26,13 +26,18 @@ public class RankingActivity extends AppCompatActivity {
     int everyuserindex = -1;
     ListView rank;
     RankAdapter adapter;
+    int urank_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_activity_ranking);
         findViews();
-        new GetContacts().execute();
+        if(getIntent().getExtras()!=null) {
+            Bundle przekazanedane = getIntent().getExtras();
+            urank_id = przekazanedane.getInt("u_id");
+            new GetContacts().execute();
+        }
     }
 
     void findViews(){
@@ -71,7 +76,7 @@ public class RankingActivity extends AppCompatActivity {
                         final int points = c.getInt("user_score");
                         final int id = c.getInt("user_id");
                         everyuserindex = i;
-                        if(id==Constants.uid){
+                        if(id==urank_id){
                             currentuserindex = i;
                         }
                         users.add(new User(id, uname, points, everyuserindex+1));
@@ -88,7 +93,7 @@ public class RankingActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            adapter = new RankAdapter(RankingActivity.this, finalUsers);
+                            adapter = new RankAdapter(RankingActivity.this, finalUsers, urank_id);
                             rank.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
                             name1.setText(users.get(0).name);

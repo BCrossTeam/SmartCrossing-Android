@@ -16,11 +16,13 @@ import java.util.ArrayList;
 public class RankAdapter extends ArrayAdapter<User> {
     private final Context context;
     private final ArrayList<User> itemsArrayList;
+    int urankId;
 
-    public RankAdapter(Context context, ArrayList<User> itemsArrayList) {
+    public RankAdapter(Context context, ArrayList<User> itemsArrayList, int urankId) {
         super(context, R.layout.book_list_template, itemsArrayList);
         this.context = context;
         this.itemsArrayList = itemsArrayList;
+        this.urankId = urankId;
     }
 
     @Override
@@ -37,7 +39,7 @@ public class RankAdapter extends ArrayAdapter<User> {
             holder.user_tv = (TextView) convertView.findViewById(R.id.name_tv);
             holder.points_tv = (TextView) convertView.findViewById(R.id.points_tv);
             holder.whole = (LinearLayout) convertView.findViewById(R.id.whole);
-            getItem(position).setListeners(holder, this, context);
+            getItem(position).setListeners(holder, this, context, urankId);
             convertView.setTag(holder);
         }
 
