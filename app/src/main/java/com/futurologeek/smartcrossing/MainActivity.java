@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new BookshelfAdapter(this, punkty);
         findViews();
         setListeners();
+        super.onResume();
         registerReceiver(broadcastReceiver, new IntentFilter("INTERNET_READY"));
     }
 
@@ -92,13 +93,17 @@ public class MainActivity extends AppCompatActivity {
         location = new SimpleLocation(this);
         if(!location.hasLocationEnabled()){
             Toast.makeText(activity, getResources().getString(R.string.gps_turned_off), Toast.LENGTH_SHORT).show();
+            Log.d("Location_status", "off");
         }
         if (isLocationPermission()) {
+            Log.d("Location_permission", "granted");
             if(location!=null){
+                Log.d("Location!=null", "yes");
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();
                 adapter = new BookshelfAdapter(MainActivity.this, punkty);
             }
+            Log.d("Location_beginupdates", "true");
             location.beginUpdates();
 
         } else {
@@ -123,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         getLoc();
 
 

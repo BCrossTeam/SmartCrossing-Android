@@ -392,7 +392,7 @@
     <string name="your_place">Your place in ranking:</string>
     <string name="points_1">Points:</string>
     <string name="nr">No.</string>
-
+    <string name="l_permission">Add location permission to continue use app</string>
     <string name="unfort_y_ve_no_books">Unfortunately you don\'t have any book</string>
     <string name="unfort_this_bshlf_no_books">Unfortunately this bookshelf doesn\'t have any book</string>
 
