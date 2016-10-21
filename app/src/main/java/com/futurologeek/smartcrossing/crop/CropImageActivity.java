@@ -16,10 +16,12 @@
 
 package com.futurologeek.smartcrossing.crop;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -35,11 +37,15 @@ import android.os.Environment;
 import android.os.Handler;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.futurologeek.smartcrossing.AddBookActivity;
 import com.futurologeek.smartcrossing.R;
 import com.futurologeek.smartcrossing.MonitoredActivityReportingLifeCycle;
 import com.futurologeek.smartcrossing.compressor.Compressor;
@@ -73,6 +79,7 @@ public class CropImageActivity extends MonitoredActivityReportingLifeCycle {
     String cat;
     private Boolean isDirectFilePath;
     private String title;
+    RelativeLayout wholeRelative;
     private String description;
     private String date;
     private String hour;
@@ -93,12 +100,63 @@ public class CropImageActivity extends MonitoredActivityReportingLifeCycle {
         setupWindowFlags();
         setupViews();
         booleanHandler();
+        if (ActivityCompat.checkSelfPermission(CropImageActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestWritePermission();
+        } else {
+            setAll();
+        }
+        }
+
+    public void setAll(){
         loadInput();
         if (rotateBitmap == null) {
             finish();
             return;
         }
         startCrop();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 69: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                   setAll();
+
+                } else {
+
+                   requestWritePermission();
+                }
+                return;
+            }
+
+        }
+    }
+
+
+
+    public void requestWritePermission(){
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            Snackbar.make(wholeRelative, getString(R.string.app_doesnt_have_gallery_permission), Snackbar.LENGTH_LONG)
+                    .setAction(getString(R.string.grant_permission), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            ActivityCompat.requestPermissions(CropImageActivity.this,
+                                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                    69);
+                        }
+                    })
+                    .show();
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    69);
+        }
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -120,6 +178,7 @@ public class CropImageActivity extends MonitoredActivityReportingLifeCycle {
 
     private void setupViews() {
         setContentView(R.layout.crop__activity_crop);
+        wholeRelative = (RelativeLayout) findViewById(R.id.whole_relative);
 
         imageView = (CropImageView) findViewById(R.id.crop_image);
         imageView.context = this;

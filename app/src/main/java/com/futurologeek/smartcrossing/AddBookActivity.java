@@ -55,6 +55,7 @@ public class AddBookActivity extends AppCompatActivity {
     private Uri outputFileUri;
     private Uri file;
     private Uri imageToUploadUri;
+    int yearvalue;
 
     int cyear = Calendar.getInstance().get(Calendar.YEAR);
     @Override
@@ -168,7 +169,18 @@ public class AddBookActivity extends AppCompatActivity {
                     JSONObject c = contacts.getJSONObject(0);
                     JSONObject titleobject = c.getJSONObject("volumeInfo");
                     final String title = titleobject.getString("title");
-                    final String year = titleobject.getString("publishedDate");
+                    final String years = titleobject.getString("publishedDate");
+                    String[] tokens = years.split("-");
+                    boolean firstString = true;
+                    for (String t : tokens){
+                        if(firstString){
+                            yearvalue = Integer.parseInt(t);
+                            firstString=false;
+                        }
+                    }
+
+
+
                     JSONArray arr = titleobject.getJSONArray("authors");
                     for (int j = 0; j < arr.length(); j++) {
                         creators = creators + arr.getString(j);
@@ -176,12 +188,12 @@ public class AddBookActivity extends AppCompatActivity {
                             creators = creators + ", ";
                         }
 
-                        Book ksiazka = new Book(title, creators, year);
+                        Book ksiazka = new Book(title, creators, years);
                         AddBookActivity.this.runOnUiThread(new Runnable() {
                             public void run() {
                                 addTitle.setText(title);
                                 addAuthor.setText(creators);
-
+                                year.setValue(yearvalue);
                                 Snackbar.make(mainLinearLayout, getString(R.string.not_this_book), Snackbar.LENGTH_LONG)
                                         .setAction(getString(R.string.clear), new View.OnClickListener() {
                                             @Override
@@ -313,7 +325,7 @@ public class AddBookActivity extends AppCompatActivity {
                             public void onClick(View view) {
                                 ActivityCompat.requestPermissions(AddBookActivity.this,
                                         new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                                        REQUEST_CAMERA);
+                                        SELECT_PICTURE);
                             }
                         })
                         .show();
@@ -340,6 +352,40 @@ public class AddBookActivity extends AppCompatActivity {
             }
         }
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CAMERA: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                   openImageIntent(true);
+
+                } else {
+
+                    requestCameraPermission(true);
+                }
+                return;
+            }
+
+            case SELECT_PICTURE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    openImageIntent(false);
+                } else {
+
+                    requestCameraPermission(false);
+                }
+                return;
+            }
+            }
+
+        }
+
 
     public void goToCropActivity(boolean itsOkayToBeNull, boolean calendarIsOkay) {
         if(!NetworkStatus.checkNetworkStatus(AddBookActivity.this)) {
