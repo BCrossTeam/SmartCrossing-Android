@@ -118,14 +118,19 @@ public class Bookshelf {
                     Toast.makeText(context, context.getResources().getString(R.string.gps_turned_off), Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Intent i = new Intent(context, MapActivity.class);
-                Bundle koszyk = new Bundle();
-                koszyk.putBoolean("isPoint",true);
-                koszyk.putDouble("longitude", getLongitude());
-                koszyk.putDouble("latitude", getLatitude());
-                koszyk.putString("name", name);
-                i.putExtras(koszyk);
-                context.startActivity(i);
+                if (NetworkStatus.checkNetworkStatus(context)) {
+                    Intent i = new Intent(context, MapActivity.class);
+                    Bundle koszyk = new Bundle();
+                    koszyk.putBoolean("isPoint",true);
+                    koszyk.putDouble("longitude", getLongitude());
+                    koszyk.putDouble("latitude", getLatitude());
+                    koszyk.putString("name", name);
+                    i.putExtras(koszyk);
+                    context.startActivity(i);
+                } else {
+                    Toast.makeText(context, context.getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
+                }
+
             }
         });
         holder.shelf.setOnClickListener(new View.OnClickListener() {

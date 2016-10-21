@@ -33,8 +33,11 @@
     <string name="borrow_book">Wypożycz książkę</string>
     <string name="return_book">Zwróć książkę</string>
     <string name="name">Imię:</string>
-    <string name="points_1">Punkty</string>
+    <string name="points_1">Punkty:</string>
     <string name="nr">Nr</string>
+
+
+
 
     <plurals name="hours">
         <item quantity="one">godzina</item>

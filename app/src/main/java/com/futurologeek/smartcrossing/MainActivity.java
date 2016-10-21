@@ -4,14 +4,18 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.usage.NetworkStats;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -68,6 +72,20 @@ public class MainActivity extends AppCompatActivity {
         adapter = new BookshelfAdapter(this, punkty);
         findViews();
         setListeners();
+        registerReceiver(broadcastReceiver, new IntentFilter("INTERNET_READY"));
+    }
+
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            getLoc();
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(broadcastReceiver);
     }
 
     public void getLoc(){
@@ -214,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
             String jsonStr = sh.makeServiceCall(Constants.bookshelf_url);
 
             Log.e("tag", "Response from url: " + jsonStr);
-
+            punkty.clear();
             if (jsonStr != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(jsonStr);
@@ -237,6 +255,7 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            adapter = new BookshelfAdapter(MainActivity.this, punkty);
                             booklist.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
                             if(longitude==0||latitude==0){
@@ -331,4 +350,22 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+    public static class NetworkChangeReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo wifi = connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+            NetworkInfo mobile = connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+            boolean isConnected = wifi != null && wifi.isConnectedOrConnecting() ||
+                    mobile != null && mobile.isConnectedOrConnecting();
+            if (isConnected) {
+                Log.d("Network Available ", "YES");
+                context.sendBroadcast(new Intent("INTERNET_READY"));
+            } else {
+                Log.d("Network Available ", "NO");
+            }
+        }}
 }
