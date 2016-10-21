@@ -28,12 +28,14 @@ public class ProfileActivity extends AppCompatActivity {
     String id;
     ArrayList<Book> user_books = new ArrayList<Book>();
     TableRow tableToInflejt;
+    TextView rank;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_activity_profile);
         findViews();
+        setListeners();
         ToolbarHandler handler = new ToolbarHandler(ProfileActivity.this, ToolbarHandler.buttonVariation.Main);
         handler.setListeners();
 
@@ -53,6 +55,17 @@ public class ProfileActivity extends AppCompatActivity {
         usernametv = (TextView) findViewById(R.id.username_tv);
         scoretv = (TextView) findViewById(R.id.points_tv);
         tableToInflejt = (TableRow) findViewById(R.id.table_to_inflate);
+        rank = (TextView) findViewById(R.id.rank);
+    }
+
+    public void setListeners(){
+        rank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ProfileActivity.this, RankingActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     class GetContacts extends AsyncTask<Void, Void, Void> {

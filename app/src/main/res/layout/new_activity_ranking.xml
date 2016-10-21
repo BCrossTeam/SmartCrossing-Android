@@ -225,7 +225,7 @@ android:layout_height="wrap_content">
         <RelativeLayout
             android:layout_height="wrap_content"
             android:layout_width="0dp"
-            android:layout_weight="0.15">
+            android:layout_weight="0.20">
 
             <TextView
                 android:text="@string/points_1"
@@ -239,5 +239,10 @@ android:layout_height="wrap_content">
         </RelativeLayout>
 
 </TableRow>
+
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rank_list" />
 
 </LinearLayout>

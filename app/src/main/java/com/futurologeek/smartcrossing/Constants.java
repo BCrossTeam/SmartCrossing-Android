@@ -13,4 +13,6 @@ public class Constants {
     public static final int uid = 8;
     public static final String shared = "com.futurologeek.smartcrossing";
     public static final String fileRoot = Environment.getExternalStorageDirectory() + File.separator + "smartcrossing" + File.separator;
+    public static final int rank_places_before = 5;
+    public static final String user_rank = "https://api.smartcrossing.pl/user/ranking";
 }

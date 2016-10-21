@@ -306,13 +306,25 @@ public class BookshelfActivity extends FragmentActivity {
                             dialog.setContentView(R.layout.add_book_dialog);
                             dialog.setTitle(getResources().getString(R.string.b_add));
                             ListView lista = (ListView) dialog.findViewById(R.id.listView);
-                            if(isBorrow){
-                                bookListAdapter = new BookListAdapter(BookshelfActivity.this, user_books, true);
+                            if(user_books.size()>0){
+                                if(isBorrow){
+                                    bookListAdapter = new BookListAdapter(BookshelfActivity.this, user_books, true);
+                                } else {
+                                    bookListAdapter = new BookListAdapter(BookshelfActivity.this, user_books, false);
+                                }
+                                lista.setAdapter(bookListAdapter);
+                                bookListAdapter.notifyDataSetChanged();
                             } else {
-                                bookListAdapter = new BookListAdapter(BookshelfActivity.this, user_books, false);
+                                ArrayList<String> mess = new ArrayList<String>();
+                                if(!isBorrow){
+                                    mess.add(getResources().getString(R.string.unfort_y_ve_no_books));
+                                } else {
+                                    mess.add(getResources().getString(R.string.unfort_this_bshlf_no_books));
+                                }
+                                MessageAdapter ad = new MessageAdapter(BookshelfActivity.this, mess);
+                                lista.setAdapter(ad);
+                                ad.notifyDataSetChanged();
                             }
-
-                            lista.setAdapter(bookListAdapter);
                             dialog.show();
                         }
                     });
