@@ -170,8 +170,28 @@ public class SignInActivity extends AppCompatActivity {
                     SignInActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if(ob.has("error")){
-                                Toast.makeText(SignInActivity.this, "error", Toast.LENGTH_SHORT).show();
+                            if (ob.has("error")) {
+                                if(ob.has("sub_error")) {
+                                    int sub_error = 0;
+                                    try {
+                                        sub_error = ob.getInt("sub_error");
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    sub_error = sub_error*-1;
+                                    try {
+                                        Toast.makeText(SignInActivity.this, getResources().getString(R.string.JUST_ERROR)+" "+ GetStringCode.getErrorResource(ob.getInt("error"), SignInActivity.this) + getResources().getString(R.string.ADDITIONAL_ERROR_INFO)+" "+ GetStringCode.getErrorResource(sub_error, SignInActivity.this), Toast.LENGTH_SHORT).show();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                } else {
+                                    try {
+                                        Toast.makeText(SignInActivity.this, getResources().getString(R.string.JUST_ERROR) + " " + GetStringCode.getErrorResource(ob.getInt("error"), SignInActivity.this), Toast.LENGTH_SHORT).show();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
                                 //Toast.makeText(SignInActivity.this, signInPassword.getText().toString() + "   "  +signInLogin.getText().toString(), Toast.LENGTH_SHORT).show();
                             } else {
                                 DBHandler db = new DBHandler(SignInActivity.this);

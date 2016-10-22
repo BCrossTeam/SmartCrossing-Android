@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Messenger;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -26,15 +25,11 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.api.services.books.Books;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
@@ -495,15 +490,22 @@ public class AddBookActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 if (ob.has("error")) {
-                                    if(ob.has("sub_error")){
+                                    if(ob.has("sub_error")) {
+                                        int sub_error = 0;
                                         try {
-                                            Toast.makeText(AddBookActivity.this, "error"+ob.getInt("error")+"_"+ob.getInt("sub_error"), Toast.LENGTH_SHORT).show();
+                                            sub_error = ob.getInt("sub_error");
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                        sub_error = sub_error*-1;
+                                        try {
+                                            Toast.makeText(AddBookActivity.this, getResources().getString(R.string.JUST_ERROR)+" "+ GetStringCode.getErrorResource(ob.getInt("error"), AddBookActivity.this) + getResources().getString(R.string.ADDITIONAL_ERROR_INFO)+" "+ GetStringCode.getErrorResource(sub_error, AddBookActivity.this), Toast.LENGTH_SHORT).show();
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
                                     } else {
                                         try {
-                                            Toast.makeText(AddBookActivity.this, "error"+ob.getInt("error"), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(AddBookActivity.this, getResources().getString(R.string.JUST_ERROR) + " " + GetStringCode.getErrorResource(ob.getInt("error"), AddBookActivity.this), Toast.LENGTH_SHORT).show();
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
@@ -511,8 +513,12 @@ public class AddBookActivity extends AppCompatActivity {
 
                                     //Toast.makeText(SignInActivity.this, signInPassword.getText().toString() + "   "  +signInLogin.getText().toString(), Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(AddBookActivity.this, "Success", Toast.LENGTH_SHORT).show();
-
+                                    try {
+                                        Toast.makeText(AddBookActivity.this, GetStringCode.getSuccessCode(ob.getInt("success"), AddBookActivity.this), Toast.LENGTH_SHORT).show();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    finish();
                                 }
                             }
                         });

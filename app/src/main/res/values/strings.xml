@@ -526,12 +526,64 @@
 
     <string name="of_searching_bs">of searching bookshelves</string>
     <string name="errors.must_be_between">Must be between</string>
-
+    <string name ="UNKNOWN_SUCCESS">Operation done</string>
     <string name="errors.and">And</string>
 
     <string name="enter_custom_value">Enter custom value</string>
 
     <string name="apply">apply</string>
+
+
+    <string name ="ERROR_CODE_001">No data received</string>
+    <string name ="ERROR_CODE_002">Invalid data</string>
+    <string name ="ERROR_CODE_003">Cannot connect to the database</string>
+    <string name ="ERROR_CODE_004">You don\'t have permissions to do that</string>
+    <string name ="ERROR_CODE_005">Error while uplouding your file</string>
+    <string name ="ERROR_CODE_006">Wrong action used</string>
+    <string name ="ERROR_CODE_007">HTTP Error</string>
+    <string name ="ERROR_CODE_010">User does not exist</string>
+    <string name ="ERROR_CODE_011">User with that username has already registered</string>
+    <string name ="ERROR_CODE_012">Login failed</string>
+    <string name ="ERROR_CODE_013">Invalid authorization token</string>
+    <string name ="ERROR_CODE_014">User not logged in</string>
+    <string name ="ERROR_CODE_020">Book doesn\'t exist</string>
+    <string name ="ERROR_CODE_021">Bookshelf doesn\'t exist</string>
+    <string name ="ERROR_CODE_022">There is already such book</string>
+    <string name ="ERROR_CODE_023">Book has been already taken by someone else</string>
+    <string name ="ERROR_CODE_024">Cannot take that book</string>
+    <string name ="ERROR_CODE_025">Cannot put back that book</string>
+    <string name ="ERROR_CODE_030">The bookshelf adding request doesn\'t exist</string>
+    <string name ="ERROR_CODE_031">Voting for bookshelf adding has ended</string>
+    <string name ="ERROR_CODE_032">You\'ve already voted!</string>
+    <string name ="ERROR_UNKNOWN">An unknown error has occured</string>
+    <string name ="JUST_ERROR">Error: </string>
+
+
+    <string name="SUB_ERROR_CODE_001">Wrong email</string>
+    <string name="SUB_ERROR_CODE_002">Wrong username</string>
+    <string name="SUB_ERROR_CODE_003">Wrong password</string>
+    <string name="SUB_ERROR_CODE_004">Invalid authorization token</string>
+    <string name="SUB_ERROR_CODE_005">Invalid book id</string>
+    <string name="SUB_ERROR_CODE_006">Invalid bookshelf id</string>
+    <string name="SUB_ERROR_CODE_007">Invalid position of book in bookshelf</string>
+    <string name="SUB_ERROR_CODE_008">Invalid id of bookshelf adding request</string>
+    <string name ="ADDITIONAL_ERROR_INFO">\nAdditional info: </string>
+    <string name="SUCCES_CODE_010">Signed up successfully </string>
+    <string name="SUCCES_CODE_011">Logged in </string>
+    <string name="SUCCES_CODE_012">Logged in via authorization token </string>
+    <string name="SUCCES_CODE_013">Logged out </string>
+    <string name="SUCCES_CODE_014">User score updated </string>
+    <string name="SUCCES_CODE_020">Added new book </string>
+    <string name="SUCCES_CODE_021">Added new bookshelf </string>
+    <string name="SUCCES_CODE_022">Book has been returned from </string>
+    <string name="SUCCES_CODE_023">Book has been taken from </string>
+    <string name="SUCCES_CODE_024">Taken: </string>
+    <string name="SUCCES_CODE_025">Returned: </string>
+    <string name="SUCCES_CODE_030">Requested adding new bookshelf </string>
+    <string name="SUCCES_CODE_031">Voted for adding new bookshelf </string>
+    <string name="SUCCES_CODE_032">List of requested bookshelf updated </string>
+    <string name="SUCCES_CODE_033">Adding new bookshelf request accepted </string>
+    <string name="SUCCES_CODE_034">Adding new bookshelf request rejected </string>
 
 </resources>
 

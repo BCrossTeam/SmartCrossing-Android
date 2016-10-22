@@ -106,6 +106,7 @@ public class LoadingActivity extends AppCompatActivity {
                                 Toast.makeText(LoadingActivity.this, getResources().getString(R.string.logged_in), Toast.LENGTH_SHORT).show();
                                 Intent i = new Intent(LoadingActivity.this, MainActivity.class);
                                 startActivity(i);
+                                finish();
                             }
                         });
                     } else {

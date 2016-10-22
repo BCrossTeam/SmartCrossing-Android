@@ -67,6 +67,15 @@ public class BookshelfActivity extends FragmentActivity {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (NetworkStatus.checkNetworkStatus(this)) { new GetContacts().execute(); } else { Toast.makeText(this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show(); }
+    }
+
+
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_activity_bookshelf);
@@ -177,7 +186,7 @@ public class BookshelfActivity extends FragmentActivity {
 
 
             Log.e("tag", "Response from url: " + jsonStr);
-
+            ksiazki.clear();
             if (jsonStr != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(jsonStr);
@@ -193,7 +202,7 @@ public class BookshelfActivity extends FragmentActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-
+                            inflejtTable.removeAllViews();
                             if (ksiazki.size() > 0) {
                                 LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService
                                         (Context.LAYOUT_INFLATER_SERVICE);
@@ -326,6 +335,7 @@ public class BookshelfActivity extends FragmentActivity {
                                 ad.notifyDataSetChanged();
                             }
                             dialog.show();
+
                         }
                     });
 
@@ -388,4 +398,6 @@ public class BookshelfActivity extends FragmentActivity {
         }
 
     }
+
+
 }

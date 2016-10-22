@@ -411,12 +411,65 @@
     <string name="of_searching_bs">Szukania półek</string>
 
     <string name="errors.must_be_between">Musi być pomiędzy</string>
-
+    <string name ="UNKNOWN_SUCCESS">Operacja wykonana pomyślnie</string>
     <string name="errors.and">I</string>
 
     <string name="enter_custom_value">Wprowadź wartość</string>
 
     <string name="apply">Zastosuj</string>
+
+    <string name ="ERROR_CODE_001">Serwer nie otrzymał danych</string>
+    <string name ="ERROR_CODE_002">Serwer otrzymał błędne dane</string>
+    <string name ="ERROR_CODE_003">Błąd podczas łączenia z bazą danych</string>
+    <string name ="ERROR_CODE_004">Brak uprawnień</string>
+    <string name ="ERROR_CODE_005">Błąd podczas odbierania lub przetwarzania pliku</string>
+    <string name ="ERROR_CODE_006">Użyto błędnej akcji</string>
+    <string name ="ERROR_CODE_007">Błąd HTTP</string>
+    <string name ="ERROR_CODE_010">Użytkownik nie istnieje</string>
+    <string name ="ERROR_CODE_011">Użytkownik jest już zarejestrowany</string>
+    <string name ="ERROR_CODE_012">Zalogowanie nie powiodło się</string>
+    <string name ="ERROR_CODE_013">Błędny token uwierzytelniajacy</string>
+    <string name ="ERROR_CODE_014">Użytkownik nie jest zalogowany</string>
+    <string name ="ERROR_CODE_020">Książka nie istnieje</string>
+    <string name ="ERROR_CODE_021">Półka nie istnieje</string>
+    <string name ="ERROR_CODE_022">Książka już znajduje się na półce</string>
+    <string name ="ERROR_CODE_023">Ksiązka nie znajduje się na półce</string>
+    <string name ="ERROR_CODE_024">Nie można wypożyczyć książki</string>
+    <string name ="ERROR_CODE_025">Nie można oddać książki</string>
+    <string name ="ERROR_CODE_030">Prośba o dodanie nowej półki nie istnieje</string>
+    <string name ="ERROR_CODE_031">Głosowanie nad dodaniem nowej półki zostało zakończone</string>
+    <string name ="ERROR_CODE_032">Użytkownik już zagłosował nad dodaniem nowej półki</string>
+    <string name ="ERROR_UNKNOWN">Wystąpił nieznany błąd</string>
+    <string name ="JUST_ERROR">Błąd: </string>
+    <string name ="ADDITIONAL_ERROR_INFO">\nDodatkowa informacja: </string>
+
+
+
+    <string name="SUB_ERROR_CODE_001">Błąd dotyczy adresu email użytkownika</string>
+    <string name="SUB_ERROR_CODE_002">Błąd dotyczy nazwy użytkownika</string>
+    <string name="SUB_ERROR_CODE_003">Błąd dotyczy hasła użytkownika</string>
+    <string name="SUB_ERROR_CODE_004">Błąd dotyczy tokena uwierzytelniającego</string>
+    <string name="SUB_ERROR_CODE_005">Błąd dotyczy numeru identyfikacyjnego książki</string>
+    <string name="SUB_ERROR_CODE_006">Błąd dotyczy numeru identyfikacyjnego półki</string>
+    <string name="SUB_ERROR_CODE_007">Błąd dotyczy współrzędnych półki</string>
+    <string name="SUB_ERROR_CODE_008">Błąd dotyczy numeru identyfikacyjnego propozycji dodania nowej półki</string>
+
+    <string name="SUCCES_CODE_010">Zarejestrowano </string>
+    <string name="SUCCES_CODE_011">Zalogowano </string>
+    <string name="SUCCES_CODE_012">Zalogowano używając tokena uwierzytelniającego </string>
+    <string name="SUCCES_CODE_013">Wylogowano </string>
+    <string name="SUCCES_CODE_014">Zaktualizowano punkty użytkownika </string>
+    <string name="SUCCES_CODE_020">Dodano nową książkę </string>
+    <string name="SUCCES_CODE_021">Dodano nową półkę </string>
+    <string name="SUCCES_CODE_022">Książka zostałą dodana do półki </string>
+    <string name="SUCCES_CODE_023">Książka została zabrana z półki </string>
+    <string name="SUCCES_CODE_024">Wypożyczono ksiązkę </string>
+    <string name="SUCCES_CODE_025">Oddano książkę </string>
+    <string name="SUCCES_CODE_030">Dodano propozycję nowej półki </string>
+    <string name="SUCCES_CODE_031">Zagłosowano na propozycję nowej półki </string>
+    <string name="SUCCES_CODE_032">Zaktualizowano listę propozycji nowych półek </string>
+    <string name="SUCCES_CODE_033">Zaakceptowano propozycję nowej półki </string>
+    <string name="SUCCES_CODE_034">Odrzucono propozycję nowej półki </string>
 
 
 

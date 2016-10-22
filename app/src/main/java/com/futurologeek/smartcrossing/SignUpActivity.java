@@ -342,10 +342,34 @@ public class SignUpActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             if (ob.has("error")) {
-                                Toast.makeText(SignUpActivity.this, "error", Toast.LENGTH_SHORT).show();
-                                //Toast.makeText(SignInActivity.this, signInPassword.getText().toString() + "   "  +signInLogin.getText().toString(), Toast.LENGTH_SHORT).show();
+                                if(ob.has("sub_error")) {
+                                    int sub_error = 0;
+                                    try {
+                                        sub_error = ob.getInt("sub_error");
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    sub_error = sub_error*-1;
+                                    try {
+                                        Toast.makeText(SignUpActivity.this, getResources().getString(R.string.JUST_ERROR)+" "+ GetStringCode.getErrorResource(ob.getInt("error"), SignUpActivity.this) + getResources().getString(R.string.ADDITIONAL_ERROR_INFO)+" "+ GetStringCode.getErrorResource(sub_error, SignUpActivity.this), Toast.LENGTH_SHORT).show();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                } else {
+                                    try {
+                                        Toast.makeText(SignUpActivity.this, getResources().getString(R.string.JUST_ERROR) + " " + GetStringCode.getErrorResource(ob.getInt("error"), SignUpActivity.this), Toast.LENGTH_SHORT).show();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                //Toast.makeText(SignUpActivity.this, signInPassword.getText().toString() + "   "  +signInLogin.getText().toString(), Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(SignUpActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                                try {
+                                    Toast.makeText(SignUpActivity.this, GetStringCode.getSuccessCode(ob.getInt("success"), SignUpActivity.this), Toast.LENGTH_SHORT).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                                 Intent i = new Intent(SignUpActivity.this, SignInActivity.class);
                                 startActivity(i);
                                 finish();

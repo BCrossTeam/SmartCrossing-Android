@@ -7,12 +7,10 @@ import android.location.Location;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,13 +19,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.api.client.json.Json;
-import com.google.api.services.books.model.Volume;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -157,10 +151,35 @@ public class AddPointActivity extends FragmentActivity {
                                     AddPointActivity.this.runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            if(ob.has("error")){
-                                                Toast.makeText(AddPointActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                                            if (ob.has("error")) {
+                                                if(ob.has("sub_error")) {
+                                                    int sub_error = 0;
+                                                    try {
+                                                        sub_error = ob.getInt("sub_error");
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                    sub_error = sub_error*-1;
+                                                    try {
+                                                        Toast.makeText(AddPointActivity.this, getResources().getString(R.string.JUST_ERROR)+" "+ GetStringCode.getErrorResource(ob.getInt("error"), AddPointActivity.this) + getResources().getString(R.string.ADDITIONAL_ERROR_INFO)+" "+ GetStringCode.getErrorResource(sub_error, AddPointActivity.this), Toast.LENGTH_SHORT).show();
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                } else {
+                                                    try {
+                                                        Toast.makeText(AddPointActivity.this, getResources().getString(R.string.JUST_ERROR) + " " + GetStringCode.getErrorResource(ob.getInt("error"), AddPointActivity.this), Toast.LENGTH_SHORT).show();
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+
+                                                //Toast.makeText(SignInActivity.this, signInPassword.getText().toString() + "   "  +signInLogin.getText().toString(), Toast.LENGTH_SHORT).show();
                                             } else {
-                                                Toast.makeText(AddPointActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                                                try {
+                                                    Toast.makeText(AddPointActivity.this, GetStringCode.getSuccessCode(ob.getInt("success"), AddPointActivity.this), Toast.LENGTH_SHORT).show();
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
                                                 dialog.dismiss();
                                                 finish();
                                             }

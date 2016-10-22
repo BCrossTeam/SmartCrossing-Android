@@ -56,6 +56,7 @@ public class Book {
         this.dial = dial;
 
 
+
         if(!isBorrow){
             holder.whole.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -86,10 +87,35 @@ public class Book {
                                             act.runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    if(ob.has("error")){
-                                                        Toast.makeText(context, "ERROR", Toast.LENGTH_SHORT).show();
+                                                    if (ob.has("error")) {
+                                                        if(ob.has("sub_error")) {
+                                                            int sub_error = 0;
+                                                            try {
+                                                                sub_error = ob.getInt("sub_error");
+                                                            } catch (JSONException e) {
+                                                                e.printStackTrace();
+                                                            }
+                                                            sub_error = sub_error*-1;
+                                                            try {
+                                                                Toast.makeText(context, context.getResources().getString(R.string.JUST_ERROR)+" "+ GetStringCode.getErrorResource(ob.getInt("error"), context) + context.getResources().getString(R.string.ADDITIONAL_ERROR_INFO)+" "+ GetStringCode.getErrorResource(sub_error, context), Toast.LENGTH_SHORT).show();
+                                                            } catch (JSONException e) {
+                                                                e.printStackTrace();
+                                                            }
+                                                        } else {
+                                                            try {
+                                                                Toast.makeText(context, context.getResources().getString(R.string.JUST_ERROR) + " " + GetStringCode.getErrorResource(ob.getInt("error"), context), Toast.LENGTH_SHORT).show();
+                                                            } catch (JSONException e) {
+                                                                e.printStackTrace();
+                                                            }
+                                                        }
+
+                                                        //Toast.makeText(SignInActivity.this, signInPassword.getText().toString() + "   "  +signInLogin.getText().toString(), Toast.LENGTH_SHORT).show();
                                                     } else {
-                                                        Toast.makeText(context, "SUCCES", Toast.LENGTH_SHORT).show();
+                                                        try {
+                                                            Toast.makeText(context, GetStringCode.getSuccessCode(ob.getInt("success"), context), Toast.LENGTH_SHORT).show();
+                                                        } catch (JSONException e) {
+                                                            e.printStackTrace();
+                                                        }
                                                     }
                                                 }
                                             });
@@ -101,6 +127,7 @@ public class Book {
                                 t.start();
 
                                 dial.dismiss();
+                                ((BookshelfActivity) act).onResume();
                                 return;
                             }
                         });
@@ -151,10 +178,35 @@ public class Book {
                                             act.runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    if(ob.has("error")){
-                                                        Toast.makeText(context, "ERROR", Toast.LENGTH_SHORT).show();
+                                                    if (ob.has("error")) {
+                                                        if(ob.has("sub_error")) {
+                                                            int sub_error = 0;
+                                                            try {
+                                                                sub_error = ob.getInt("sub_error");
+                                                            } catch (JSONException e) {
+                                                                e.printStackTrace();
+                                                            }
+                                                            sub_error = sub_error*-1;
+                                                            try {
+                                                                Toast.makeText(context, context.getResources().getString(R.string.JUST_ERROR)+" "+ GetStringCode.getErrorResource(ob.getInt("error"), context) + context.getResources().getString(R.string.ADDITIONAL_ERROR_INFO)+" "+ GetStringCode.getErrorResource(sub_error, context), Toast.LENGTH_SHORT).show();
+                                                            } catch (JSONException e) {
+                                                                e.printStackTrace();
+                                                            }
+                                                        } else {
+                                                            try {
+                                                                Toast.makeText(context, context.getResources().getString(R.string.JUST_ERROR) + " " + GetStringCode.getErrorResource(ob.getInt("error"), context), Toast.LENGTH_SHORT).show();
+                                                            } catch (JSONException e) {
+                                                                e.printStackTrace();
+                                                            }
+                                                        }
+
+                                                        //Toast.makeText(SignInActivity.this, signInPassword.getText().toString() + "   "  +signInLogin.getText().toString(), Toast.LENGTH_SHORT).show();
                                                     } else {
-                                                        Toast.makeText(context, "SUCCES", Toast.LENGTH_SHORT).show();
+                                                        try {
+                                                            Toast.makeText(context, GetStringCode.getSuccessCode(ob.getInt("success"), context), Toast.LENGTH_SHORT).show();
+                                                        } catch (JSONException e) {
+                                                            e.printStackTrace();
+                                                        }
                                                     }
                                                 }
                                             });
@@ -164,7 +216,7 @@ public class Book {
                                     }
                                 };
                                 t.start();
-
+                                ((BookshelfActivity) act).onResume();
                                dial.dismiss();
                                 return;
                             }
