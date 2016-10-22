@@ -481,7 +481,7 @@ public class AddBookActivity extends AppCompatActivity {
                             par.put("book_author", author);
                             par.put("book_isbn", "0000000000000");
                             par.put("book_publication_date", String.valueOf(yearvalue));
-                            par.put("book_category", "fic");
+                            par.put("book_category", GetCategory.returnCatCode(AddBookActivity.this, catSelector.getSelectedItem().toString()));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

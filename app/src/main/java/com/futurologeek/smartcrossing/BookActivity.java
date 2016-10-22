@@ -98,7 +98,7 @@ public class BookActivity extends AppCompatActivity {
                             public void run() {
                                 titleTextView.setText(title);
                                 authorTextView.setText(author);
-                                categoryTextView.setText(getResources().getString(R.string.cat)+" "+cat);
+                                categoryTextView.setText(getResources().getString(R.string.cat)+" "+GetCategory.returnCategory(BookActivity.this, cat));
                                 dateTextView.setText(getResources().getString(R.string.year)+" "+pub_date);
                                 isbnTextView.setText(getResources().getString(R.string.isbn)+" "+ISBN);
                                 visitProfile.setOnClickListener(new View.OnClickListener() {
