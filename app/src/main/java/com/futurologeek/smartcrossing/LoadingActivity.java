@@ -1,15 +1,20 @@
 package com.futurologeek.smartcrossing;
 
+import android.Manifest;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +40,18 @@ public class LoadingActivity extends AppCompatActivity {
             new checkToken().execute();
         }
 
+        if(!(db.giveArray(false).size()>0)) {
+            final Dialog dialog = new Dialog(LoadingActivity.this);
+            dialog.setContentView(R.layout.first_run_popup);
+            Button dismissButton = (Button) dialog.findViewById(R.id.dismiss_but);
+            dismissButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+            dialog.show();
+        }
     }
 
     public void findViews() {
