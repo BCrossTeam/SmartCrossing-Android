@@ -30,8 +30,8 @@
     <string name="books_null">Nie ma tu jeszcze książek</string>
     <string name="ranking">Ranking</string>
     <string name="your_place">W rankingu jesteś:</string>
-    <string name="borrow_book">Wypożycz książkę</string>
-    <string name="return_book">Zwróć książkę</string>
+    <string name="borrow_book">Weź książkę</string>
+    <string name="return_book">Uwolnij książkę</string>
     <string name="name">Imię:</string>
     <string name="points_1">Punkty:</string>
     <string name="nr">Nr</string>

@@ -94,16 +94,13 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
-        <ListView
-            android:layout_width="fill_parent"
-            android:layout_above="@+id/relative_with_ui"
-            android:id="@+id/book_list"
-            android:layout_height="fill_parent"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin">
 
-
-        </ListView>
+        <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressbar"
+            android:layout_centerInParent="true" />
 
         <TableRow
             android:layout_width="fill_parent"
@@ -186,6 +183,20 @@
             </android.support.percent.PercentRelativeLayout>
 
         </TableRow>
+
+        <ListView
+            android:layout_width="fill_parent"
+            android:id="@+id/book_list"
+            android:layout_height="fill_parent"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_above="@+id/relative_with_ui">
+
+
+        </ListView>
 
     </RelativeLayout>
 </LinearLayout>
