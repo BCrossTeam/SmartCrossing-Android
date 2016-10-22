@@ -13,7 +13,9 @@ public class Constants {
     public static final String book_url = "https://api.smartcrossing.pl/book/";
     public static final String user_url = "https://api.smartcrossing.pl/user/";
     public static final String gapi_url = "https://www.googleapis.com/books/v1/volumes?q=ISBN:";
-    public static final int distance = 1000;
+    public static final int distance = 100;
+    public static final String request_url = "https://api.smartcrossing.pl/bookshelf/request/token/";
+
 
     public static double maxConstant(Context context){
         SharedPreferences preferences = context.getSharedPreferences(Constants.shared, Context.MODE_PRIVATE);

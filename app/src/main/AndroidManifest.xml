@@ -64,25 +64,27 @@
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyAbiBZoNtTns2xg97T-Uhq4yTsLdgEdbeo" />
 
-        <activity android:name=".MapActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".AddPointActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MapActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AddPointActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".crop.CropImageActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SettingsActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".RankingActivity"
-            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".SearchBookActivity"
-            android:windowSoftInputMode="adjustNothing|stateAlwaysVisible"
+        <activity
+            android:name=".RankingActivity"
             android:screenOrientation="portrait"
-            >
-
-        </activity>
+            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden" />
+        <activity
+            android:name=".SearchBookActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing|stateAlwaysVisible"></activity>
+        <activity android:name=".RequestsActivity"></activity>
     </application>
 
 </manifest>

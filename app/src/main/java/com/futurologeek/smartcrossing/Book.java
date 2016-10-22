@@ -97,7 +97,7 @@ public class Book {
                                 if (distance * 1000 > Constants.maxConstant(context)) {
                                     Toast.makeText(context, context.getResources().getString(R.string.ret_distance_too_long), Toast.LENGTH_SHORT).show();
                                     dialog.dismiss();
-                                } else {
+                                }
                                 final Thread t = new Thread() {
                                     public void run() {
                                         try {
@@ -153,7 +153,7 @@ public class Book {
                                 };
                                 t.start();
                                 dial.dismiss();
-                            }
+
                             }
                         });
 
@@ -189,7 +189,7 @@ public class Book {
                                 if (distance * 1000 > Constants.maxConstant(context)) {
                                     Toast.makeText(context, context.getResources().getString(R.string.ret_distance_too_long), Toast.LENGTH_SHORT).show();
                                     dialog.dismiss();
-                                } else {
+                                }
                                 final Thread t = new Thread() {
                                     public void run() {
                                         try {
@@ -245,7 +245,7 @@ public class Book {
                                 };
                                 t.start();
                                 dial.dismiss();
-                            }
+
                             }
                         });
 

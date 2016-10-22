@@ -25,6 +25,9 @@ public class Bookshelf {
     BookshelfAdapter adapter;
     boolean isKM;
 
+    BookshelfRequestsAdapter.ViewHolder rholder;
+    BookshelfRequestsAdapter radapter;
+
 
     public Bookshelf(int id, String name, double latitude, double longitude, int bookcount){
         this.id = id;
@@ -85,6 +88,62 @@ public class Bookshelf {
             distance = (float) ((results[0])/1000/1.6);
         }
 
+
+    }
+
+    public void setListenersRequests(final BookshelfRequestsAdapter.ViewHolder rholder, BookshelfRequestsAdapter radapter, final Context context){
+        this.radapter = radapter;
+        this.rholder = rholder;
+
+        SharedPreferences preferences = context.getSharedPreferences(Constants.shared, Context.MODE_PRIVATE);
+
+        isKM = preferences.getBoolean("isKM",true);
+
+        NumberFormat formatter = new DecimalFormat("#0.00");
+        if(isKM){
+            rholder.distanceTextView.setText(String.valueOf(formatter.format(distance))+" km");
+        } else {
+            rholder.distanceTextView.setText(String.valueOf(formatter.format(distance))+" "+context.getResources().getString(R.string.mile));
+        }
+
+        rholder.placeName.setText(name);
+        rholder.location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SimpleLocation location = new SimpleLocation(context);
+                if(!location.hasLocationEnabled()){
+                    Toast.makeText(context, context.getResources().getString(R.string.gps_turned_off), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (NetworkStatus.checkNetworkStatus(context)) {
+                    Intent i = new Intent(context, MapActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    Bundle koszyk = new Bundle();
+                    koszyk.putBoolean("isPoint",true);
+                    koszyk.putDouble("longitude", getLongitude());
+                    koszyk.putDouble("latitude", getLatitude());
+                    koszyk.putString("name", name);
+                    i.putExtras(koszyk);
+                    context.startActivity(i);
+                } else {
+                    Toast.makeText(context, context.getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        rholder.acceptRelative.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "ACCEPT", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        rholder.declineRelative.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "REJECT", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 

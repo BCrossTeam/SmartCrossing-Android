@@ -173,11 +173,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, SearchBookActivity.class);
+               // Bundle b = new Bundle();
+               // b.putDouble("latitude",latitude);
+               // b.putDouble("longitude",longitude);
+               // i.putExtras(b);
                 startActivity(i);
             }
         });
-
-
 
         mapview.setOnClickListener(new View.OnClickListener() {
             @Override
