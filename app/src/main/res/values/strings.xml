@@ -28,7 +28,7 @@
     <string name="borrow_book">Borrow book</string>
     <string name="return_book">Return book</string>
 
-
+    <string name="search_in_books">Search in books: </string>
     <!-- Stringi dziedziczone -->
 
     <!--Titles-->

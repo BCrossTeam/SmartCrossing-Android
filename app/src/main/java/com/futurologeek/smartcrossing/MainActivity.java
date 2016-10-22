@@ -23,7 +23,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -65,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
     SimpleLocation location;
     double latitude, longitude;
     JSONObject ob;
+    String querySt;
 
 
 
@@ -164,13 +169,28 @@ public class MainActivity extends AppCompatActivity {
 
     public void setListeners() {
 
-        searchEditText.setOnClickListener(new View.OnClickListener() {
+        searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, SearchBookActivity.class);
-                startActivity(i);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                /* Intent i = new Intent(MainActivity.this, SearchBookActivity.class);
+                            Bundle b = new Bundle();
+                            b.putString("query", querySt);
+                            i.putExtras(b);
+                            startActivity(i);
+                            return true;*/
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
+
 
 
         mapview.setOnClickListener(new View.OnClickListener() {
@@ -193,18 +213,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-       /* settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Ustawienia", Toast.LENGTH_SHORT).show();
-            }
-        });
-        profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        }); */
 
         ToolbarHandler handler = new ToolbarHandler(MainActivity.this, ToolbarHandler.buttonVariation.Profile);
         handler.setListeners();

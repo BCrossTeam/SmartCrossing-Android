@@ -4,10 +4,5 @@
         android:id="@+id/one"
         android:title="@string/distance"/>
 
-    <!-- <item
-        android:id="@+id/two"
-        android:title="@string/added_by"/> -->
-
-
 
 </menu>
