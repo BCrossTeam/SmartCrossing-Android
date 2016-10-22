@@ -13,8 +13,8 @@
     <string name="add_book_m">Add book manually</string>
     <string name="add_book_a">Add book by barcode</string>
     <string name="add_station">Add station</string>
-    <string name="points">Your points:</string>
-    <string name="badges">Your badges:</string>
+    <string name="points">Points:</string>
+    <string name="badges">Badges:</string>
     <string name="gtrank">Go to ranking:</string>
     <string name="distance">Distance: </string>
     <string name="added_by">Added by:</string>
@@ -34,8 +34,8 @@
     <string name="first_run">Drogi użytkowniku! Oddajemy w Twoje ręce aplikację do bookcrossingu. Chcemy jednak zaznaczyć, iż aplikacja powstała podczas hackatonu "Hack Heroes" organizowanego przez serwis Apka.org, dlatego też wyświetlane w niej półki nie są jeszcze rzeczywistymi półkami, umieszczonymi w Twoim mieście. Chcemy nadmienić, że aplikacja została również okrojona z kilku funkcjonalności na potrzeby testów, które będzie robić jury. W finalnej wersji aby wypożyczyć/oddać książkę - będzie trzeba być nie dalej niż 50m od półki. Aby oszczędzić komisji spaceru, w aplikacji pojawia się tylko powiadomienie, iż dystans ten jest większy. Życzymy miłego korzystania z naszej aplikacji!  Zespół BCrossTeam!</string>
     <string name="VOTE_SUCCESSFULL">You\'ve successfully voted</string>
 
-    <string name="borrow_book">Borrow book</string>
-    <string name="return_book">Return book</string>
+    <string name="borrow_book">Take book</string>
+    <string name="return_book">Release book</string>
     <string name="ret_distance_too_long">Error: You should be closer than 100m (6,2 miles)\nto return a book to a bookshelf.</string>
     <string name="bor_distance_too_long">Error: You should be closer than 100m (6.2 miles)\nto borrow a book from a bookshelf.</string>
     <string name="search_in_books">Search in books: </string>
@@ -408,7 +408,6 @@
     <string name="gps_turned_off">Error: GPS turned off</string>
     <string name="ranking">Rank</string>
     <string name="your_place">Your place in ranking:</string>
-    <string name="points_1">Points:</string>
     <string name="nr">No.</string>
     <string name="l_permission">Add location permission to continue use app</string>
     <string name="unfort_y_ve_no_books">Unfortunately you don\'t have any book</string>
