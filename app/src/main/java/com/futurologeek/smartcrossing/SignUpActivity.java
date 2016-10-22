@@ -35,6 +35,7 @@ public class SignUpActivity extends AppCompatActivity {
     private TableRow loadingTableRow;
     private RelativeLayout mainLinearLayout;
     TextView goToSignInButton;
+    DBHandler db;
     JSONObject ob;
 
 
@@ -113,6 +114,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
         findViews();
         setListeners();
+        db  = new DBHandler(SignUpActivity.this);
         instance = this;
         email = new TextValidator.ValidText();
         emailConfirmation = new TextValidator.ValidText();
@@ -370,6 +372,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
+                                db.addRecord(emailView.getText().toString());
                                 Intent i = new Intent(SignUpActivity.this, SignInActivity.class);
                                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(i);

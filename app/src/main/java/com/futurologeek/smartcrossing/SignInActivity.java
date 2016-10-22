@@ -1,6 +1,7 @@
 package com.futurologeek.smartcrossing;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputFilter;
@@ -22,6 +23,7 @@ public class SignInActivity extends AppCompatActivity {
     EditText emailView, passwordView;
     private TableRow loadingTableRow;
     private TextValidator.ValidText email;
+    DBHandler db;
     private TextValidator.ValidText password;
 
     JSONObject ob;
@@ -30,6 +32,15 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         findViews();
+        db  = new DBHandler(SignInActivity.this);
+
+        if(db.giveArray(false).size()>0){
+            Cursor cur = db.giveLastLogin();
+            cur.moveToLast();
+            String login = cur.getString(1);
+            emailView.setText(login);
+            cur.close();
+        }
 
         email = new TextValidator.ValidText();
         password = new TextValidator.ValidText();
@@ -195,13 +206,13 @@ public class SignInActivity extends AppCompatActivity {
 
                                 //Toast.makeText(SignInActivity.this, signInPassword.getText().toString() + "   "  +signInLogin.getText().toString(), Toast.LENGTH_SHORT).show();
                             } else {
-                                DBHandler db = new DBHandler(SignInActivity.this);
                                 try {
                                     db.deleteAll();
                                     int id = ob.getInt("user_id");
                                     String tok = ob.getString("user_auth_token");
                                     setUserInfo(tok, id);
                                     db.addUserData(String.valueOf(id),tok);
+                                    db.addRecord(emailView.getText().toString());
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }

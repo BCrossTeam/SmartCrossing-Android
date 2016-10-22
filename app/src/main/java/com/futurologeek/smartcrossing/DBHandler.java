@@ -11,9 +11,6 @@ import java.util.ArrayList;
 
 import static android.R.attr.id;
 
-/**
- * Created by adminizdrador on 22.10.2016.
- */
 
 public class DBHandler extends SQLiteOpenHelper {
 
@@ -28,6 +25,8 @@ public class DBHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(
                 "create table tokeny(" + "nr integer primary key autoincrement," + "uid text," + "auth_token text);" + "");
+        db.execSQL(
+                "create table loginy(" + "nr integer primary key autoincrement," + "login text);" + "");
     }
 
     public void addUserData(String authToken, String uid) {
@@ -39,23 +38,45 @@ public class DBHandler extends SQLiteOpenHelper {
         db.insertOrThrow("tokeny", null, data);
     }
 
+    public void addRecord(String login) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues data = new ContentValues();
+        data.put("login", login);
+        db.insertOrThrow("loginy", null, data);
+    }
+
     public Cursor giveAll() {
         String[] columns = {"nr", "uid", "auth_token"};
         SQLiteDatabase db = getReadableDatabase();
         Cursor cur = db.query("tokeny", columns, null, null, null, null, null);
         //cur.close();
         return cur;
+    }
+
+
+    public Cursor giveLastLogin() {
+        String[] columns = {"nr", "login"};
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cur = db.query("loginy", columns, null, null, null, null, null);
+        return cur;
 
     }
 
-    public ArrayList<String> giveArray() {
+    public ArrayList<String> giveArray(Boolean isToken) {
         ArrayList<String> ar = new ArrayList<>();
-        String[] columns = {"nr", "uid", "auth_token"};
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cur = db.query("tokeny", columns, null, null, null, null, null);
-        //cur.close();
-        while(cur.moveToNext()){
-            ar.add(cur.getString(2));
+        if(isToken){
+            String[] columns = {"nr", "uid", "auth_token"};
+            Cursor cur = db.query("tokeny", columns, null, null, null, null, null);
+            while(cur.moveToNext()){
+                ar.add(cur.getString(2));
+            }
+        } else {
+            String[] columns = {"nr", "login"};
+            Cursor cur = db.query("loginy", columns, null, null, null, null, null);
+            while(cur.moveToNext()){
+                ar.add(cur.getString(1));
+            }
         }
         return ar;
     }

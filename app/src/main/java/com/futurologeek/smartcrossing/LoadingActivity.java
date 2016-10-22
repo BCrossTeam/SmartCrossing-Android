@@ -30,7 +30,7 @@ public class LoadingActivity extends AppCompatActivity {
         findViews();
         setListeners();
         DBHandler db = new DBHandler(LoadingActivity.this);
-        if(db.giveArray().size()>0){
+        if(db.giveArray(true).size()>0){
             tok = db.getToken(1);
             new checkToken().execute();
         }
