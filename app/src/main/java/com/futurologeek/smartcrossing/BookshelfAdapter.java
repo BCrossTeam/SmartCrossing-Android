@@ -40,7 +40,9 @@ public class BookshelfAdapter extends ArrayAdapter<Bookshelf> {
             holder.distanceTextView = (TextView) convertView.findViewById(R.id.distance_textview);
             holder.bookcount = (TextView) convertView.findViewById(R.id.book_count_textview);
             holder.shelf = (LinearLayout) convertView.findViewById(R.id.shelf);
-            getItem(position).setListeners(holder, this, context);
+            if(itemsArrayList.size()>0){
+                getItem(position).setListeners(holder, this, context);
+            }
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();

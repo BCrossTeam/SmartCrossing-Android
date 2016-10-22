@@ -70,7 +70,7 @@ public class BookshelfActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_activity_bookshelf);
-        bookListAdapter = new BookListAdapter(BookshelfActivity.this, user_books, false);
+        bookListAdapter = new BookListAdapter(BookshelfActivity.this, user_books, false, ajdi, BookshelfActivity.this);
         findViews();
         setListeners();
 
@@ -271,7 +271,7 @@ public class BookshelfActivity extends FragmentActivity {
             HttpHandler sh = new HttpHandler();
             String jsonStr;
             if(!isBorrow){
-                jsonStr = sh.makeServiceCall(Constants.user_url + Constants.uid + "/book");
+                jsonStr = sh.makeServiceCall(Constants.user_url + UserInfo.uid + "/book");
             } else {
                 jsonStr = sh.makeServiceCall(Constants.bookshelf_url + ajdi + "/book");
             }
@@ -308,9 +308,9 @@ public class BookshelfActivity extends FragmentActivity {
                             ListView lista = (ListView) dialog.findViewById(R.id.listView);
                             if(user_books.size()>0){
                                 if(isBorrow){
-                                    bookListAdapter = new BookListAdapter(BookshelfActivity.this, user_books, true);
+                                    bookListAdapter = new BookListAdapter(BookshelfActivity.this, user_books, true, ajdi, BookshelfActivity.this);
                                 } else {
-                                    bookListAdapter = new BookListAdapter(BookshelfActivity.this, user_books, false);
+                                    bookListAdapter = new BookListAdapter(BookshelfActivity.this, user_books, false, ajdi, BookshelfActivity.this);
                                 }
                                 lista.setAdapter(bookListAdapter);
                                 bookListAdapter.notifyDataSetChanged();

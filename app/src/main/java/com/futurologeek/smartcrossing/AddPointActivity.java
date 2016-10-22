@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.api.client.json.Json;
+import com.google.api.services.books.model.Volume;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import static com.futurologeek.smartcrossing.R.id.map;
 
@@ -37,7 +43,7 @@ public class AddPointActivity extends FragmentActivity {
     boolean firstMarker = false;
     boolean firstPositionUpdate = true;
     private Button add_point_button;
-
+    JSONObject ob;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,9 +121,52 @@ public class AddPointActivity extends FragmentActivity {
                 final Dialog dialog = new Dialog(AddPointActivity.this);
                 dialog.setContentView(R.layout.bookshelf_request_popup);
                 TextView tv_lati = (TextView) dialog.findViewById(R.id.latitude);
+                Button addPointButton = (Button) dialog.findViewById(R.id.add_point_button);
                 TextView tv_longi = (TextView) dialog.findViewById(R.id.longitude);
+                final EditText bookshelfName = (EditText) dialog.findViewById(R.id.add_bookshelf_name);
                 tv_lati.setText(String.valueOf(markLati));
                 tv_longi.setText(String.valueOf(markLongi));
+                addPointButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(bookshelfName.getText().toString().equals("")){
+                            Toast.makeText(AddPointActivity.this, getResources().getString(R.string.bshelf_name_null), Toast.LENGTH_SHORT).show();
+                            return;
+                        } else {
+                            Thread t = new Thread()
+                            {
+                                public void run()
+                                {
+                                    POSTHandler han = new POSTHandler();
+                                    JSONObject par = new JSONObject();
+                                    try {
+                                        par.put("user_auth_token", UserInfo.token);
+                                        par.put("bookshelf_latitude", markLati);
+                                        par.put("bookshelf_longitude", markLongi);
+                                        par.put("bookshelf_name", bookshelfName.getText().toString());
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    ob = han.handlePOSTmethod("/bookshelf/", par);
+                                    AddPointActivity.this.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            if(ob.has("error")){
+                                                Toast.makeText(AddPointActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                Toast.makeText(AddPointActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                                                dialog.dismiss();
+                                                finish();
+                                            }
+                                        }
+                                    });
+                                }
+                            };
+                            t.start();
+
+                        }
+                    }
+                });
                 dialog.setTitle(getResources().getString(R.string.b_add));
                 dialog.show();
             }

@@ -1,6 +1,7 @@
 package com.futurologeek.smartcrossing;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +17,14 @@ public class BookListAdapter extends ArrayAdapter<Book> {
     private final Context context;
     private final ArrayList<Book> itemsArrayList;
     private Boolean isBorrow = false;
+    int bookshelfId;
+    Activity act;
 
-    public BookListAdapter(Context context, ArrayList<Book> itemsArrayList, Boolean isBorrow) {
+    public BookListAdapter(Context context, ArrayList<Book> itemsArrayList, Boolean isBorrow, int bookshelfId, Activity act) {
         super(context, R.layout.book_list_template, itemsArrayList);
         this.context = context;
+        this.act = act;
+        this.bookshelfId = bookshelfId;
         this.isBorrow = isBorrow;
         this.itemsArrayList = itemsArrayList;
     }
@@ -41,7 +46,7 @@ public class BookListAdapter extends ArrayAdapter<Book> {
             holder.tvtitle.setText(getItem(position).getTitle());
             holder.tvauthor.setText(getItem(position).getAuthor());
             holder.ivimage.setImageResource(R.drawable.nocover);
-            getItem(position).setListeners(holder, this, context, isBorrow);
+            getItem(position).setListeners(holder, this, context, isBorrow, bookshelfId, act);
             convertView.setTag(holder);
         }
 

@@ -1,10 +1,14 @@
 package com.futurologeek.smartcrossing;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.View;
 import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Book {
     String title;
@@ -13,6 +17,8 @@ public class Book {
     String year;
     BookListAdapter.ViewHolder holder;
     BookListAdapter adapter;
+    JSONObject ob;
+    Activity act;
 
     enum Kategoria { Beletrystyka, Biografie, Biznes_i_inwestycje, Gotowanie, Historia, Komputery, Kryminały, Dla_dzieci, Polityka, Prawo, Religia, Romanse, SCI_FI, Zdrowie}
 
@@ -41,9 +47,10 @@ public class Book {
         return this.author;
     }
 
-    public void setListeners(final BookListAdapter.ViewHolder holder, BookListAdapter adapter, final Context context, Boolean isBorrow) {
+    public void setListeners(final BookListAdapter.ViewHolder holder, BookListAdapter adapter, final Context context, Boolean isBorrow, final int bookshelfId, final Activity act) {
         this.holder = holder;
         this.adapter = adapter;
+        this.act = act;
 
 
         if(!isBorrow){
@@ -58,8 +65,38 @@ public class Book {
 
                         builder.setPositiveButton(context.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
 
-                            public void onClick(DialogInterface dialog, int which) {
-                                //Todo: dodaj ksiazke do półki
+                            public void onClick(final DialogInterface dialog, int which) {
+                                final Thread t = new Thread()
+                                {
+                                    public void run()
+                                    {
+                                        try  {
+                                            POSTHandler han = new POSTHandler();
+                                            JSONObject par = new JSONObject();
+                                            try {
+                                                par.put("user_auth_token",UserInfo.token);
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                            ob = han.handlePOSTmethod("/bookshelf/"+bookshelfId+"/book/"+id+"/",par);
+
+                                            act.runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    if(ob.has("error")){
+                                                        Toast.makeText(context, "ERROR", Toast.LENGTH_SHORT).show();
+                                                    } else {
+                                                        Toast.makeText(context, "SUCCES", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                };
+                                t.start();
+
                                 dialog.dismiss();
                                 return;
                             }
@@ -94,9 +131,7 @@ public class Book {
                         builder.setPositiveButton(context.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int which) {
-                                //Todo: Wypożycz książkę z półki
-                                dialog.dismiss();
-                                return;
+
                             }
                         });
 

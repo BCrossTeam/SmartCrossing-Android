@@ -58,6 +58,9 @@
     <string name="signout">Sign out</string>
     <string name="home">Home page</string>
     <string name="challengesb">Challenge somebody</string>
+    <string name="logged_in">Logged in</string>
+    <string name="bshelf_name_null">Enter bookshelf name</string>
+
 
     <!--Text-->
     <string name="ru_ready">Are you ready for challenges?</string>

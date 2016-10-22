@@ -17,24 +17,6 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:hint="@string/login"
-                android:background="@color/fortyshadesofgrey"
-                android:layout_width="fill_parent"
-                android:layout_height="@dimen/forty"
-                android:layout_marginLeft="@dimen/fifty"
-                android:layout_marginRight="@dimen/fifty"
-                android:id="@+id/sign_up_login_input"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="false"
-                android:singleLine="true"
-                android:inputType="textNoSuggestions"
-                android:paddingLeft="@dimen/five"
-                android:imeOptions="actionNext"
-                android:layout_marginTop="@dimen/thirty" />
-
-            <EditText
                 android:hint="@string/email"
                 android:background="@color/fortyshadesofgrey"
                 android:layout_width="fill_parent"
@@ -200,6 +182,7 @@
         </RelativeLayout>
 
     </TableRow>
+
 
 
 
