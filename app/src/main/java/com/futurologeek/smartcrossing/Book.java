@@ -80,8 +80,6 @@ public class Book {
         this.act = act;
         this.dial = dial;
 
-
-
         if(!isBorrow){
             holder.whole.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -150,10 +148,8 @@ public class Book {
                                     }
                                 };
                                 t.start();
-
                                 dial.dismiss();
                                 ((BookshelfActivity) act).onResume();
-                                return;
                             }
                         });
 
@@ -241,9 +237,8 @@ public class Book {
                                     }
                                 };
                                 t.start();
-                                ((BookshelfActivity) act).onResume();
                                dial.dismiss();
-                                return;
+                                ((BookshelfActivity) act).onResume();
                             }
                         });
 

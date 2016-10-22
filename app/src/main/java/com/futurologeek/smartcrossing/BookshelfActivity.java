@@ -202,6 +202,7 @@ public class BookshelfActivity extends FragmentActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            tvBookCount.setText(getResources().getString(R.string.b_count) + " " + ksiazki.size());
                             inflejtTable.removeAllViews();
                             if (ksiazki.size() > 0) {
                                 LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService

@@ -62,6 +62,7 @@
     <string name="logged_out">Signed out</string>
     <string name="logged_out_fail">Error: signing out failed</string>
     <string name="enter_search_phrase">Enter a phrase to search book\nin our database.</string>
+    <string name="book_not_found">I didn\'t find any book\nmatching your request.</string>
 
     <string name="bshelf_name_null">Enter bookshelf name</string>
 

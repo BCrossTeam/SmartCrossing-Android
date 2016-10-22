@@ -39,6 +39,13 @@ public class SearchBookActivity extends AppCompatActivity {
     }
 
     public void setListeners(){
+        ArrayList<String> mess = new ArrayList<String>();
+        mess.add(getResources().getString(R.string.enter_search_phrase));
+        MessageAdapter ad = new MessageAdapter(SearchBookActivity.this, mess);
+        bookList.setAdapter(ad);
+        ad.notifyDataSetChanged();
+
+
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -100,9 +107,18 @@ public class SearchBookActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            adapter = new SearchAdapter(SearchBookActivity.this, ksiazki);
-                            bookList.setAdapter(adapter);
-                            adapter.notifyDataSetChanged();
+                            if(ksiazki.size()>0){
+                                adapter = new SearchAdapter(SearchBookActivity.this, ksiazki);
+                                bookList.setAdapter(adapter);
+                                adapter.notifyDataSetChanged();
+                            } else {
+                                ArrayList<String> mess = new ArrayList<String>();
+                                mess.add(getResources().getString(R.string.book_not_found));
+                                MessageAdapter ad = new MessageAdapter(SearchBookActivity.this, mess);
+                                bookList.setAdapter(ad);
+                                ad.notifyDataSetChanged();
+                            }
+
                         }
                     });
 
