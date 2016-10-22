@@ -123,6 +123,7 @@
     <string name="loading">Ładowanie…</string>
     <string name="logged_out">Wylogowano</string>
     <string name="logged_out_fail">Błąd: wylogowanie nie powiodło się</string>
+    <string name="enter_search_phrase">Aby wyszukać ksiązkę wprowadź jej nazwę\nw polu na górze.</string>
 
     <string name="RESULT_RELATION_FRIEND_REMOVED">Użytkownik został usunięty z grona znajomych.</string>
 

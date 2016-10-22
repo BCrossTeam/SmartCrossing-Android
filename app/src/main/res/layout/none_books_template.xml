@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:layout_width="@dimen/three_hundred_fifty_two"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
         <TextView

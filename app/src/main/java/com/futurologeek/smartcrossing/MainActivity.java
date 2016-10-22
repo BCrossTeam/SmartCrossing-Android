@@ -164,6 +164,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void setListeners() {
 
+        searchEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, SearchBookActivity.class);
+                startActivity(i);
+            }
+        });
 
 
         mapview.setOnClickListener(new View.OnClickListener() {

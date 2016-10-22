@@ -25,12 +25,11 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".MainActivity$NetworkChangeReceiver" >
-        <intent-filter>
-            <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-        </intent-filter>
+        <receiver android:name=".MainActivity$NetworkChangeReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
         </receiver>
-
 
         <activity
             android:name=".MainActivity"
@@ -73,7 +72,11 @@
         <activity
             android:name=".SettingsActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".RankingActivity"></activity>
+        <activity android:name=".RankingActivity" />
+        <activity android:name=".SearchBookActivity"
+            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden">
+
+        </activity>
     </application>
 
 </manifest>

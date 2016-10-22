@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
@@ -16,8 +18,11 @@ public class Book {
     String author;
     int id;
     String year;
+    SearchAdapter.ViewHolder sholder;
+    SearchAdapter sadapter;
     BookListAdapter.ViewHolder holder;
     BookListAdapter adapter;
+
     JSONObject ob;
     Activity act;
     Dialog dial;
@@ -47,6 +52,26 @@ public class Book {
 
     public String getAuthor(){
         return this.author;
+    }
+
+    public void setSearchListeners(final SearchAdapter.ViewHolder holder, final SearchAdapter adapter, final Context context) {
+        this.sholder = holder;
+        this.sadapter = adapter;
+        holder.whole.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (NetworkStatus.checkNetworkStatus(context)) {
+                    Bundle b = new Bundle();
+                    b.putInt("ajdi", id);
+                    Intent i = new Intent(context,BookActivity.class);
+                    i.putExtras(b);
+                    context.startActivity(i);
+                } else {
+                    Toast.makeText(context, context.getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
     }
 
     public void setListeners(final BookListAdapter.ViewHolder holder, final BookListAdapter adapter, final Context context, Boolean isBorrow, final int bookshelfId, final Activity act, final Dialog dial) {
