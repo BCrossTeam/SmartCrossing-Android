@@ -2,53 +2,37 @@ package com.futurologeek.smartcrossing;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.Dialog;
-import android.app.usage.NetworkStats;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationManager;
 import android.net.ConnectivityManager;
-import android.net.Network;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.PopupMenu;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -61,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     BookshelfAdapter adapter;
     EditText searchEditText;
     TableRow settings;
+    TextView bookshelfPrepTV;
+    LinearLayout bookshelfPrepLL;
     TableRow profile;
     ArrayList<Bookshelf> punkty = new ArrayList<Bookshelf>();
     final Activity activity = this;
@@ -71,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     double latitude, longitude;
     JSONObject ob;
     String querySt;
-    ProgressBar progress;
+    int counter = 0;
 
 
     @Override
@@ -127,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
             getLoc();
         } else if(location.hasLocationEnabled()&&isLocationPermission()&&((latitude!=0||longitude!=0))) {
             if(NetworkStatus.checkNetworkStatus(this)){
-                new GetContacts().execute();
+                new GetBookshelves().execute();
             } else {
                 Toast.makeText(this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
             }
@@ -137,17 +123,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        new GetRequests().execute();
         getLoc();
-
-
     }
 
     @Override
     protected void onPause() {
-    location.endUpdates();
-    adapter.clear();
-    adapter.notifyDataSetChanged();
-    super.onPause();
+        location.endUpdates();
+        bookshelfPrepLL.setVisibility(View.GONE);
+        adapter.clear();
+        adapter.notifyDataSetChanged();
+        super.onPause();
     }
 
 
@@ -166,19 +152,28 @@ public class MainActivity extends AppCompatActivity {
         profile = (TableRow) findViewById(R.id.profile_button);
         mapview = (TableRow) findViewById(R.id.map_button);
         searchEditText = (EditText) findViewById(R.id.search_edit_text);
-        progress = (ProgressBar) findViewById(R.id.progressbar);
+        bookshelfPrepLL = (LinearLayout) findViewById(R.id.bookshelf_prep_ll);
+        bookshelfPrepTV = (TextView) findViewById(R.id.bookshelf_prep_tv);
     }
 
     public void setListeners() {
+
+        bookshelfPrepLL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, RequestsActivity.class);
+                Bundle b = new Bundle();
+                b.putDouble("latitude",latitude);
+                b.putDouble("longitude",longitude);
+                i.putExtras(b);
+                startActivity(i);
+            }
+        });
 
         searchEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, SearchBookActivity.class);
-               // Bundle b = new Bundle();
-               // b.putDouble("latitude",latitude);
-               // b.putDouble("longitude",longitude);
-               // i.putExtras(b);
                 startActivity(i);
             }
         });
@@ -230,11 +225,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    class GetContacts extends AsyncTask<Void, Void, Void> {
+    class GetBookshelves extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected void onPreExecute() {
-            progress.setVisibility(View.VISIBLE);
+
         }
 
         @Override
@@ -268,9 +263,18 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            adapter = new BookshelfAdapter(MainActivity.this, punkty);
-                            booklist.setAdapter(adapter);
-                            adapter.notifyDataSetChanged();
+                            if(punkty.size()>0){
+                                adapter = new BookshelfAdapter(MainActivity.this, punkty);
+                                booklist.setAdapter(adapter);
+                                adapter.notifyDataSetChanged();
+                            } else {
+                                ArrayList<String> mess = new ArrayList<String>();
+                                mess.add(getResources().getString(R.string.no_near_bookshelves));
+                                MessageAdapter ad = new MessageAdapter(MainActivity.this, mess);
+                                booklist.setAdapter(ad);
+                                ad.notifyDataSetChanged();
+                            }
+
                             if(longitude==0||latitude==0){
                                 getLoc();
                                 return;
@@ -284,14 +288,14 @@ public class MainActivity extends AppCompatActivity {
                                 for (Iterator<Bookshelf> iter = punkty.listIterator(); iter.hasNext(); ) {
                                     Bookshelf a = iter.next();
                                     if (a.getDistance()>preferences.getInt("radius",30)) {
-                                       // Toast.makeText(MainActivity.this, "Za duzy dist"+a.getDistance()+" max "+preferences.getInt("radius",30), Toast.LENGTH_SHORT).show();
+                                        // Toast.makeText(MainActivity.this, "Za duzy dist"+a.getDistance()+" max "+preferences.getInt("radius",30), Toast.LENGTH_SHORT).show();
                                         iter.remove();
                                     }
                                 }
                                 sortList();
                             }
-                            }
-                        });
+                        }
+                    });
 
                 } catch (final JSONException e) {
                     Log.e("TAG", "Json parsing error: " + e.getMessage());
@@ -326,7 +330,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            progress.setVisibility(View.GONE);
 
 
         }
@@ -348,7 +351,7 @@ public class MainActivity extends AppCompatActivity {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                        getLoc();
+                    getLoc();
                 }
 
 
@@ -382,4 +385,73 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("Network Available ", "NO");
             }
         }}
+
+    class GetRequests extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            HttpHandler sh = new HttpHandler();
+            counter = 0;
+            // Making a request to url and getting response
+            String jsonStr = sh.makeServiceCall(Constants.request_url+UserInfo.token);
+
+            Log.e("tag", "Response from url: " + jsonStr);
+            if (jsonStr != null) {
+                try {
+                    JSONObject jsonObj = new JSONObject(jsonStr);
+                    JSONArray contacts = jsonObj.getJSONArray("bookshelf_requests");
+                    for (int i = 0; i < contacts.length(); i++) {
+                        counter++;
+                    }
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(counter==1){
+                                bookshelfPrepLL.setVisibility(View.VISIBLE);
+                                bookshelfPrepTV.setText(getResources().getString(R.string.NEW_REQUEST));
+                            } else if(counter>1){
+                                bookshelfPrepLL.setVisibility(View.VISIBLE);
+                                bookshelfPrepTV.setText(getResources().getString(R.string.NEW_REQUESTS));
+                            }
+                        }
+
+                    });
+
+                } catch (final JSONException e) {
+                    Log.e("TAG", "Json parsing error: " + e.getMessage());
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(),
+                                    "Json parsing error: " + e.getMessage(),
+                                    Toast.LENGTH_LONG)
+                                    .show();
+                        }
+                    });
+
+                }
+            } else {
+                Log.e("TAG", "Couldn't get json from server.");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),
+                                "Couldn't get json from server. Check LogCat for possible errors!",
+                                Toast.LENGTH_LONG)
+                                .show();
+                    }
+                });
+
+            }
+
+            return null;
+        }
+
+    }
 }
