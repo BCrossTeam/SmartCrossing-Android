@@ -59,12 +59,15 @@ public class LoadingActivity extends AppCompatActivity {
 
     public void goToSignIn() {
         Intent i = new Intent(this, SignInActivity.class);
-            startActivity(i);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+
             //finish();
 }
 
     public void goToSignUp(){
         Intent i = new Intent(this, SignUpActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
         //finish();
     }
@@ -105,6 +108,7 @@ public class LoadingActivity extends AppCompatActivity {
                                 }
                                 Toast.makeText(LoadingActivity.this, getResources().getString(R.string.logged_in), Toast.LENGTH_SHORT).show();
                                 Intent i = new Intent(LoadingActivity.this, MainActivity.class);
+                                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(i);
                                 finish();
                             }

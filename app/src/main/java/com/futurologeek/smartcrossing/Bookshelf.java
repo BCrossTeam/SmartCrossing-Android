@@ -120,6 +120,7 @@ public class Bookshelf {
                 }
                 if (NetworkStatus.checkNetworkStatus(context)) {
                     Intent i = new Intent(context, MapActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     Bundle koszyk = new Bundle();
                     koszyk.putBoolean("isPoint",true);
                     koszyk.putDouble("longitude", getLongitude());
@@ -139,6 +140,7 @@ public class Bookshelf {
                 if (NetworkStatus.checkNetworkStatus(context)) {
                     Intent i = new Intent(context,BookshelfActivity.class);
                     Bundle bundle = new Bundle();
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     bundle.putInt("id",getId());
                     bundle.putString("name",getNamePlace());
                     bundle.putDouble("longitude", getLongitude());

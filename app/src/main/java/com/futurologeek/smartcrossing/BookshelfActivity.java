@@ -389,6 +389,7 @@ public class BookshelfActivity extends FragmentActivity {
                         b.putInt("ajdi", ks.getId());
                         Intent i = new Intent(BookshelfActivity.this,BookActivity.class);
                         i.putExtras(b);
+                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(i);
                     } else {
                         Toast.makeText(BookshelfActivity.this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();

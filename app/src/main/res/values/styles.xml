@@ -10,6 +10,10 @@
         <item name="android:background">@color/darkpurple</item>
     </style>
 
+    <style name="noAnimTheme" parent="@style/Theme.AppCompat.NoActionBar">
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
 
     <style name="perfekcyjneTloTheme">
         <item name="android:background">@drawable/perfekcyjnetlo</item>

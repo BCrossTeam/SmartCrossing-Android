@@ -64,6 +64,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(ProfileActivity.this, RankingActivity.class);
+                //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 Bundle b = new Bundle();
                 b.putInt("u_id", Integer.parseInt(id));
                 i.putExtras(b);
@@ -243,6 +244,7 @@ public class ProfileActivity extends AppCompatActivity {
                         Bundle b = new Bundle();
                         b.putInt("ajdi", ks.getId());
                         Intent i = new Intent(ProfileActivity.this,BookActivity.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         i.putExtras(b);
                         startActivity(i);
                     } else {

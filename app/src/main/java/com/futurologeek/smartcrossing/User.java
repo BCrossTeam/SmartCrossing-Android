@@ -40,6 +40,7 @@ public class User {
                 if (NetworkStatus.checkNetworkStatus(context)) {
                     Intent i = new Intent(context, ProfileActivity.class);
                     Bundle koszyk = new Bundle();
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     koszyk.putString("u_id", String.valueOf(id));
                     i.putExtras(koszyk);
                     context.startActivity(i);

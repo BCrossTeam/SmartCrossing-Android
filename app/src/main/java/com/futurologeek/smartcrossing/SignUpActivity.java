@@ -371,6 +371,7 @@ public class SignUpActivity extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                                 Intent i = new Intent(SignUpActivity.this, SignInActivity.class);
+                                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(i);
                                 finish();
                             }
@@ -407,6 +408,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void goToSignIn(){
         Intent i = new Intent(this,SignInActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
         finish();
     }

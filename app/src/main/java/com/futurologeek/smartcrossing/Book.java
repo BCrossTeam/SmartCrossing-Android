@@ -64,6 +64,7 @@ public class Book {
                     Bundle b = new Bundle();
                     b.putInt("ajdi", id);
                     Intent i = new Intent(context,BookActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     i.putExtras(b);
                     context.startActivity(i);
                 } else {

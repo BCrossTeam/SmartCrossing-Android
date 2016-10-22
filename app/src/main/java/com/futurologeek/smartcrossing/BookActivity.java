@@ -106,6 +106,7 @@ public class BookActivity extends AppCompatActivity {
                                     public void onClick(View v) {
                                         if (NetworkStatus.checkNetworkStatus(BookActivity.this)) {
                                             Intent i = new Intent(BookActivity.this, ProfileActivity.class);
+                                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                             //Todo: Pobieranie user id
                                             Bundle koszyk = new Bundle();
                                             koszyk.putString("u_id", String.valueOf(creator_id));
