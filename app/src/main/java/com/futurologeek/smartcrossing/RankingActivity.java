@@ -1,7 +1,5 @@
 package com.futurologeek.smartcrossing;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,8 +13,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 public class RankingActivity extends AppCompatActivity {
     TextView name1, name2, name3;
@@ -36,7 +32,7 @@ public class RankingActivity extends AppCompatActivity {
         if(getIntent().getExtras()!=null) {
             Bundle przekazanedane = getIntent().getExtras();
             urank_id = przekazanedane.getInt("u_id");
-            new GetContacts().execute();
+            new GetRanking().execute();
         }
     }
 
@@ -51,7 +47,7 @@ public class RankingActivity extends AppCompatActivity {
         rank = (ListView) findViewById(R.id.rank_list);
     }
 
-    class GetContacts extends AsyncTask<Void, Void, Void> {
+    class GetRanking extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected void onPreExecute() {

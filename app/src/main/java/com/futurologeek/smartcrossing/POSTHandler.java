@@ -29,7 +29,7 @@ public class POSTHandler {
         }
         sendJson(conn, obj);
         output = handleOutput(conn);
-        Log.d("--xooutputxo--", output.toString());
+        Log.d("--output--", output.toString());
         conn.disconnect();
         return output;
     }

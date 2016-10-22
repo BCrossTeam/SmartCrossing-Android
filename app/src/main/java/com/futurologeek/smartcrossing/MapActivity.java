@@ -6,18 +6,15 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -39,14 +36,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Random;
 
 import im.delight.android.location.SimpleLocation;
 
-import static com.futurologeek.smartcrossing.R.id.bookcount;
 import static com.futurologeek.smartcrossing.R.id.map;
-import static com.futurologeek.smartcrossing.R.id.tvTitle;
 
 public class MapActivity extends FragmentActivity {
 
@@ -116,7 +109,7 @@ public class MapActivity extends FragmentActivity {
         setContentView(R.layout.activity_map);
         punkty = new ArrayList<Bookshelf>();
         if(NetworkStatus.checkNetworkStatus(this)){
-            new GetContacts().execute();
+            new GetMapPoints().execute();
 
             if (isLocationPermission()) {
                 loadMap();
@@ -252,7 +245,7 @@ public class MapActivity extends FragmentActivity {
         });
     }
 
-    class GetContacts extends AsyncTask<Void, Void, Void> {
+    class GetMapPoints extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected void onPreExecute() {

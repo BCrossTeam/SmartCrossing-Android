@@ -64,7 +64,7 @@ public class AddBookActivity extends AppCompatActivity {
             Bundle przekazanedane = getIntent().getExtras();
             url  = przekazanedane.getString("jurl");
             if(NetworkStatus.checkNetworkStatus(this)){
-                new GetContacts().execute();
+                new GetBookInfo().execute();
             } else {
                 Toast.makeText(this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
             }
@@ -141,7 +141,7 @@ public class AddBookActivity extends AppCompatActivity {
         });
     }
 
-    class GetContacts extends AsyncTask<Void, Void, Void> {
+    class GetBookInfo extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected void onPreExecute() {

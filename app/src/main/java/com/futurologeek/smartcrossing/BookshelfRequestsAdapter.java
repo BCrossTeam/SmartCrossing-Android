@@ -1,9 +1,11 @@
 package com.futurologeek.smartcrossing;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,12 +16,14 @@ import java.util.ArrayList;
 
 public class BookshelfRequestsAdapter extends ArrayAdapter<Bookshelf> {
     private final Context context;
+    Activity activity;
     private final ArrayList<Bookshelf> itemsArrayList;
-  
-    public BookshelfRequestsAdapter(Context context, ArrayList<Bookshelf> itemsArrayList) {
+
+    public BookshelfRequestsAdapter(Context context, ArrayList<Bookshelf> itemsArrayList, Activity activity) {
         super(context, R.layout.shelf_template, itemsArrayList);
         this.context = context;
         this.itemsArrayList = itemsArrayList;
+        this.activity = activity;
     }
 
     @Override
@@ -39,7 +43,7 @@ public class BookshelfRequestsAdapter extends ArrayAdapter<Bookshelf> {
             holder.declineRelative = (RelativeLayout) convertView.findViewById(R.id.decline_relative);
 
             if(itemsArrayList.size()>0){
-                getItem(position).setListenersRequests(holder, this, context);
+                getItem(position).setListenersRequests(holder, this, context, activity);
             }
             convertView.setTag(holder);
         } else {

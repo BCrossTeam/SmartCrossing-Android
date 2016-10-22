@@ -7,14 +7,11 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TableRow;
@@ -28,9 +25,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.api.services.books.Books;
-import com.google.api.services.books.model.*;
-import com.google.zxing.integration.android.IntentIntegrator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -61,7 +55,7 @@ public class BookshelfActivity extends FragmentActivity {
 
     void runAsync() {
         if (NetworkStatus.checkNetworkStatus(this)) {
-            new GetContacts().execute();
+            new GetBookshelfBooks().execute();
         } else {
             Toast.makeText(this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
         }
@@ -70,7 +64,7 @@ public class BookshelfActivity extends FragmentActivity {
     @Override
     public void onResume() {
         super.onResume();
-        if (NetworkStatus.checkNetworkStatus(this)) { new GetContacts().execute(); } else { Toast.makeText(this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show(); }
+        if (NetworkStatus.checkNetworkStatus(this)) { new GetBookshelfBooks().execute(); } else { Toast.makeText(this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show(); }
     }
 
 
@@ -96,7 +90,7 @@ public class BookshelfActivity extends FragmentActivity {
 
 
             if (NetworkStatus.checkNetworkStatus(this)) {
-                new GetContacts().execute();
+                new GetBookshelfBooks().execute();
             } else {
                 Toast.makeText(this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
             }
@@ -170,7 +164,7 @@ public class BookshelfActivity extends FragmentActivity {
 
     }
 
-    class GetContacts extends AsyncTask<Void, Void, Void> {
+    class GetBookshelfBooks extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected void onPreExecute() {

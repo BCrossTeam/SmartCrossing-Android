@@ -16,7 +16,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
 
 public class RequestsActivity extends AppCompatActivity {
     ListView requestList;
@@ -36,15 +35,22 @@ public class RequestsActivity extends AppCompatActivity {
             latitude = przekazanedane.getDouble("latitude");
             longitude = przekazanedane.getDouble("longitude");
         }
-        new GetContacts().execute();
+       onResume();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (NetworkStatus.checkNetworkStatus(this)) { new GetRequests().execute(); } else { Toast.makeText(this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show(); }
+    }
+
+
     public void findViews() {
-        adapter = new BookshelfRequestsAdapter(this, lista);
+        adapter = new BookshelfRequestsAdapter(this, lista, RequestsActivity.this);
         requestList = (ListView) findViewById(R.id.request_list);
     }
 
-    class GetContacts extends AsyncTask<Void, Void, Void> {
+    class GetRequests extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected void onPreExecute() {
@@ -74,10 +80,13 @@ public class RequestsActivity extends AppCompatActivity {
                         Bookshelf plejs = new Bookshelf(id, name, latitude, longitude);
                         lista.add(plejs);
                     }
+                    if(lista.size()<1){
+                        finish();
+                    }
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            adapter = new BookshelfRequestsAdapter(RequestsActivity.this, lista);
+                            adapter = new BookshelfRequestsAdapter(RequestsActivity.this, lista, RequestsActivity.this);
                             requestList.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
                             for (Bookshelf pl : lista) {

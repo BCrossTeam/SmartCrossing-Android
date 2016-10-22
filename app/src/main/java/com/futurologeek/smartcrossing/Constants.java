@@ -15,6 +15,9 @@ public class Constants {
     public static final String gapi_url = "https://www.googleapis.com/books/v1/volumes?q=ISBN:";
     public static final int distance = 100;
     public static final String request_url = "https://api.smartcrossing.pl/bookshelf/request/token/";
+    public static final String request_vote_url_1 = "/bookshelf/request/";
+    public static final String request_vote_url_2_approve = "/vote/approve";
+    public static final String request_vote_url_2_disapprove = "/vote/disapprove";
 
 
     public static double maxConstant(Context context){

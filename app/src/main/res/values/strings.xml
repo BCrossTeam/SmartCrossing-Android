@@ -25,8 +25,12 @@
     <string name="isbn">ISBN: </string>
     <string name="visit_profile">Visit profile </string>
 
-    <string name="first_run">Drogi użytkowniku! Oddajemy w Twoje ręce aplikację do bookcrossingu. Chcemy jednak zaznaczyć, iż aplikacja powstała podczas hackatonu "Hack Heroes" organizowanego przez serwis Apka.org, dlatego też wyświetlane w niej półki nie są jeszcze rzeczywistymi półkami, umieszczonymi w Twoim mieście. Chcemy nadmienić, że aplikacja została również okrojona z kilku funkcjonalności na potrzeby testów, które będzie robić jury. W finalnej wersji aby wypożyczyć/oddać książkę - będzie trzeba być nie dalej niż 50m od półki. Aby oszczędzić komisji spaceru, w aplikacji pojawia się tylko powiadomienie, iż dystans ten jest większy. Życzymy miłego korzystania z naszej aplikacji!  Zespół BCrossTeam!</string>
+    <string name="NEW_REQUEST">New bookshelf proposition</string>
+    <string name="NEW_REQUESTS">New bookshelf propositions </string>
 
+
+    <string name="first_run">Drogi użytkowniku! Oddajemy w Twoje ręce aplikację do bookcrossingu. Chcemy jednak zaznaczyć, iż aplikacja powstała podczas hackatonu "Hack Heroes" organizowanego przez serwis Apka.org, dlatego też wyświetlane w niej półki nie są jeszcze rzeczywistymi półkami, umieszczonymi w Twoim mieście. Chcemy nadmienić, że aplikacja została również okrojona z kilku funkcjonalności na potrzeby testów, które będzie robić jury. W finalnej wersji aby wypożyczyć/oddać książkę - będzie trzeba być nie dalej niż 50m od półki. Aby oszczędzić komisji spaceru, w aplikacji pojawia się tylko powiadomienie, iż dystans ten jest większy. Życzymy miłego korzystania z naszej aplikacji!  Zespół BCrossTeam!</string>
+    <string name="VOTE_SUCCESSFULL">You\'ve successfully voted</string>
 
     <string name="borrow_book">Borrow book</string>
     <string name="return_book">Return book</string>
