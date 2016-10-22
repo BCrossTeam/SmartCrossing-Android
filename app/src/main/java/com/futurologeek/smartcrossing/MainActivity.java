@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     JSONObject ob;
     String querySt;
     int counter = 0;
+    ProgressBar progress;
 
 
     @Override
@@ -154,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
         searchEditText = (EditText) findViewById(R.id.search_edit_text);
         bookshelfPrepLL = (LinearLayout) findViewById(R.id.bookshelf_prep_ll);
         bookshelfPrepTV = (TextView) findViewById(R.id.bookshelf_prep_tv);
+        progress = (ProgressBar) findViewById(R.id.progressbar);
     }
 
     public void setListeners() {
@@ -229,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-
+            progress.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -330,6 +333,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
+            progress.setVisibility(View.GONE);
 
 
         }
