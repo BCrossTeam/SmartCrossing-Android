@@ -25,6 +25,9 @@
         sample:msbp_measurementUnit="km"
         />
 
+<Preference
+    android:key="log_out"
+    android:title="@string/signout"/>
 
 
 </PreferenceScreen>

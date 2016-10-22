@@ -121,6 +121,8 @@
     <string name="password_confirmation">Potwierdź hasło</string>
     <string name="title_activity_settings">Ustawienia</string>
     <string name="loading">Ładowanie…</string>
+    <string name="logged_out">Wylogowano</string>
+    <string name="logged_out_fail">Błąd: wylogowanie nie powiodło się</string>
 
     <string name="RESULT_RELATION_FRIEND_REMOVED">Użytkownik został usunięty z grona znajomych.</string>
 

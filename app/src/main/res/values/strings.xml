@@ -59,6 +59,9 @@
     <string name="home">Home page</string>
     <string name="challengesb">Challenge somebody</string>
     <string name="logged_in">Logged in</string>
+    <string name="logged_out">Signed out</string>
+    <string name="logged_out_fail">Error: signing out failed</string>
+
     <string name="bshelf_name_null">Enter bookshelf name</string>
 
 

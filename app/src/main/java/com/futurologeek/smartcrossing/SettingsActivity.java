@@ -1,7 +1,9 @@
 package com.futurologeek.smartcrossing;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
@@ -11,6 +13,9 @@ import android.widget.Toast;
 
 import com.futurologeek.smartcrossing.seekbar.SeekBarPreference;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class SettingsActivity extends PreferenceActivity {
     public static SettingsActivity instance;
@@ -18,6 +23,8 @@ public class SettingsActivity extends PreferenceActivity {
     CheckBoxPreference camFocus;
     SeekBarPreference radius;
     SharedPreferences.Editor editor;
+    Preference signOut;
+    JSONObject jsonObj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +34,18 @@ public class SettingsActivity extends PreferenceActivity {
         SharedPreferences preferences = getSharedPreferences(Constants.shared, Context.MODE_PRIVATE);
         editor = preferences.edit();
 
+        signOut = (Preference) findPreference("log_out");
+        units    = (CheckBoxPreference) findPreference("unit");
+        camFocus = (CheckBoxPreference) findPreference("cam_focus");
+        radius = (SeekBarPreference) findPreference("radius");
 
-       units    = (CheckBoxPreference) findPreference("unit");
-       camFocus = (CheckBoxPreference) findPreference("cam_focus");
-       radius = (SeekBarPreference) findPreference("radius");
+        signOut.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                new signOut().execute();
+                return true;
+            }
+        });
 
        // units.setChecked(preferences.getBoolean("isKM",false));
         if(units.isChecked()){
@@ -105,6 +120,79 @@ public class SettingsActivity extends PreferenceActivity {
             return true;
             }
         });
+    }
+
+    class signOut extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            HttpHandler sh = new HttpHandler();
+
+            // Making a request to url and getting response
+            String jsonStr = sh.makeServiceDelete(Constants.auth_url+UserInfo.token);
+
+            Log.e("tag", "Response from url: " + jsonStr);
+
+            if (jsonStr != null) {
+                try {
+                    jsonObj = new JSONObject(jsonStr);
+
+                    if(jsonObj.has("success")){
+                        SettingsActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                DBHandler db = new DBHandler(SettingsActivity.this);
+                                db.deleteAll();
+                                UserInfo.token = "";
+                                UserInfo.uid = -1;
+                                Toast.makeText(SettingsActivity.this, getResources().getString(R.string.logged_out), Toast.LENGTH_SHORT).show();
+                                Intent i = new Intent(SettingsActivity.this, LoadingActivity.class);
+                                startActivity(i);
+                                finish();
+                            }
+                        });
+                    } else {
+                        SettingsActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(SettingsActivity.this, getResources().getString(R.string.logged_out_fail), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                } catch (final JSONException e) {
+                    Log.e("TAG", "Json parsing error: " + e.getMessage());
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(),
+                                    "Json parsing error: " + e.getMessage(),
+                                    Toast.LENGTH_LONG)
+                                    .show();
+                        }
+                    });
+
+                }
+            } else {
+                Log.e("TAG", "Couldn't get json from server.");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),
+                                "Couldn't get json from server. Check LogCat for possible errors!",
+                                Toast.LENGTH_LONG)
+                                .show();
+                    }
+                });
+
+            }
+
+            return null;
+        }
     }
 
 
