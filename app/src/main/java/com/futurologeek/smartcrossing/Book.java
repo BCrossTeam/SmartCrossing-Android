@@ -75,7 +75,7 @@ public class Book {
 
     }
 
-    public void setListeners(final BookListAdapter.ViewHolder holder, final BookListAdapter adapter, final Context context, Boolean isBorrow, final int bookshelfId, final Activity act, final Dialog dial) {
+    public void setListeners(final BookListAdapter.ViewHolder holder, final BookListAdapter adapter, final Context context, Boolean isBorrow, final int bookshelfId, final Activity act, final Dialog dial, final float distance) {
         this.holder = holder;
         this.adapter = adapter;
         this.act = act;
@@ -94,34 +94,36 @@ public class Book {
                         builder.setPositiveButton(context.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
 
                             public void onClick(final DialogInterface dialog, int which) {
-                                final Thread t = new Thread()
-                                {
-                                    public void run()
-                                    {
-                                        try  {
+                                if (distance * 1000 > Constants.maxConstant(context)) {
+                                    Toast.makeText(context, context.getResources().getString(R.string.ret_distance_too_long), Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
+                                } else {
+                                final Thread t = new Thread() {
+                                    public void run() {
+                                        try {
                                             POSTHandler han = new POSTHandler();
                                             JSONObject par = new JSONObject();
                                             try {
-                                                par.put("user_auth_token",UserInfo.token);
+                                                par.put("user_auth_token", UserInfo.token);
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
                                             }
-                                            ob = han.handlePOSTmethod("/bookshelf/"+bookshelfId+"/book/"+id+"/",par, true);
+                                            ob = han.handlePOSTmethod("/bookshelf/" + bookshelfId + "/book/" + id + "/", par, true);
 
                                             act.runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
                                                     if (ob.has("error")) {
-                                                        if(ob.has("sub_error")) {
+                                                        if (ob.has("sub_error")) {
                                                             int sub_error = 0;
                                                             try {
                                                                 sub_error = ob.getInt("sub_error");
                                                             } catch (JSONException e) {
                                                                 e.printStackTrace();
                                                             }
-                                                            sub_error = sub_error*-1;
+                                                            sub_error = sub_error * -1;
                                                             try {
-                                                                Toast.makeText(context, context.getResources().getString(R.string.JUST_ERROR)+" "+ GetStringCode.getErrorResource(ob.getInt("error"), context) + context.getResources().getString(R.string.ADDITIONAL_ERROR_INFO)+" "+ GetStringCode.getErrorResource(sub_error, context), Toast.LENGTH_SHORT).show();
+                                                                Toast.makeText(context, context.getResources().getString(R.string.JUST_ERROR) + " " + GetStringCode.getErrorResource(ob.getInt("error"), context) + context.getResources().getString(R.string.ADDITIONAL_ERROR_INFO) + " " + GetStringCode.getErrorResource(sub_error, context), Toast.LENGTH_SHORT).show();
                                                             } catch (JSONException e) {
                                                                 e.printStackTrace();
                                                             }
@@ -135,6 +137,7 @@ public class Book {
 
                                                         //Toast.makeText(SignInActivity.this, signInPassword.getText().toString() + "   "  +signInLogin.getText().toString(), Toast.LENGTH_SHORT).show();
                                                     } else {
+                                                        ((BookshelfActivity) act).onResume();
                                                         try {
                                                             Toast.makeText(context, GetStringCode.getSuccessCode(ob.getInt("success"), context), Toast.LENGTH_SHORT).show();
                                                         } catch (JSONException e) {
@@ -150,7 +153,7 @@ public class Book {
                                 };
                                 t.start();
                                 dial.dismiss();
-                                ((BookshelfActivity) act).onResume();
+                            }
                             }
                         });
 
@@ -183,34 +186,36 @@ public class Book {
                         builder.setPositiveButton(context.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int which) {
-                                final Thread t = new Thread()
-                                {
-                                    public void run()
-                                    {
-                                        try  {
+                                if (distance * 1000 > Constants.maxConstant(context)) {
+                                    Toast.makeText(context, context.getResources().getString(R.string.ret_distance_too_long), Toast.LENGTH_SHORT).show();
+                                    dialog.dismiss();
+                                } else {
+                                final Thread t = new Thread() {
+                                    public void run() {
+                                        try {
                                             POSTHandler han = new POSTHandler();
                                             JSONObject par = new JSONObject();
                                             try {
-                                                par.put("user_auth_token",UserInfo.token);
+                                                par.put("user_auth_token", UserInfo.token);
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
                                             }
-                                            ob = han.handlePOSTmethod("/bookshelf/"+bookshelfId+"/book/"+id+"/",par, false);
+                                            ob = han.handlePOSTmethod("/bookshelf/" + bookshelfId + "/book/" + id + "/", par, false);
 
                                             act.runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
                                                     if (ob.has("error")) {
-                                                        if(ob.has("sub_error")) {
+                                                        if (ob.has("sub_error")) {
                                                             int sub_error = 0;
                                                             try {
                                                                 sub_error = ob.getInt("sub_error");
                                                             } catch (JSONException e) {
                                                                 e.printStackTrace();
                                                             }
-                                                            sub_error = sub_error*-1;
+                                                            sub_error = sub_error * -1;
                                                             try {
-                                                                Toast.makeText(context, context.getResources().getString(R.string.JUST_ERROR)+" "+ GetStringCode.getErrorResource(ob.getInt("error"), context) + context.getResources().getString(R.string.ADDITIONAL_ERROR_INFO)+" "+ GetStringCode.getErrorResource(sub_error, context), Toast.LENGTH_SHORT).show();
+                                                                Toast.makeText(context, context.getResources().getString(R.string.JUST_ERROR) + " " + GetStringCode.getErrorResource(ob.getInt("error"), context) + context.getResources().getString(R.string.ADDITIONAL_ERROR_INFO) + " " + GetStringCode.getErrorResource(sub_error, context), Toast.LENGTH_SHORT).show();
                                                             } catch (JSONException e) {
                                                                 e.printStackTrace();
                                                             }
@@ -224,6 +229,7 @@ public class Book {
 
                                                         //Toast.makeText(SignInActivity.this, signInPassword.getText().toString() + "   "  +signInLogin.getText().toString(), Toast.LENGTH_SHORT).show();
                                                     } else {
+                                                        ((BookshelfActivity) act).onResume();
                                                         try {
                                                             Toast.makeText(context, GetStringCode.getSuccessCode(ob.getInt("success"), context), Toast.LENGTH_SHORT).show();
                                                         } catch (JSONException e) {
@@ -238,8 +244,8 @@ public class Book {
                                     }
                                 };
                                 t.start();
-                               dial.dismiss();
-                                ((BookshelfActivity) act).onResume();
+                                dial.dismiss();
+                            }
                             }
                         });
 

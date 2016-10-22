@@ -45,6 +45,7 @@ public class BookshelfActivity extends FragmentActivity {
     double latitude;
     int ajdi;
     int b_id;
+    float dist;
     private TableRow inflejtTable;
     ArrayList<Book> ksiazki = new ArrayList<Book>();
     int zmiennik = 0;
@@ -73,16 +74,12 @@ public class BookshelfActivity extends FragmentActivity {
     }
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_activity_bookshelf);
-        bookListAdapter = new BookListAdapter(BookshelfActivity.this, user_books, false, ajdi, BookshelfActivity.this, null);
         findViews();
         setListeners();
-
         ToolbarHandler handler = new ToolbarHandler(this, ToolbarHandler.buttonVariation.Bookshelf);
         handler.setListeners();
 
@@ -91,10 +88,12 @@ public class BookshelfActivity extends FragmentActivity {
             final String nejm = przekazanedane.getString("name");
             name.setText(nejm);
             longitude = przekazanedane.getDouble("longitude");
+            dist = przekazanedane.getFloat("dist");
             latitude = przekazanedane.getDouble("latitude");
             bookcount = przekazanedane.getInt("bookcount");
             ajdi = przekazanedane.getInt("id");
             tvBookCount.setText(this.getResources().getString(R.string.b_count) + " " + bookcount);
+
 
             if (NetworkStatus.checkNetworkStatus(this)) {
                 new GetContacts().execute();
@@ -118,6 +117,7 @@ public class BookshelfActivity extends FragmentActivity {
                 }
             });
         }
+
     }
 
     public void findViews() {
@@ -318,9 +318,9 @@ public class BookshelfActivity extends FragmentActivity {
                             ListView lista = (ListView) dialog.findViewById(R.id.listView);
                             if(user_books.size()>0){
                                 if(isBorrow){
-                                    bookListAdapter = new BookListAdapter(BookshelfActivity.this, user_books, true, ajdi, BookshelfActivity.this, dialog);
+                                    bookListAdapter = new BookListAdapter(BookshelfActivity.this, user_books, true, ajdi, BookshelfActivity.this, dialog, dist);
                                 } else {
-                                    bookListAdapter = new BookListAdapter(BookshelfActivity.this, user_books, false, ajdi, BookshelfActivity.this, dialog);
+                                    bookListAdapter = new BookListAdapter(BookshelfActivity.this, user_books, false, ajdi, BookshelfActivity.this, dialog, dist);
                                 }
                                 lista.setAdapter(bookListAdapter);
                                 bookListAdapter.notifyDataSetChanged();

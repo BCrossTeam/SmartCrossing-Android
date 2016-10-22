@@ -144,6 +144,7 @@ public class Bookshelf {
                     bundle.putInt("id",getId());
                     bundle.putString("name",getNamePlace());
                     bundle.putDouble("longitude", getLongitude());
+                    bundle.putFloat("dist", distance);
                     bundle.putInt("bookcount", getBookcount());
                     bundle.putDouble("latitude", getLatitude());
                     i.putExtras(bundle);

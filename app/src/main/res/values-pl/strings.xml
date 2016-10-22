@@ -128,6 +128,8 @@
     <string name="search_in_books">Wyszukaj książkę: </string>
     <string name="RESULT_RELATION_FRIEND_REMOVED">Użytkownik został usunięty z grona znajomych.</string>
 
+    <string name="ret_distance_too_long">Błąd: Nie możesz oddać książki będąc\ndalej niż 100m (62 mile) od półki.</string>
+    <string name="bor_distance_too_long">Błąd: Nie możesz wypożyczyć książki będąc\ndalej niż 100m (62 mile) od półki.</string>
 
     <string name="you_have_new_challenge">Masz %1$d %2$s</string>
 

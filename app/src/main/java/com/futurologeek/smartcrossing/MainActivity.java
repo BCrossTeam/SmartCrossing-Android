@@ -169,25 +169,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void setListeners() {
 
-        searchEditText.addTextChangedListener(new TextWatcher() {
+        searchEditText.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                /* Intent i = new Intent(MainActivity.this, SearchBookActivity.class);
-                            Bundle b = new Bundle();
-                            b.putString("query", querySt);
-                            i.putExtras(b);
-                            startActivity(i);
-                            return true;*/
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, SearchBookActivity.class);
+                startActivity(i);
             }
         });
 

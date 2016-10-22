@@ -21,8 +21,9 @@ public class BookListAdapter extends ArrayAdapter<Book> {
     Dialog dial;
     int bookshelfId;
     Activity act;
+    float dist;
 
-    public BookListAdapter(Context context, ArrayList<Book> itemsArrayList, Boolean isBorrow, int bookshelfId, Activity act, Dialog dial) {
+    public BookListAdapter(Context context, ArrayList<Book> itemsArrayList, Boolean isBorrow, int bookshelfId, Activity act, Dialog dial, float distance) {
         super(context, R.layout.book_list_template, itemsArrayList);
         this.context = context;
         this.act = act;
@@ -30,6 +31,7 @@ public class BookListAdapter extends ArrayAdapter<Book> {
         this.isBorrow = isBorrow;
         this.itemsArrayList = itemsArrayList;
         this.dial = dial;
+        this.dist = distance;
     }
 
     @Override
@@ -49,7 +51,7 @@ public class BookListAdapter extends ArrayAdapter<Book> {
             holder.tvtitle.setText(getItem(position).getTitle());
             holder.tvauthor.setText(getItem(position).getAuthor());
             holder.ivimage.setImageResource(R.drawable.nocover);
-            getItem(position).setListeners(holder, this, context, isBorrow, bookshelfId, act, dial);
+            getItem(position).setListeners(holder, this, context, isBorrow, bookshelfId, act, dial, dist);
             convertView.setTag(holder);
         }
 

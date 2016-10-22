@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -36,6 +37,15 @@ public class SearchBookActivity extends AppCompatActivity {
     public void findViews(){
         searchEditText = (EditText) findViewById(R.id.search_edit_text);
         bookList = (ListView) findViewById(R.id.book_list_listview);
+        searchEditText.post(new Runnable() {
+            @Override
+            public void run() {
+                searchEditText.requestFocusFromTouch();
+                searchEditText.requestFocus();
+                InputMethodManager lManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                lManager.showSoftInput(searchEditText, 0);
+            }
+        });
     }
 
     public void setListeners(){
