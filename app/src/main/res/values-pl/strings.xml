@@ -130,6 +130,7 @@
 
     <string name="NEW_REQUEST">Masz nową propozycję półki</string>
     <string name="NEW_REQUESTS">Masz nowe propozycje półki</string>
+    <string name="no_near_bookshelves">Przykro nam, nie ma w pobliżu Ciebie żadnych półek\nmożesz dodać jakąś klikając na plus\nna ekranie głównym</string>
 
     <string name="VOTE_SUCCESSFULL">Zagłosowałeś pomyślnie</string>
     <string name="ret_distance_too_long">Błąd: Nie możesz oddać książki będąc\ndalej niż 100m (6,2 milii) od półki.</string>

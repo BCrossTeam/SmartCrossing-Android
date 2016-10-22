@@ -263,9 +263,18 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            adapter = new BookshelfAdapter(MainActivity.this, punkty);
-                            booklist.setAdapter(adapter);
-                            adapter.notifyDataSetChanged();
+                            if(punkty.size()>0){
+                                adapter = new BookshelfAdapter(MainActivity.this, punkty);
+                                booklist.setAdapter(adapter);
+                                adapter.notifyDataSetChanged();
+                            } else {
+                                ArrayList<String> mess = new ArrayList<String>();
+                                mess.add(getResources().getString(R.string.no_near_bookshelves));
+                                MessageAdapter ad = new MessageAdapter(MainActivity.this, mess);
+                                booklist.setAdapter(ad);
+                                ad.notifyDataSetChanged();
+                            }
+
                             if(longitude==0||latitude==0){
                                 getLoc();
                                 return;

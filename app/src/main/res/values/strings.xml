@@ -24,6 +24,8 @@
     <string name="cat">Category: </string>
     <string name="isbn">ISBN: </string>
     <string name="visit_profile">Visit profile </string>
+    <string name="no_near_bookshelves">We\'re sorry but there is no any bookshelf near you\nyou can add one by clicking \"plus\" button\nin home screen</string>
+
 
     <string name="NEW_REQUEST">New bookshelf proposition</string>
     <string name="NEW_REQUESTS">New bookshelf propositions </string>
