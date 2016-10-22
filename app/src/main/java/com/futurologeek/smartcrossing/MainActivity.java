@@ -35,6 +35,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.Toast;
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     double latitude, longitude;
     JSONObject ob;
     String querySt;
-
+    ProgressBar progress;
 
 
     @Override
@@ -165,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
         profile = (TableRow) findViewById(R.id.profile_button);
         mapview = (TableRow) findViewById(R.id.map_button);
         searchEditText = (EditText) findViewById(R.id.search_edit_text);
+        progress = (ProgressBar) findViewById(R.id.progressbar);
     }
 
     public void setListeners() {
@@ -232,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-
+            progress.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -324,6 +326,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
+            progress.setVisibility(View.GONE);
 
 
         }

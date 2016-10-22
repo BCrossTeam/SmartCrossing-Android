@@ -132,8 +132,8 @@
     <string name="no_near_bookshelves">Przykro nam, nie ma w pobliżu Ciebie żadnych półek\nmożesz dodać jakąś klikając na plus\nna ekranie głównym</string>
 
     <string name="VOTE_SUCCESSFULL">Zagłosowałeś pomyślnie</string>
-    <string name="ret_distance_too_long">Błąd: Nie możesz oddać książki będąc\ndalej niż 100m (6,2 milii) od półki.</string>
-    <string name="bor_distance_too_long">Błąd: Nie możesz wypożyczyć książki będąc\ndalej niż 100m (6,2 milii) od półki.</string>
+    <string name="ret_distance_too_long">Błąd: Nie możesz oddać książki będąc\ndalej niż 100m (0.062 milii) od półki.</string>
+    <string name="bor_distance_too_long">Błąd: Nie możesz wypożyczyć książki będąc\ndalej niż 100m (0.062 milii) od półki.</string>
 
     <string name="you_have_new_challenge">Masz %1$d %2$s</string>
     <string name="first_run">Drogi użytkowniku!\nOddajemy w Twoje ręce aplikację do bookcrossingu.\nChcemy jednak zaznaczyć, iż aplikacja powstała podczas\nhackatonu "Hack Heroes" organizowanego przez serwis Apka.org,\ndlatego też wyświetlane w niej półki nie są\njeszcze rzeczywistymi półkami, umieszczonymi\nw Twoim mieście. Chcemy nadmienić, że aplikacja została\nrównież okrojona z kilku funkcjonalności na potrzeby\ntestów, które będzie robić jury. W finalnej\nwersji aby wypożyczyć/oddać książkę - będzie\ntrzeba być nie dalej niż 50m od półki. Aby oszczędzić\nkomisji spaceru, w aplikacji pojawia się tylko powiadomienie, iż\ndystans ten jest większy.\nŻyczymy miłego korzystania z naszej aplikacji!\n\nZespół BCrossTeam!</string>

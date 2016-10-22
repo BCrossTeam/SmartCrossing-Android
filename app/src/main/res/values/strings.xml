@@ -36,8 +36,8 @@
 
     <string name="borrow_book">Take book</string>
     <string name="return_book">Release book</string>
-    <string name="ret_distance_too_long">Error: You should be closer than 100m (6,2 miles)\nto return a book to a bookshelf.</string>
-    <string name="bor_distance_too_long">Error: You should be closer than 100m (6.2 miles)\nto borrow a book from a bookshelf.</string>
+    <string name="ret_distance_too_long">Error: You should be closer than 100m (0.062 miles)\nto return a book to a bookshelf.</string>
+    <string name="bor_distance_too_long">Error: You should be closer than 100m (0.062 miles)\nto borrow a book from a bookshelf.</string>
     <string name="search_in_books">Search in books: </string>
     <!-- Stringi dziedziczone -->
 
