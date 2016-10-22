@@ -166,7 +166,7 @@ public class SignInActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    ob = han.handlePOSTmethod("/user/sign",par);
+                    ob = han.handlePOSTmethod("/user/sign",par, true);
                     SignInActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

@@ -2,6 +2,7 @@ package com.futurologeek.smartcrossing;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.View;
@@ -19,6 +20,7 @@ public class Book {
     BookListAdapter adapter;
     JSONObject ob;
     Activity act;
+    Dialog dial;
 
     enum Kategoria { Beletrystyka, Biografie, Biznes_i_inwestycje, Gotowanie, Historia, Komputery, Kryminały, Dla_dzieci, Polityka, Prawo, Religia, Romanse, SCI_FI, Zdrowie}
 
@@ -47,10 +49,11 @@ public class Book {
         return this.author;
     }
 
-    public void setListeners(final BookListAdapter.ViewHolder holder, BookListAdapter adapter, final Context context, Boolean isBorrow, final int bookshelfId, final Activity act) {
+    public void setListeners(final BookListAdapter.ViewHolder holder, final BookListAdapter adapter, final Context context, Boolean isBorrow, final int bookshelfId, final Activity act, final Dialog dial) {
         this.holder = holder;
         this.adapter = adapter;
         this.act = act;
+        this.dial = dial;
 
 
         if(!isBorrow){
@@ -58,7 +61,7 @@ public class Book {
                 @Override
                 public void onClick(View v) {
                     if (NetworkStatus.checkNetworkStatus(context)) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setCancelable(false);
                         builder.setTitle(context.getResources().getString(R.string.confirm));
                         builder.setMessage(context.getResources().getString(R.string.return_book_confirm_1)+" \""+getTitle()+ "\" " + context.getResources().getString(R.string.return_book_confirm_2));
@@ -78,7 +81,7 @@ public class Book {
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
                                             }
-                                            ob = han.handlePOSTmethod("/bookshelf/"+bookshelfId+"/book/"+id+"/",par);
+                                            ob = han.handlePOSTmethod("/bookshelf/"+bookshelfId+"/book/"+id+"/",par, true);
 
                                             act.runOnUiThread(new Runnable() {
                                                 @Override
@@ -97,7 +100,7 @@ public class Book {
                                 };
                                 t.start();
 
-                                dialog.dismiss();
+                                dial.dismiss();
                                 return;
                             }
                         });
@@ -131,7 +134,39 @@ public class Book {
                         builder.setPositiveButton(context.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int which) {
+                                final Thread t = new Thread()
+                                {
+                                    public void run()
+                                    {
+                                        try  {
+                                            POSTHandler han = new POSTHandler();
+                                            JSONObject par = new JSONObject();
+                                            try {
+                                                par.put("user_auth_token",UserInfo.token);
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                            ob = han.handlePOSTmethod("/bookshelf/"+bookshelfId+"/book/"+id+"/",par, false);
 
+                                            act.runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    if(ob.has("error")){
+                                                        Toast.makeText(context, "ERROR", Toast.LENGTH_SHORT).show();
+                                                    } else {
+                                                        Toast.makeText(context, "SUCCES", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                };
+                                t.start();
+
+                               dial.dismiss();
+                                return;
                             }
                         });
 

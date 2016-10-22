@@ -20,10 +20,13 @@ import java.net.URL;
 
 public class POSTHandler {
 
-    public JSONObject handlePOSTmethod(String url, JSONObject obj){
+    public JSONObject handlePOSTmethod(String url, JSONObject obj, Boolean isPOST) throws ProtocolException {
         HttpURLConnection conn = null;
         JSONObject output = null;
         conn = getConnectionFromUrl(url);
+        if(!isPOST){
+        conn.setRequestMethod("DELETE");
+        }
         sendJson(conn, obj);
         output = handleOutput(conn);
         Log.d("--xooutputxo--", output.toString());

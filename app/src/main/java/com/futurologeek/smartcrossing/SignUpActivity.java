@@ -337,7 +337,7 @@ public class SignUpActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    ob = han.handlePOSTmethod("/user", par);
+                    ob = han.handlePOSTmethod("/user", par, true);
                     SignUpActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

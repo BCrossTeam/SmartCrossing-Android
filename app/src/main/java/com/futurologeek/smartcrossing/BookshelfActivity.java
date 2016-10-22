@@ -70,7 +70,7 @@ public class BookshelfActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_activity_bookshelf);
-        bookListAdapter = new BookListAdapter(BookshelfActivity.this, user_books, false, ajdi, BookshelfActivity.this);
+        bookListAdapter = new BookListAdapter(BookshelfActivity.this, user_books, false, ajdi, BookshelfActivity.this, null);
         findViews();
         setListeners();
 
@@ -308,9 +308,9 @@ public class BookshelfActivity extends FragmentActivity {
                             ListView lista = (ListView) dialog.findViewById(R.id.listView);
                             if(user_books.size()>0){
                                 if(isBorrow){
-                                    bookListAdapter = new BookListAdapter(BookshelfActivity.this, user_books, true, ajdi, BookshelfActivity.this);
+                                    bookListAdapter = new BookListAdapter(BookshelfActivity.this, user_books, true, ajdi, BookshelfActivity.this, dialog);
                                 } else {
-                                    bookListAdapter = new BookListAdapter(BookshelfActivity.this, user_books, false, ajdi, BookshelfActivity.this);
+                                    bookListAdapter = new BookListAdapter(BookshelfActivity.this, user_books, false, ajdi, BookshelfActivity.this, dialog);
                                 }
                                 lista.setAdapter(bookListAdapter);
                                 bookListAdapter.notifyDataSetChanged();

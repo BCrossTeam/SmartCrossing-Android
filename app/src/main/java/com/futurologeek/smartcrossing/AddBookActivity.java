@@ -56,6 +56,7 @@ public class AddBookActivity extends AppCompatActivity {
     private Uri file;
     private Uri imageToUploadUri;
     int yearvalue;
+    JSONObject ob;
 
     int cyear = Calendar.getInstance().get(Calendar.YEAR);
     @Override
@@ -394,8 +395,8 @@ public class AddBookActivity extends AppCompatActivity {
         }
         Bundle b = new Bundle();
 
-        String title = addTitle.getText().toString();
-        String author = addAuthor.getText().toString();
+        final String title = addTitle.getText().toString();
+        final String author = addAuthor.getText().toString();
 
 
         if(title.equals("")){
@@ -472,8 +473,57 @@ public class AddBookActivity extends AppCompatActivity {
             alert.show();
 
         } else if (file == null && itsOkayToBeNull) {
-           //TOdo: wysyłanie bez okładki
-            Toast.makeText(this, "Bez okladki", Toast.LENGTH_SHORT).show();
+            Thread thread = new Thread(new Runnable() {
+
+                @Override
+                public void run() {
+                    try {
+                        POSTHandler han = new POSTHandler();
+                        JSONObject par = new JSONObject();
+                        try {
+                            par.put("user_auth_token", UserInfo.token);
+                            par.put("book_title", title);
+                            par.put("book_author", author);
+                            par.put("book_isbn", "0000000000000");
+                            par.put("book_publication_date", String.valueOf(yearvalue));
+                            par.put("book_category", "fic");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        ob = han.handlePOSTmethod("/book/", par, true);
+                        AddBookActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (ob.has("error")) {
+                                    if(ob.has("sub_error")){
+                                        try {
+                                            Toast.makeText(AddBookActivity.this, "error"+ob.getInt("error")+"_"+ob.getInt("sub_error"), Toast.LENGTH_SHORT).show();
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    } else {
+                                        try {
+                                            Toast.makeText(AddBookActivity.this, "error"+ob.getInt("error"), Toast.LENGTH_SHORT).show();
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    //Toast.makeText(SignInActivity.this, signInPassword.getText().toString() + "   "  +signInLogin.getText().toString(), Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(AddBookActivity.this, "Success", Toast.LENGTH_SHORT).show();
+
+                                }
+                            }
+                        });
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+            thread.start();
         } else {
             Intent cel = new Intent(this, com.futurologeek.smartcrossing.crop.CropImageActivity.class);
             cel.setData(file);

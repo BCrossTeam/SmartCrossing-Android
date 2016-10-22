@@ -32,6 +32,8 @@ import com.google.api.services.books.model.Volume;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.ProtocolException;
+
 import static com.futurologeek.smartcrossing.R.id.map;
 
 public class AddPointActivity extends FragmentActivity {
@@ -147,7 +149,11 @@ public class AddPointActivity extends FragmentActivity {
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
-                                    ob = han.handlePOSTmethod("/bookshelf/", par);
+                                    try {
+                                        ob = han.handlePOSTmethod("/bookshelf/", par, true);
+                                    } catch (ProtocolException e) {
+                                        e.printStackTrace();
+                                    }
                                     AddPointActivity.this.runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
