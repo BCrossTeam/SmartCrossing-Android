@@ -4,12 +4,13 @@
     android:layout_height="@dimen/hundred">
 
     <RelativeLayout
-        android:layout_width="@dimen/fifty"
-        android:layout_height="@dimen/fifty">
+        android:layout_width="@dimen/hundred"
+        android:layout_height="@dimen/hundred">
 
     <ImageView
-        android:layout_width="@dimen/twenty_five"
-        android:layout_height="@dimen/twenty_five"
+        android:layout_width="@dimen/fifty"
+        android:layout_height="@dimen/fifty"
+        android:id="@+id/badge_img"
         android:layout_centerInParent="true"
         android:src="@drawable/badge"/>
 

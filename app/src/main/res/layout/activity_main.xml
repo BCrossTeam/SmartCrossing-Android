@@ -45,6 +45,7 @@
         android:layout_width="fill_parent"
         android:id="@+id/bookshelf_prep_ll"
         android:orientation="vertical"
+        android:visibility="gone"
         android:layout_height="wrap_content">
 
         <View

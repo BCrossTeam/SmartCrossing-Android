@@ -107,25 +107,13 @@ android:layout_height="wrap_content">
             android:id="@+id/table_to_inflate_badges"
             android:layout_height="fill_parent">
 
-            <include layout="@layout/badge_item"/>
-
-            <include layout="@layout/badge_item"/>
-
-            <include layout="@layout/badge_item"/>
-
-            <include layout="@layout/badge_item"/>
-
-            <include layout="@layout/badge_item"/>
-
-            <include layout="@layout/badge_item"/>
-
-            <include layout="@layout/badge_item"/>
-
-
-
         </TableRow>
 
     </HorizontalScrollView>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/ten"/>
 
     <TableRow
         android:layout_width="fill_parent"

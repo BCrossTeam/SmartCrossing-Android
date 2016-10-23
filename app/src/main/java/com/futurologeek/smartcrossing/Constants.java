@@ -19,6 +19,10 @@ public class Constants {
     public static final String request_vote_url_2_approve = "/vote/approve";
     public static final String request_vote_url_2_disapprove = "/vote/disapprove";
 
+    public static final String badges_url = "https://api.smartcrossing.pl/user/";
+    public static final String badges_url_2 = "/stats/";
+
+
 
     public static double maxConstant(Context context){
         SharedPreferences preferences = context.getSharedPreferences(Constants.shared, Context.MODE_PRIVATE);

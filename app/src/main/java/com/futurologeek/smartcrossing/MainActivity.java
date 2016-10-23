@@ -412,7 +412,6 @@ public class MainActivity extends AppCompatActivity {
                     for (int i = 0; i < contacts.length(); i++) {
                         counter++;
                     }
-
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

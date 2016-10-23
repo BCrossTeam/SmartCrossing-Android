@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -23,7 +24,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView usernametv, scoretv;
     String id;
     ArrayList<Book> user_books = new ArrayList<Book>();
-    TableRow tableToInflejt;
+    TableRow tableToInflejt, tableToInflejtBadges;
     RelativeLayout rank;
 
     @Override
@@ -34,6 +35,7 @@ public class ProfileActivity extends AppCompatActivity {
         setListeners();
         ToolbarHandler handler = new ToolbarHandler(ProfileActivity.this, ToolbarHandler.buttonVariation.Main);
         handler.setListeners();
+        new GetBadges().execute();
 
         if(getIntent().getExtras()!=null){
             Bundle przekazanedane = getIntent().getExtras();
@@ -52,6 +54,7 @@ public class ProfileActivity extends AppCompatActivity {
         scoretv = (TextView) findViewById(R.id.points_tv);
         tableToInflejt = (TableRow) findViewById(R.id.table_to_inflate);
         rank = (RelativeLayout) findViewById(R.id.go_to_ranking);
+        tableToInflejtBadges = (TableRow) findViewById(R.id.table_to_inflate_badges);
     }
 
     public void setListeners(){
@@ -66,6 +69,13 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+    }
+
+    public void inflateBadge(int res){
+        View child = View.inflate(ProfileActivity.this, R.layout.badge_item, null);
+        ImageView img = (ImageView) child.findViewById(R.id.badge_img);
+        img.setImageResource(res);
+        tableToInflejtBadges.addView(child);
     }
 
     class GetUserInfo extends AsyncTask<Void, Void, Void> {
@@ -222,6 +232,157 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
+    class GetBadges extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            HttpHandler sh = new HttpHandler();
+
+            // Making a request to url and getting response
+            String jsonStr = sh.makeServiceCall(Constants.badges_url+id+Constants.badges_url_2);
+
+            Log.e("tag", "Response from url: " + jsonStr);
+
+            if (jsonStr != null) {
+                try {
+                    JSONObject jsonObj = new JSONObject(jsonStr);
+                    final int addedBooksTier = jsonObj.getInt("user_badge_added_books_tier");
+                    final int addedBookshelvesTier = jsonObj.getInt("user_badge_added_bookshelves_tier");
+                    final int booksBorrowedByUserTier = jsonObj.getInt("user_badge_books_borrowed_by_user_tier");
+                    final int booksBorrowedByOtherTier = jsonObj.getInt("user_badge_books_borrowed_by_other_tier");
+                    final int badgeScoreTier = jsonObj.getInt("user_badge_score_tier");
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                    tableToInflejtBadges.removeAllViews();
+
+                    switch (addedBooksTier) {
+                        case 1:
+                            inflateBadge(R.drawable.added_books_1);
+                            break;
+                        case 2:
+                            inflateBadge(R.drawable.added_books_5);
+                            break;
+                        case 3:
+                            inflateBadge(R.drawable.added_books_20);
+                            break;
+                        case 4:
+                            inflateBadge(R.drawable.added_books_50);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    switch (addedBookshelvesTier) {
+                        case 1:
+                            inflateBadge(R.drawable.added_bookshelves_1);
+                            break;
+                        case 2:
+                            inflateBadge(R.drawable.added_bookshelves_3);
+                            break;
+                        case 3:
+                            inflateBadge(R.drawable.added_bookshelves_10);
+                            break;
+                        case 4:
+                            inflateBadge(R.drawable.added_bookshelves_20);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    switch (booksBorrowedByOtherTier) {
+                        case 1:
+                            inflateBadge(R.drawable.borrowed_by_others_1);
+                            break;
+                        case 2:
+                            inflateBadge(R.drawable.borrowed_by_others_5);
+                            break;
+                        case 3:
+                            inflateBadge(R.drawable.borrowed_by_others_20);
+                            break;
+                        case 4:
+                            inflateBadge(R.drawable.borrowed_by_others_50);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    switch (booksBorrowedByUserTier) {
+                        case 1:
+                            inflateBadge(R.drawable.borrowed_books_1);
+                            break;
+                        case 2:
+                            inflateBadge(R.drawable.borrowed_books_5);
+                            break;
+                        case 3:
+                            inflateBadge(R.drawable.borrowed_books_20);
+                            break;
+                        case 4:
+                            inflateBadge(R.drawable.borrowed_books_50);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    switch (badgeScoreTier) {
+                        case 1:
+                            inflateBadge(R.drawable.score_9996);
+                            break;
+                        case 2:
+                            inflateBadge(R.drawable.score_9997);
+                            break;
+                        case 3:
+                            inflateBadge(R.drawable.score_9998);
+                            break;
+                        case 4:
+                            inflateBadge(R.drawable.score_9999);
+                            break;
+                        default:
+                            break;
+                    }
+
+
+
+                        }
+                    });
+
+                } catch (final JSONException e) {
+                    Log.e("TAG", "Json parsing error: " + e.getMessage());
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getApplicationContext(),
+                                    "Json parsing error: " + e.getMessage(),
+                                    Toast.LENGTH_LONG)
+                                    .show();
+                        }
+                    });
+
+                }
+            } else {
+                Log.e("TAG", "Couldn't get json from server.");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),
+                                "Couldn't get json from server. Check LogCat for possible errors!",
+                                Toast.LENGTH_LONG)
+                                .show();
+                    }
+                });
+
+            }
+
+            return null;
+        }
+    }
+
     public class CustomOnClickListener {
         Book ks;
         View v;
@@ -251,4 +412,6 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
     }
+
+
 }
