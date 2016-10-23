@@ -1,24 +1,41 @@
 package com.futurologeek.smartcrossing;
 
+import android.net.Uri;
 import android.util.Log;
 
-import org.json.JSONArray;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.FormBodyPart;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.ByteArrayBody;
+import org.apache.http.entity.mime.content.ContentBody;
+import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.Reader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.List;
 
 
 public class POSTHandler {
+    StringBuilder sb;
 
     public JSONObject handlePOSTmethod(String url, JSONObject obj, Boolean isPOST) throws ProtocolException {
         HttpURLConnection conn = null;
@@ -33,6 +50,53 @@ public class POSTHandler {
         conn.disconnect();
         return output;
     }
+
+    public JSONObject handlePOSTmethodAddBook(String filepath, JSONObject json) throws IOException, JSONException {
+        try {
+            String charset = "UTF-8";
+            File uploadFile1 = new File(filepath);
+            String requestURL = Constants.api_url + "/book/";
+
+            MultipartUtility multipart = new MultipartUtility(requestURL, charset);
+            multipart.addFormField("json", json.toString());
+            multipart.addFilePart("uploaded", uploadFile1);
+
+            List<String> response = multipart.finish();
+
+            Log.v("rht", "SERVER REPLIED:");
+            sb = new StringBuilder();
+            for (String line : response) {
+                Log.v("rht", "Line : " + line);
+                sb.append(line + "\n");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new JSONObject(sb.toString());
+    }
+
+    public JSONObject handlePOSTmethodAddBook(JSONObject json) throws IOException, JSONException {
+        try {
+            String charset = "UTF-8";
+            String requestURL = Constants.api_url + "/book/";
+            MultipartUtility multipart = new MultipartUtility(requestURL, charset);
+            multipart.addFormField("json", json.toString());
+
+
+            List<String> response = multipart.finish();
+
+            Log.v("rht", "SERVER REPLIED:");
+            sb = new StringBuilder();
+            for (String line : response) {
+                Log.v("rht", "Line : " + line);
+                sb.append(line + "\n");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new JSONObject(sb.toString());
+    }
+
 
     public void sendJson(HttpURLConnection conn, JSONObject json){
         DataOutputStream out = null;

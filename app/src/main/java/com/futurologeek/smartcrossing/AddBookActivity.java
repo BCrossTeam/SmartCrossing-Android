@@ -30,6 +30,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.net.ProtocolException;
 import java.util.Calendar;
 
 
@@ -472,7 +473,6 @@ public class AddBookActivity extends AppCompatActivity {
 
                 @Override
                 public void run() {
-                    try {
                         POSTHandler han = new POSTHandler();
                         JSONObject par = new JSONObject();
                         try {
@@ -480,52 +480,51 @@ public class AddBookActivity extends AppCompatActivity {
                             par.put("book_title", title);
                             par.put("book_author", author);
                             par.put("book_isbn", "0000000000000");
-                            par.put("book_publication_date", String.valueOf(yearvalue));
-                            par.put("book_category", GetCategory.returnCatCode(AddBookActivity.this, catSelector.getSelectedItem().toString()));
+                            par.put("book_publication_date", year.getValue());
+                            par.put("book_category", GetCategory.returnCatCode(AddBookActivity.this, GetCategory.returnCatCode(AddBookActivity.this, catSelector.getSelectedItem().toString())));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        ob = han.handlePOSTmethod("/book/", par, true);
-                        AddBookActivity.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (ob.has("error")) {
-                                    if(ob.has("sub_error")) {
-                                        int sub_error = 0;
-                                        try {
-                                            sub_error = ob.getInt("sub_error");
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                        sub_error = sub_error*-1;
-                                        try {
-                                            Toast.makeText(AddBookActivity.this, getResources().getString(R.string.JUST_ERROR)+" "+ GetStringCode.getErrorResource(ob.getInt("error"), AddBookActivity.this) + getResources().getString(R.string.ADDITIONAL_ERROR_INFO)+" "+ GetStringCode.getErrorResource(sub_error, AddBookActivity.this), Toast.LENGTH_SHORT).show();
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                    } else {
-                                        try {
-                                            Toast.makeText(AddBookActivity.this, getResources().getString(R.string.JUST_ERROR) + " " + GetStringCode.getErrorResource(ob.getInt("error"), AddBookActivity.this), Toast.LENGTH_SHORT).show();
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-
-                                    //Toast.makeText(SignInActivity.this, signInPassword.getText().toString() + "   "  +signInLogin.getText().toString(), Toast.LENGTH_SHORT).show();
-                                } else {
+                    try {
+                        ob = han.handlePOSTmethod("/book", par, true);
+                    } catch (ProtocolException e) {
+                        e.printStackTrace();
+                    }
+                    AddBookActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (ob.has("error")) {
+                                if(ob.has("sub_error")) {
+                                    int sub_error = 0;
                                     try {
-                                        Toast.makeText(AddBookActivity.this, GetStringCode.getSuccessCode(ob.getInt("success"), AddBookActivity.this), Toast.LENGTH_SHORT).show();
+                                        sub_error = ob.getInt("sub_error");
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
-                                    finish();
+                                    sub_error = sub_error*-1;
+                                    try {
+                                        Toast.makeText(AddBookActivity.this, getResources().getString(R.string.JUST_ERROR)+" "+ GetStringCode.getErrorResource(ob.getInt("error"), AddBookActivity.this) + getResources().getString(R.string.ADDITIONAL_ERROR_INFO)+" "+ GetStringCode.getErrorResource(sub_error, AddBookActivity.this), Toast.LENGTH_SHORT).show();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                } else {
+                                    try {
+                                        Toast.makeText(AddBookActivity.this, getResources().getString(R.string.JUST_ERROR) + " " + GetStringCode.getErrorResource(ob.getInt("error"), AddBookActivity.this), Toast.LENGTH_SHORT).show();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                    } else {
+                                try {
+                                    Toast.makeText(AddBookActivity.this, GetStringCode.getSuccessCode(ob.getInt("success"), AddBookActivity.this), Toast.LENGTH_SHORT).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
                             }
-                        });
+                        }
+                    });
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
                 }
             });
 

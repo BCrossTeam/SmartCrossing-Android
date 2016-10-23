@@ -46,9 +46,16 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.futurologeek.smartcrossing.AddBookActivity;
+import com.futurologeek.smartcrossing.GetCategory;
+import com.futurologeek.smartcrossing.GetStringCode;
+import com.futurologeek.smartcrossing.POSTHandler;
 import com.futurologeek.smartcrossing.R;
 import com.futurologeek.smartcrossing.MonitoredActivityReportingLifeCycle;
+import com.futurologeek.smartcrossing.UserInfo;
 import com.futurologeek.smartcrossing.compressor.Compressor;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -64,7 +71,7 @@ public class CropImageActivity extends MonitoredActivityReportingLifeCycle {
 
     private static final int SIZE_DEFAULT = 2048;
     private static final int SIZE_LIMIT = 4096;
-
+    JSONObject ob;
     private final Handler handler = new Handler();
 
     private int aspectX = 1;
@@ -86,7 +93,7 @@ public class CropImageActivity extends MonitoredActivityReportingLifeCycle {
     private boolean isResponse;
     private int book_year;
     private String author;
-
+    String server_response;
     private boolean isSaving;
 
     private int sampleSize;
@@ -495,7 +502,66 @@ public class CropImageActivity extends MonitoredActivityReportingLifeCycle {
             }
         });
 
-        //TODO: server
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    POSTHandler han = new POSTHandler();
+                    JSONObject par = new JSONObject();
+                    try {
+                        par.put("user_auth_token", UserInfo.token);
+                        par.put("book_title", title);
+                        par.put("book_author", author);
+                        par.put("book_isbn", "0000000000000");
+                        par.put("book_publication_date", book_year);
+                        par.put("book_category", GetCategory.returnCatCode(CropImageActivity.this, cat));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    ob = han.handlePOSTmethodAddBook(filePath, par);
+                    CropImageActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (ob.has("error")) {
+                                if(ob.has("sub_error")) {
+                                    int sub_error = 0;
+                                    try {
+                                        sub_error = ob.getInt("sub_error");
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    sub_error = sub_error*-1;
+                                    try {
+                                        Toast.makeText(CropImageActivity.this, getResources().getString(R.string.JUST_ERROR)+" "+ GetStringCode.getErrorResource(ob.getInt("error"), CropImageActivity.this) + getResources().getString(R.string.ADDITIONAL_ERROR_INFO)+" "+ GetStringCode.getErrorResource(sub_error, CropImageActivity.this), Toast.LENGTH_SHORT).show();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                } else {
+                                    try {
+                                        Toast.makeText(CropImageActivity.this, getResources().getString(R.string.JUST_ERROR) + " " + GetStringCode.getErrorResource(ob.getInt("error"), CropImageActivity.this), Toast.LENGTH_SHORT).show();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                finish();
+                            } else {
+                                try {
+                                    Toast.makeText(CropImageActivity.this, GetStringCode.getSuccessCode(ob.getInt("success"), CropImageActivity.this), Toast.LENGTH_SHORT).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                finish();
+                            }
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
 
     }
 

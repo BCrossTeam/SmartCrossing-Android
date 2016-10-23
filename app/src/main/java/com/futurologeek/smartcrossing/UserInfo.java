@@ -5,6 +5,6 @@ package com.futurologeek.smartcrossing;
  */
 
 public class UserInfo {
-    static String token;
-    static int uid;
+    public static String token;
+    public static int uid;
 }

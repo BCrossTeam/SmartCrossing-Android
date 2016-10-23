@@ -32,7 +32,6 @@
                 android:inputType="textEmailAddress"
                 android:singleLine="true"
                 android:imeOptions="actionNext"
-                android:layout_below="@+id/sign_up_login_input"
                 android:layout_marginTop="@dimen/twenty" />
 
             <EditText

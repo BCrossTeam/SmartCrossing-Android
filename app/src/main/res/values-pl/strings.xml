@@ -6,8 +6,10 @@
     <string name="notifies_challenge_response_accepted">Odpowiedź na wyzwanie zaakceptowana</string>
     <string name="notifies_friend_request_accepted">Prośba o dodanie do przyjaciół zaakceptowana</string>
     <string name="target_null">Nie wybrano adresata wyzwania</string>
-    <string name="wypozycz">Półka</string>
+
     <string name="oddaj">Książka</string>
+    <string name="emel">mili</string>
+    <string name="wypozycz">Półka</string>
     <string name="map">Mapa</string>
     <string name="b_count">Liczba książek:</string>
     <string name="b_add">Dodaj książkę</string>
@@ -417,7 +419,7 @@
 
     <string name="km">km</string>
     <string name="mile">mil</string>
-    <string name="emel">mili</string>
+
     <string name="near_points">Punkty blisko Ciebie</string>
     <string name="p_nearest">Najbliższy</string>
     <string name="P_all">Wszystkie w zasięgu</string>

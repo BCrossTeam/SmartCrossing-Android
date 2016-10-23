@@ -5,7 +5,7 @@ import android.content.Context;
 
 public class GetStringCode {
 
-    static String getErrorResource(int error, Context ctx){
+    public static String getErrorResource(int error, Context ctx){
         switch(error){
             case -1:
                 return ctx.getResources().getString(R.string.SUB_ERROR_CODE_001);
