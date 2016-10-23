@@ -148,12 +148,14 @@ public class SettingsActivity extends PreferenceActivity {
                             public void run() {
                                 DBHandler db = new DBHandler(SettingsActivity.this);
                                 db.deleteAll();
+                                db.close();
                                 UserInfo.token = "";
                                 UserInfo.uid = -1;
                                 Toast.makeText(SettingsActivity.this, getResources().getString(R.string.logged_out), Toast.LENGTH_SHORT).show();
                                 Intent i = new Intent(SettingsActivity.this, LoadingActivity.class);
                                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(i);
+                                SettingsActivity.this.sendBroadcast(new Intent("finish_activity"));
                                 finish();
                             }
                         });

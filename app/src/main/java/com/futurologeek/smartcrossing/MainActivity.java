@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         setListeners();
         super.onResume();
         registerReceiver(broadcastReceiver, new IntentFilter("INTERNET_READY"));
+        registerReceiver(finishReceiver, new IntentFilter("finish_activity"));
     }
 
     BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
@@ -80,10 +81,21 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    BroadcastReceiver finishReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if(action.equals("finish_activity")){
+                finish();
+            }
+        }
+    };
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(broadcastReceiver);
+        unregisterReceiver(finishReceiver);
     }
 
     public void getLoc(){
@@ -431,23 +443,17 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(getApplicationContext(),
-                                    "Json parsing error: " + e.getMessage(),
-                                    Toast.LENGTH_LONG)
-                                    .show();
+                            Log.d("parsing error", "check logcat");
                         }
                     });
 
                 }
             } else {
-                Log.e("TAG", "Couldn't get json from server.");
+               Log.e("TAG", "Couldn't get json from server.");
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getApplicationContext(),
-                                "Couldn't get json from server. Check LogCat for possible errors!",
-                                Toast.LENGTH_LONG)
-                                .show();
+                        Log.d("Couldn't get json", "check logcat");
                     }
                 });
 

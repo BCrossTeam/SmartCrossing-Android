@@ -37,8 +37,13 @@ public class LoadingActivity extends AppCompatActivity {
         DBHandler db = new DBHandler(LoadingActivity.this);
         if(db.giveArray(true).size()>0){
             tok = db.getToken(1);
-            new checkToken().execute();
+            if(NetworkStatus.checkNetworkStatus(this)){
+                new checkToken().execute();
+            } else {
+                Toast.makeText(this, getResources().getString(R.string.no_network_autologin), Toast.LENGTH_LONG).show();
+            }
         }
+        db.close();
 
         if(!(db.giveArray(false).size()>0)) {
             final Dialog dialog = new Dialog(LoadingActivity.this);
@@ -78,15 +83,14 @@ public class LoadingActivity extends AppCompatActivity {
         Intent i = new Intent(this, SignInActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
-
-            //finish();
+        finish();
 }
 
     public void goToSignUp(){
         Intent i = new Intent(this, SignUpActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
-        //finish();
+        finish();
     }
 
     class checkToken extends AsyncTask<Void, Void, Void> {
@@ -123,6 +127,7 @@ public class LoadingActivity extends AppCompatActivity {
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
+                                db.close();
                                 Toast.makeText(LoadingActivity.this, getResources().getString(R.string.logged_in), Toast.LENGTH_SHORT).show();
                                 Intent i = new Intent(LoadingActivity.this, MainActivity.class);
                                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);

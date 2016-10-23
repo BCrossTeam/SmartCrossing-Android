@@ -114,7 +114,6 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
         findViews();
         setListeners();
-        db  = new DBHandler(SignUpActivity.this);
         instance = this;
         email = new TextValidator.ValidText();
         emailConfirmation = new TextValidator.ValidText();
@@ -257,70 +256,72 @@ public class SignUpActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (NetworkStatus.checkNetworkStatus(SignUpActivity.this)) {
+                    if (!email.valid) {
+                        if (email.text.length() > 0) {
 
-                if (!email.valid) {
-                    if (email.text.length() > 0) {
-
-                        Toast.makeText(SignUpActivity.this, getResources().getString(R.string.ERROR_EMAIL_INVALID), Toast.LENGTH_LONG).show();
-                    }
-                    emailView.requestFocus();
-                } else if (!emailConfirmation.valid) {
-                    if (emailConfirmation.text.length() > 0) {
-
-                        Toast.makeText(SignUpActivity.this, getResources().getString(R.string.ERROR_EMAIL_INVALID), Toast.LENGTH_LONG).show();
-                    }
-                    emailConfirmationView.requestFocus();
-                } else if (!emailConfirmation.text.equals(email.text)) {
-                    if (email.text.length() > 0 && emailConfirmation.text.length() > 0) {
-
-                        Toast.makeText(SignUpActivity.this, getResources().getString(R.string.ERROR_EMAIL_MATCH), Toast.LENGTH_LONG).show();
-                    }
-                    if (email.text.length() == 0) {
-
+                            Toast.makeText(SignUpActivity.this, getResources().getString(R.string.ERROR_EMAIL_INVALID), Toast.LENGTH_LONG).show();
+                        }
                         emailView.requestFocus();
+                    } else if (!emailConfirmation.valid) {
+                        if (emailConfirmation.text.length() > 0) {
 
-                    } else {
+                            Toast.makeText(SignUpActivity.this, getResources().getString(R.string.ERROR_EMAIL_INVALID), Toast.LENGTH_LONG).show();
+                        }
                         emailConfirmationView.requestFocus();
+                    } else if (!emailConfirmation.text.equals(email.text)) {
+                        if (email.text.length() > 0 && emailConfirmation.text.length() > 0) {
+
+                            Toast.makeText(SignUpActivity.this, getResources().getString(R.string.ERROR_EMAIL_MATCH), Toast.LENGTH_LONG).show();
+                        }
+                        if (email.text.length() == 0) {
+
+                            emailView.requestFocus();
+
+                        } else {
+                            emailConfirmationView.requestFocus();
 
 
-                    }
-                } else if (!password.valid) {
-                    if (password.text.length() > 0) {
+                        }
+                    } else if (!password.valid) {
+                        if (password.text.length() > 0) {
 
-                        Toast.makeText(SignUpActivity.this, getResources().getString(R.string.ERROR_PASSWORD_INVALID), Toast.LENGTH_LONG).show();
-                    }
-                    passwordView.requestFocus();
-                } else if (!passwordConfirmation.valid) {
-                    if (passwordConfirmation.text.length() > 0) {
-
-                        Toast.makeText(SignUpActivity.this, getResources().getString(R.string.ERROR_PASSWORD_INVALID), Toast.LENGTH_LONG).show();
-                    }
-                    passwordConfirmationView.requestFocus();
-                } else if (!passwordConfirmation.text.equals(password.text)) {
-                    if (password.text.length() > 0 && passwordConfirmation.text.length() > 0) {
-
-                        Toast.makeText(SignUpActivity.this, getResources().getString(R.string.ERROR_PASSWORD_MATCH), Toast.LENGTH_LONG).show();
-                    }
-                    if (password.text.length() == 0) {
+                            Toast.makeText(SignUpActivity.this, getResources().getString(R.string.ERROR_PASSWORD_INVALID), Toast.LENGTH_LONG).show();
+                        }
                         passwordView.requestFocus();
+                    } else if (!passwordConfirmation.valid) {
+                        if (passwordConfirmation.text.length() > 0) {
 
-                    } else {
+                            Toast.makeText(SignUpActivity.this, getResources().getString(R.string.ERROR_PASSWORD_INVALID), Toast.LENGTH_LONG).show();
+                        }
                         passwordConfirmationView.requestFocus();
+                    } else if (!passwordConfirmation.text.equals(password.text)) {
+                        if (password.text.length() > 0 && passwordConfirmation.text.length() > 0) {
 
-                    }
-                } else if (!username.valid) {
-                    if (username.text.length() > 0) {
+                            Toast.makeText(SignUpActivity.this, getResources().getString(R.string.ERROR_PASSWORD_MATCH), Toast.LENGTH_LONG).show();
+                        }
+                        if (password.text.length() == 0) {
+                            passwordView.requestFocus();
 
-                        Toast.makeText(SignUpActivity.this, getResources().getString(R.string.ERROR_USERNAME_INVALID), Toast.LENGTH_LONG).show();
+                        } else {
+                            passwordConfirmationView.requestFocus();
+
+                        }
+                    } else if (!username.valid) {
+                        if (username.text.length() > 0) {
+
+                            Toast.makeText(SignUpActivity.this, getResources().getString(R.string.ERROR_USERNAME_INVALID), Toast.LENGTH_LONG).show();
+                        }
+                        usernameView.requestFocus();
+                    } else if (!usernameEdited) {
+                        usernameEdited = true;
+                        signUP();
+                    } else if (emailConfirmation.text.equals(email.text) && passwordConfirmation.text.equals(password.text)) {
+                        signUP();
                     }
-                    usernameView.requestFocus();
-                } else if (!usernameEdited) {
-                    usernameEdited = true;
-                    signUP();
-                } else if (emailConfirmation.text.equals(email.text) && passwordConfirmation.text.equals(password.text)) {
-                    signUP();
+                }else {
+                    Toast.makeText(SignUpActivity.this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
                 }
-
             }
         });
     }
@@ -372,9 +373,11 @@ public class SignUpActivity extends AppCompatActivity {
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
+                                db  = new DBHandler(SignUpActivity.this);
                                 db.addRecord(emailView.getText().toString());
                                 Intent i = new Intent(SignUpActivity.this, SignInActivity.class);
                                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                db.close();
                                 startActivity(i);
                                 finish();
                             }

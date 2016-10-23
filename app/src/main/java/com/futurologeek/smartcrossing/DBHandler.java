@@ -36,6 +36,7 @@ public class DBHandler extends SQLiteOpenHelper {
         data.put("uid", uid);
         data.put("auth_token", authToken);
         db.insertOrThrow("tokeny", null, data);
+        db.close();
     }
 
     public void addRecord(String login) {
@@ -43,6 +44,7 @@ public class DBHandler extends SQLiteOpenHelper {
         ContentValues data = new ContentValues();
         data.put("login", login);
         db.insertOrThrow("loginy", null, data);
+        db.close();
     }
 
     public Cursor giveAll() {
@@ -71,13 +73,16 @@ public class DBHandler extends SQLiteOpenHelper {
             while(cur.moveToNext()){
                 ar.add(cur.getString(2));
             }
+            cur.close();
         } else {
             String[] columns = {"nr", "login"};
             Cursor cur = db.query("loginy", columns, null, null, null, null, null);
             while(cur.moveToNext()){
                 ar.add(cur.getString(1));
             }
+            cur.close();
         }
+        db.close();
         return ar;
     }
 
@@ -85,6 +90,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public void deleteAll() {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("delete from " + "tokeny");
+        db.close();
     }
 
     @Override
@@ -96,6 +102,7 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         String[] arg = {"" + ajdi};
         db.delete("telefony", "nr=?", arg);
+        db.close();
     }
 
     public void updateRecord(int nr, String uid, String authToken) {
@@ -105,6 +112,7 @@ public class DBHandler extends SQLiteOpenHelper {
         data.put("auth_token", authToken);
         String[] arg = {"" + nr};
         db.update("tokeny", data, "nr=?", arg);
+        db.close();
     }
 
     public String getToken(int nr) {
@@ -117,6 +125,8 @@ public class DBHandler extends SQLiteOpenHelper {
             kursor.moveToFirst();
             tok = kursor.getString(1);
         }
+        kursor.close();
+        db.close();
         return tok;
     }
 
@@ -130,6 +140,8 @@ public class DBHandler extends SQLiteOpenHelper {
             kursor.moveToFirst();
             tok = kursor.getString(2);
         }
+        kursor.close();
+        db.close();
         return Integer.parseInt(tok);
     }
     }

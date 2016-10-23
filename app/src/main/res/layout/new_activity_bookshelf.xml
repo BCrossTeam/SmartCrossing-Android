@@ -129,7 +129,7 @@
                 <ImageView
                     app:layout_widthPercent="85%"
                     app:layout_heightPercent="85%"
-                    android:src="@drawable/floatingbuttonimage"
+                    android:src="@drawable/floatingborrowbutton"
                     android:id="@+id/add_button"
                     android:layout_centerInParent="true" />
 

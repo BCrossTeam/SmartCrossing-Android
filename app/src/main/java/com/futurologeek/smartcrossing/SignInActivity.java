@@ -37,20 +37,20 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         findViews();
+        email = new TextValidator.ValidText();
+        password = new TextValidator.ValidText();
+        setListeners();
         db  = new DBHandler(SignInActivity.this);
-
         if(db.giveArray(false).size()>0){
             Cursor cur = db.giveLastLogin();
             cur.moveToLast();
             String login = cur.getString(1);
             emailView.setText(login);
+            email.valid = TextValidator.validate(email, Constants.EMAIL_VALIDATOR_PATTERN, Constants.EMAIL_VALIDATOR_MODE, Constants.EMAIL_VALIDATOR_MIN_LEN, Constants.EMAIL_VALIDATOR_MAX_LEN);
+            passwordView.requestFocus();
             cur.close();
         }
-
-        email = new TextValidator.ValidText();
-        password = new TextValidator.ValidText();
-        //email.valid = TextValidator.validate(email, Constants.EMAIL_VALIDATOR_PATTERN, Constants.EMAIL_VALIDATOR_MODE, Constants.EMAIL_VALIDATOR_MIN_LEN, Constants.EMAIL_VALIDATOR_MAX_LEN);
-        setListeners();
+        db.close();
     }
 
     private class SignInActionListener implements TextView.OnEditorActionListener {
@@ -97,20 +97,24 @@ public class SignInActivity extends AppCompatActivity {
         signInRow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (NetworkStatus.checkNetworkStatus(SignInActivity.this)) {
+                    if (!email.valid) {
+                        if (email.text.length() > 0) {
 
-                if (!email.valid) {
-                    if (email.text.length() > 0) {
+                            Toast.makeText(SignInActivity.this, getResources().getString(R.string.ERROR_EMAIL_INVALID), Toast.LENGTH_LONG).show();
+                        }
+                        emailView.requestFocus();
+                    } else if (!password.valid) {
 
-                        Toast.makeText(SignInActivity.this, getResources().getString(R.string.ERROR_EMAIL_INVALID), Toast.LENGTH_LONG).show();
+                        Toast.makeText(SignInActivity.this, getResources().getString(R.string.ERROR_PASSWORD_INVALID), Toast.LENGTH_LONG).show();
+                        passwordView.requestFocus();
+                    } else {
+                        signIN();
                     }
-                    emailView.requestFocus();
-                } else if (!password.valid) {
-
-                    Toast.makeText(SignInActivity.this, getResources().getString(R.string.ERROR_PASSWORD_INVALID), Toast.LENGTH_LONG).show();
-                    passwordView.requestFocus();
                 } else {
-                    signIN();
-                }}
+                    Toast.makeText(SignInActivity.this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
+                }
+            }
         });
 
         InputFilter filter = new InputFilter() {
@@ -211,6 +215,7 @@ public class SignInActivity extends AppCompatActivity {
 
                                 //Toast.makeText(SignInActivity.this, signInPassword.getText().toString() + "   "  +signInLogin.getText().toString(), Toast.LENGTH_SHORT).show();
                             } else {
+                                db  = new DBHandler(SignInActivity.this);
                                 try {
                                     db.deleteAll();
                                     int id = ob.getInt("user_id");
@@ -221,6 +226,7 @@ public class SignInActivity extends AppCompatActivity {
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
+                                db.close();
                                 goToMain();
                             }
                         }
