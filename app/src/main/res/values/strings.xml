@@ -604,6 +604,8 @@
     <string name="BADGE_USER_BORROWED">This badge is for borrowing books</string>
     <string name="BADGE_OTHER_BORROWED">This badge is for borrowing user\'s book by others</string>
 
+    <string name="open_source">Open source libraries</string>
+
 </resources>
 
 

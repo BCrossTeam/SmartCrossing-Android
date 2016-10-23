@@ -24,6 +24,7 @@ public class SettingsActivity extends PreferenceActivity {
     SeekBarPreference radius;
     SharedPreferences.Editor editor;
     Preference signOut;
+    Preference libs;
     JSONObject jsonObj;
 
     @Override
@@ -34,10 +35,21 @@ public class SettingsActivity extends PreferenceActivity {
         SharedPreferences preferences = getSharedPreferences(Constants.shared, Context.MODE_PRIVATE);
         editor = preferences.edit();
 
+
         signOut = (Preference) findPreference("log_out");
         units    = (CheckBoxPreference) findPreference("unit");
         camFocus = (CheckBoxPreference) findPreference("cam_focus");
         radius = (SeekBarPreference) findPreference("radius");
+        libs = (Preference) findPreference("libs");
+
+        libs.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Intent i = new Intent(SettingsActivity.this, LicensesActivity.class);
+                startActivity(i);
+                return true;
+            }
+        });
 
         signOut.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override

@@ -5,9 +5,9 @@
     xmlns:sample="http://schemas.android.com/apk/res-auto">>
 
 
-           <CheckBoxPreference android:title="@string/change_units" android:key="unit"
-               android:summary="km"
-               android:defaultValue="true"/>
+    <CheckBoxPreference android:title="@string/change_units" android:key="unit"
+        android:summary="km"
+        android:defaultValue="false"/>
 
     <CheckBoxPreference android:title="@string/show_points" android:key="cam_focus"
         android:summary="@string/p_nearest"
@@ -25,9 +25,14 @@
         sample:msbp_measurementUnit="km"
         />
 
-<Preference
-    android:key="log_out"
-    android:title="@string/signout"/>
+
+    <Preference
+        android:key="libs"
+        android:title="@string/open_source"/>
+
+    <Preference
+        android:key="log_out"
+        android:title="@string/signout"/>
 
 
 </PreferenceScreen>
