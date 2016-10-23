@@ -95,7 +95,7 @@ public class Book {
 
                             public void onClick(final DialogInterface dialog, int which) {
                                 if (distance * 1000 > Constants.maxConstant(context)) {
-                                    Toast.makeText(context, context.getResources().getString(R.string.ret_distance_too_long), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, context.getResources().getString(R.string.ret_distance_too_long), Toast.LENGTH_LONG).show();
                                     dialog.dismiss();
                                 }
                                 final Thread t = new Thread() {
@@ -131,18 +131,18 @@ public class Book {
                                                             try {
                                                                 Toast.makeText(context, context.getResources().getString(R.string.JUST_ERROR) + " " + GetStringCode.getErrorResource(ob.getInt("error"), context), Toast.LENGTH_SHORT).show();
                                                             } catch (JSONException e) {
-                                                                e.printStackTrace();
-                                                            }
+                                                                 e.printStackTrace();
+                                                             }
                                                         }
 
                                                         //Toast.makeText(SignInActivity.this, signInPassword.getText().toString() + "   "  +signInLogin.getText().toString(), Toast.LENGTH_SHORT).show();
                                                     } else {
                                                         ((BookshelfActivity) act).onResume();
-                                                        try {
-                                                            Toast.makeText(context, GetStringCode.getSuccessCode(ob.getInt("success"), context), Toast.LENGTH_SHORT).show();
-                                                        } catch (JSONException e) {
-                                                            e.printStackTrace();
-                                                        }
+                                                        //try {
+                                                        //    Toast.makeText(context, GetStringCode.getSuccessCode(ob.getInt("success"), context), Toast.LENGTH_SHORT).show();
+                                                        //} catch (JSONException e) {
+                                                        //    e.printStackTrace();
+                                                        //}
                                                     }
                                                 }
                                             });
@@ -187,7 +187,7 @@ public class Book {
 
                             public void onClick(DialogInterface dialog, int which) {
                                 if (distance * 1000 > Constants.maxConstant(context)) {
-                                    Toast.makeText(context, context.getResources().getString(R.string.ret_distance_too_long), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, context.getResources().getString(R.string.bor_distance_too_long), Toast.LENGTH_LONG).show();
                                     dialog.dismiss();
                                 }
                                 final Thread t = new Thread() {
@@ -230,11 +230,11 @@ public class Book {
                                                         //Toast.makeText(SignInActivity.this, signInPassword.getText().toString() + "   "  +signInLogin.getText().toString(), Toast.LENGTH_SHORT).show();
                                                     } else {
                                                         ((BookshelfActivity) act).onResume();
-                                                        try {
-                                                            Toast.makeText(context, GetStringCode.getSuccessCode(ob.getInt("success"), context), Toast.LENGTH_SHORT).show();
-                                                        } catch (JSONException e) {
-                                                            e.printStackTrace();
-                                                        }
+                                                        //try {
+                                                        //    Toast.makeText(context, GetStringCode.getSuccessCode(ob.getInt("success"), context), Toast.LENGTH_SHORT).show();
+                                                        //} catch (JSONException e) {
+                                                        //    e.printStackTrace();
+                                                        //}
                                                     }
                                                 }
                                             });

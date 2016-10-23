@@ -31,13 +31,12 @@
     <string name="NEW_REQUESTS">New bookshelf propositions </string>
 
 
-    <string name="first_run">Drogi użytkowniku! Oddajemy w Twoje ręce aplikację do bookcrossingu. Chcemy jednak zaznaczyć, iż aplikacja powstała podczas hackatonu "Hack Heroes" organizowanego przez serwis Apka.org, dlatego też wyświetlane w niej półki nie są jeszcze rzeczywistymi półkami, umieszczonymi w Twoim mieście. Chcemy nadmienić, że aplikacja została również okrojona z kilku funkcjonalności na potrzeby testów, które będzie robić jury. W finalnej wersji aby wypożyczyć/oddać książkę - będzie trzeba być nie dalej niż 50m od półki. Aby oszczędzić komisji spaceru, w aplikacji pojawia się tylko powiadomienie, iż dystans ten jest większy. Życzymy miłego korzystania z naszej aplikacji!  Zespół BCrossTeam!</string>
-    <string name="VOTE_SUCCESSFULL">You\'ve successfully voted</string>
+    <string name="first_run">Welcome to our Bookcrossing app! The app that was made in one week, during the hackathon "Hack Heroes" brought by Apka.org. That\'s why Bookshelves that are already in the app are just for testing, they\'re not real. Also, not all of the features are avaiable right now, because of, again, testing by Jury. After the competition is done, you have to be less than 50 meters from bookshelf that you want to interact with. Now, there is only a popup that says you are further from bookshelf. But apart from that, app is fully working. Happy Bookcrossing! -BcrossTeam</string>
 
     <string name="borrow_book">Take book</string>
     <string name="return_book">Release book</string>
-    <string name="ret_distance_too_long">Error: You should be closer than 100m (0.062 miles)\nto return a book to a bookshelf.</string>
-    <string name="bor_distance_too_long">Error: You should be closer than 100m (0.062 miles)\nto borrow a book from a bookshelf.</string>
+    <string name="ret_distance_too_long">After hackaton app will throw Error: You should be closer than 100m (0.062 miles)\nto return a book to a bookshelf.\nNow I am not going to organise honorable comitee free walk</string>
+    <string name="bor_distance_too_long">After hackaton app will throw Error: You should be closer than 100m (0.062 miles)\nto borrow a book from a bookshelf.\nNow I am not going to organise honorable comitee free walk</string>
     <string name="search_in_books">Search in books: </string>
     <!-- Stringi dziedziczone -->
 
@@ -597,6 +596,12 @@
     <string name="SUCCES_CODE_032">List of requested bookshelf updated </string>
     <string name="SUCCES_CODE_033">Adding new bookshelf request accepted </string>
     <string name="SUCCES_CODE_034">Adding new bookshelf request rejected </string>
+
+    <string name="BADGE_ADDED_BOOKS">This badge is for adding books</string>
+    <string name="BADGE_ADDED_BOOKSHELVES">This badge is for adding bookshelves</string>
+    <string name="BADGE_USER_SCORE">This badge is for score</string>
+    <string name="BADGE_USER_BORROWED">This badge is for borrowing books</string>
+    <string name="BADGE_OTHER_BORROWED">This badge is for borrowing user\'s book by others</string>
 
 </resources>
 

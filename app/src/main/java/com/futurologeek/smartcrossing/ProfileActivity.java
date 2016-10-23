@@ -1,8 +1,11 @@
 package com.futurologeek.smartcrossing;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -75,6 +78,8 @@ public class ProfileActivity extends AppCompatActivity {
         View child = View.inflate(ProfileActivity.this, R.layout.badge_item, null);
         ImageView img = (ImageView) child.findViewById(R.id.badge_img);
         img.setImageResource(res);
+        CustomOnClickListener lis = new CustomOnClickListener(img);
+        lis.setSpecificListener(img);
         tableToInflejtBadges.addView(child);
     }
 
@@ -386,10 +391,55 @@ public class ProfileActivity extends AppCompatActivity {
     public class CustomOnClickListener {
         Book ks;
         View v;
+        ImageView iv;
 
         public CustomOnClickListener(Book ks, View v) {
             this.ks = ks;
             this.v = v;
+        }
+
+        public CustomOnClickListener(ImageView iv) {
+            this.iv = iv;
+        }
+
+        public void setSpecificListener(ImageView img){
+            if(checkImageResource(ProfileActivity.this, iv, R.drawable.added_books_1)||checkImageResource(ProfileActivity.this, iv, R.drawable.added_books_5)||checkImageResource(ProfileActivity.this, iv, R.drawable.added_books_20)||checkImageResource(ProfileActivity.this, iv, R.drawable.added_books_50)){
+                iv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(ProfileActivity.this,getResources().getString(R.string.BADGE_ADDED_BOOKS), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else if(checkImageResource(ProfileActivity.this, iv, R.drawable.borrowed_books_1)||checkImageResource(ProfileActivity.this, iv, R.drawable.borrowed_books_5)||checkImageResource(ProfileActivity.this, iv, R.drawable.borrowed_books_20)||checkImageResource(ProfileActivity.this, iv, R.drawable.borrowed_books_50)){
+                iv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(ProfileActivity.this, getResources().getString(R.string.BADGE_USER_BORROWED), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else if(checkImageResource(ProfileActivity.this, iv, R.drawable.added_bookshelves_1)||checkImageResource(ProfileActivity.this, iv, R.drawable.added_bookshelves_3)||checkImageResource(ProfileActivity.this, iv, R.drawable.added_bookshelves_10)||checkImageResource(ProfileActivity.this, iv, R.drawable.added_bookshelves_20)){
+                iv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(ProfileActivity.this, getResources().getString(R.string.BADGE_ADDED_BOOKSHELVES), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else if(checkImageResource(ProfileActivity.this, iv, R.drawable.score_9996)||checkImageResource(ProfileActivity.this, iv, R.drawable.score_9997)||checkImageResource(ProfileActivity.this, iv, R.drawable.score_9998)||checkImageResource(ProfileActivity.this, iv, R.drawable.score_9999)){
+                iv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(ProfileActivity.this, getResources().getString(R.string.BADGE_USER_SCORE), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else if(checkImageResource(ProfileActivity.this, iv, R.drawable.borrowed_by_others_1)||checkImageResource(ProfileActivity.this, iv, R.drawable.borrowed_by_others_5)||checkImageResource(ProfileActivity.this, iv, R.drawable.borrowed_by_others_20)||checkImageResource(ProfileActivity.this, iv, R.drawable.borrowed_by_others_50)){
+                iv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(ProfileActivity.this, getResources().getString(R.string.BADGE_OTHER_BORROWED), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
         }
 
         public void setListener(){
@@ -411,6 +461,32 @@ public class ProfileActivity extends AppCompatActivity {
             });
         }
 
+    }
+
+    @SuppressWarnings("deprecation")
+    @SuppressLint("NewApi")
+    public static boolean checkImageResource(Context ctx, ImageView imageView,
+                                             int imageResource) {
+        boolean result = false;
+
+        if (ctx != null && imageView != null && imageView.getDrawable() != null) {
+            Drawable.ConstantState constantState;
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                constantState = ctx.getResources()
+                        .getDrawable(imageResource, ctx.getTheme())
+                        .getConstantState();
+            } else {
+                constantState = ctx.getResources().getDrawable(imageResource)
+                        .getConstantState();
+            }
+
+            if (imageView.getDrawable().getConstantState() == constantState) {
+                result = true;
+            }
+        }
+
+        return result;
     }
 
 
