@@ -25,8 +25,8 @@
     <string name="isbn">ISBN: </string>
     <string name="visit_profile">Visit profile </string>
     <string name="no_near_bookshelves">We\'re sorry but there is no any bookshelf near you\nyou can add one by clicking \"plus\" button\nin home screen</string>
-
-
+    <string name="crash_not_signed_in">Last time app crashed, due to security reasons - you were signed out</string>
+    <string name="VOTE_SUCCESSFULL">Zagłosowałeś pomyślnie</string>
     <string name="NEW_REQUEST">New bookshelf proposition</string>
     <string name="NEW_REQUESTS">New bookshelf propositions </string>
 
@@ -568,7 +568,7 @@
     <string name="ERROR_CODE_030">The bookshelf adding request doesn\'t exist</string>
     <string name="ERROR_CODE_031">Voting for bookshelf adding has ended</string>
     <string name="ERROR_CODE_032">You\'ve already voted!</string>
-    <string name="ERROR_UNKNOWN">An unknown error has occured</string>
+    <string name="ERROR_UNKNOWN">An unknown error has occurred</string>
     <string name="JUST_ERROR">Error: </string>
 
 

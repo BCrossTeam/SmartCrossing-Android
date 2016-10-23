@@ -60,13 +60,25 @@ public class MainActivity extends AppCompatActivity {
     String querySt;
     int counter = 0;
     ProgressBar progress;
-
+ImageView xd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         adapter = new BookshelfAdapter(this, punkty);
+        if(UserInfo.token==null){
+            Toast.makeText(MainActivity.this, getResources().getString(R.string.crash_not_signed_in), Toast.LENGTH_SHORT).show();
+            DBHandler db = new DBHandler(MainActivity.this);
+            db.deleteAll();
+            db.close();
+            UserInfo.token = "";
+            UserInfo.uid = -1;
+            Intent i = new Intent(MainActivity.this, LoadingActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+            finish();
+        }
         findViews();
         setListeners();
         super.onResume();
@@ -196,6 +208,7 @@ public class MainActivity extends AppCompatActivity {
         mapview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                xd.setImageResource(R.drawable.green_arrow);
                 if(!location.hasLocationEnabled()){
                     SimpleLocation.openSettings(MainActivity.this);
                     return;

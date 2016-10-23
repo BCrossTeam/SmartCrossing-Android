@@ -134,7 +134,7 @@
     <string name="VOTE_SUCCESSFULL">Zagłosowałeś pomyślnie</string>
     <string name="ret_distance_too_long">Po hackatonie aplikacja wyrzuci, że\nBłąd: Nie możesz oddać książki będąc dalej niż 100m (0.062 milii)\nod półki. Na razie nie chcę fundować Szanownemu Jury gratisowego spaceru ;-)</string>
     <string name="bor_distance_too_long">Po hackatonie aplikacja wyrzuci, że\nBłąd: Nie możesz wypożyczyć książki będąc dalej niż 100m (0.062 milii)\nod półki. Na razie nie chcę fundować Szanownemu Jury gratisowego spaceru ;-)</string>
-
+    <string name="crash_not_signed_in">Ostatnim razem aplikacja została niespodziewanie zatrzymana, z powodów bezpieczeństwa zostałeś wylogowany</string>
     <string name="no_network_autologin">Błąd: brak połączenia z internetem, nie można zalogować automatycznie</string>
 
     <string name="you_have_new_challenge">Masz %1$d %2$s</string>
