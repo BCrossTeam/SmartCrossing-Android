@@ -475,6 +475,7 @@
     <string name="UNKNOWN_SUCCESS">Operation done</string>
     <string name="errors.and">And</string>
     <string name="no_ISBN">NO ISBN</string>
+    <string name="user_null">Account deleted</string>
 
     <string name="enter_custom_value">Enter custom value</string>
 

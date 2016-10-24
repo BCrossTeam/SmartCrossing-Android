@@ -89,15 +89,25 @@ public class RankingActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+
                             adapter = new RankAdapter(RankingActivity.this, finalUsers, urank_id);
                             rank.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
-                            name1.setText(users.get(0).name);
-                            points1.setText(String.valueOf(users.get(0).points));
-                            name2.setText(users.get(1).name);
-                            points2.setText(String.valueOf(users.get(1).points));
-                            name3.setText(users.get(2).name);
-                            points3.setText(String.valueOf(users.get(2).points));
+                           if(users.size()>0){
+                               name1.setText(users.get(0).name);
+                               points1.setText(String.valueOf(users.get(0).points));
+                           }
+
+                            if(users.size()>1){
+                                name2.setText(users.get(1).name);
+                                points2.setText(String.valueOf(users.get(1).points));
+                            }
+
+                            if(users.size()>1){
+                                name3.setText(users.get(2).name);
+                                points3.setText(String.valueOf(users.get(2).points));
+                            }
+
                             place.setText(String.valueOf(pomocnicza));
                         }
                     });

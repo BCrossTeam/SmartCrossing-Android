@@ -13,10 +13,10 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:orientation="vertical"
-        android:layout_height="@dimen/eighty">
+        android:layout_height="wrap_content">
 
         <TableRow
-    android:layout_height="@dimen/forty"
+    android:layout_height="wrap_content"
     android:layout_width="fill_parent">
 
 

@@ -420,6 +420,7 @@
     <string name="km">km</string>
     <string name="mile">mil</string>
     <string name="no_ISBN">Brak</string>
+    <string name="user_null">Konto usunięte</string>
 
     <string name="near_points">Punkt najbliżej Ciebie</string>
     <string name="p_nearest">Najbliższy</string>

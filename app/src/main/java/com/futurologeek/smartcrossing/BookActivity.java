@@ -31,6 +31,8 @@ public class BookActivity extends AppCompatActivity {
     int creator_id;
     Boolean hasCover = false;
     String book_cover;
+    boolean userNull = false;
+    RelativeLayout removeVisitProfile;
     ImageView coverImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,7 @@ public class BookActivity extends AppCompatActivity {
     }
 
     public void findViews(){
+        removeVisitProfile = (RelativeLayout) findViewById(R.id.remove_visit_profile);
         titleTextView = (TextView) findViewById(R.id.title_textview);
         authorTextView= (TextView) findViewById(R.id.author_textview);
         visitProfile = (RelativeLayout) findViewById(R.id.visit_profile);
@@ -116,7 +119,12 @@ public class BookActivity extends AppCompatActivity {
                         final String ISBN = jsonObj.getString("book_isbn");
                         final String pub_date = jsonObj.getString("book_publication_date");
                         final String cat = jsonObj.getString("book_category");
-                        creator_id = jsonObj.getInt("book_user_author");
+                        if (jsonObj.isNull("book_user_author")) {
+                            userNull = true;
+                        } else {
+                            creator_id = jsonObj.getInt("book_user_author");
+                        }
+
                         if(!(jsonObj.isNull("book_cover"))){
                             book_cover = jsonObj.getString("book_cover");
                             hasCover = true;
@@ -158,19 +166,36 @@ public class BookActivity extends AppCompatActivity {
 
                                     }
                                 });
-                                new getUserBooks(false).execute();
+                                if(!userNull){
+                                    new getUserBooks(false).execute();
+                                    removeVisitProfile.setVisibility(View.VISIBLE);
+                                } else {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            removeVisitProfile.setVisibility(View.GONE);
+                                            addedByTextView.setText(getResources().getString(R.string.added_by)+" "+getResources().getString(R.string.user_null));
+                                        }
+                                    });
+                                }
+
                             }
                         });
 
                     } else {
-                        JSONObject jsonObj = new JSONObject(jsonStr);
-                        final String uname = jsonObj.getString("user_name");
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                              addedByTextView.setText(getResources().getString(R.string.added_by)+" "+uname);
-                            }
-                        });
+                        if(!userNull){
+                            JSONObject jsonObj = new JSONObject(jsonStr);
+                            final String uname = jsonObj.getString("user_name");
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    addedByTextView.setText(getResources().getString(R.string.added_by)+" "+uname);
+                                }
+                            });
+                        } else {
+
+                        }
+
 
                     }
                 } catch (final JSONException e) {

@@ -8,7 +8,7 @@
     <TableRow
         android:layout_width="fill_parent"
         android:weightSum="1"
-        android:layout_height="@dimen/sixty"
+        android:layout_height="wrap_content"
         android:layout_weight="0.03">
 
         <LinearLayout

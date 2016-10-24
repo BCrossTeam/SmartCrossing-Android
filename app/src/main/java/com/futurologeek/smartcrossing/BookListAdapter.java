@@ -50,7 +50,6 @@ public class BookListAdapter extends ArrayAdapter<Book> {
             holder.whole = (RelativeLayout) convertView.findViewById(R.id.whole_layout);
             holder.tvtitle.setText(getItem(position).getTitle());
             holder.tvauthor.setText(getItem(position).getAuthor());
-            holder.ivimage.setImageResource(R.drawable.nocover);
             getItem(position).setListeners(holder, this, context, isBorrow, bookshelfId, act, dial, dist);
             getItem(position).setCover(act, holder.ivimage);
             convertView.setTag(holder);
