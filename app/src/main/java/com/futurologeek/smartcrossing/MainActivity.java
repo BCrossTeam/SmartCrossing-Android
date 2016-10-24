@@ -289,18 +289,6 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if(punkty.size()>0){
-                                adapter = new BookshelfAdapter(MainActivity.this, punkty);
-                                booklist.setAdapter(adapter);
-                                adapter.notifyDataSetChanged();
-                            } else {
-                                ArrayList<String> mess = new ArrayList<String>();
-                                mess.add(getResources().getString(R.string.no_near_bookshelves));
-                                MessageAdapter ad = new MessageAdapter(MainActivity.this, mess);
-                                booklist.setAdapter(ad);
-                                ad.notifyDataSetChanged();
-                            }
-
                             if(longitude==0||latitude==0){
                                 getLoc();
                                 return;
@@ -308,6 +296,7 @@ public class MainActivity extends AppCompatActivity {
                                 for(Bookshelf pl:punkty){
                                     pl.setDistance(latitude, longitude, MainActivity.this);
                                 }
+                                Log.d("Cordinates", String.valueOf(latitude)+" x "+String.valueOf(longitude));
                                 SharedPreferences preferences = getSharedPreferences(Constants.shared, Context.MODE_PRIVATE);
 
 
@@ -317,6 +306,17 @@ public class MainActivity extends AppCompatActivity {
                                         // Toast.makeText(MainActivity.this, "Za duzy dist"+a.getDistance()+" max "+preferences.getInt("radius",30), Toast.LENGTH_SHORT).show();
                                         iter.remove();
                                     }
+                                }
+                                if(punkty.size()>0){
+                                    adapter = new BookshelfAdapter(MainActivity.this, punkty);
+                                    booklist.setAdapter(adapter);
+                                    adapter.notifyDataSetChanged();
+                                } else {
+                                    ArrayList<String> mess = new ArrayList<String>();
+                                    mess.add(getResources().getString(R.string.no_near_bookshelves));
+                                    MessageAdapter ad = new MessageAdapter(MainActivity.this, mess);
+                                    booklist.setAdapter(ad);
+                                    ad.notifyDataSetChanged();
                                 }
                                 sortList();
                             }

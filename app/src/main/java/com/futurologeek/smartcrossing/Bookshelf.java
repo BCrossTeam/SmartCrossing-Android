@@ -96,9 +96,22 @@ public class Bookshelf {
         } else {
             distance = (float) ((results[0]) / 1000 / 1.6);
         }
-
-
     }
+
+    float getDistance(double latitude, double longitude, Context context) {
+        float[] results = new float[1];
+        SharedPreferences preferences = context.getSharedPreferences(Constants.shared, Context.MODE_PRIVATE);
+
+        isKM = preferences.getBoolean("isKM", true);
+
+        if (isKM) {
+            return (results[0] / 1000);
+        } else {
+            return (float) ((results[0]) / 1000 / 1.6);
+        }
+    }
+
+
 
     public void setListenersRequests(final BookshelfRequestsAdapter.ViewHolder rholder, BookshelfRequestsAdapter radapter, final Context context, Activity activity) {
         this.radapter = radapter;
