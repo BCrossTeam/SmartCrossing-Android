@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,7 +17,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -37,9 +42,10 @@ import java.util.Calendar;
 public class AddBookActivity extends AppCompatActivity {
     String url = "";
     String creators = "";
-    EditText addTitle, addAuthor;
+    EditText addTitle, addAuthor, addISBN;
     NumberPicker year;
     ImageView arrow;
+    boolean hasISBN = false;
     RelativeLayout add_photo_relative;
     LinearLayout mainLinearLayout;
     ImageView choosePhotoIco;
@@ -51,6 +57,7 @@ public class AddBookActivity extends AppCompatActivity {
     private Uri outputFileUri;
     private Uri file;
     private Uri imageToUploadUri;
+    private CheckBox hasNumber;
     int yearvalue;
     JSONObject ob;
 
@@ -75,6 +82,7 @@ public class AddBookActivity extends AppCompatActivity {
     }
 
     public void findViews(){
+        hasNumber = (CheckBox) findViewById(R.id.checkBox);
         add_photo_relative = (RelativeLayout) findViewById(R.id.add_photo_relative);
         addTitle =   (EditText) findViewById(R.id.add_title);
         addAuthor = (EditText) findViewById(R.id.add_author);
@@ -83,6 +91,7 @@ public class AddBookActivity extends AppCompatActivity {
         mainLinearLayout = (LinearLayout) findViewById(R.id.mainlinearlayout);
         choosePhotoIco = (ImageView) findViewById(R.id.choose_photo_ic);
         catSelector = (Spinner) findViewById(R.id.cat_selector);
+        addISBN = (EditText) findViewById(R.id.add_ISBN);
     }
 
     public void setListeners(){
@@ -90,6 +99,30 @@ public class AddBookActivity extends AppCompatActivity {
         year.setMaxValue(cyear);
         year.setWrapSelectorWheel(false);
         year.setValue(cyear);
+
+        hasNumber.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    hasISBN = false;
+                    addISBN.setEnabled(false);
+
+                    addISBN.setBackgroundColor(getResources().getColor(R.color.grey));
+                } else {
+                    hasISBN = true;
+                    addISBN.setEnabled(true);
+                    addISBN.setBackgroundColor(getResources().getColor(R.color.fortyshadesofgrey));
+                }
+            }
+        });
+
+        mainLinearLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent ev) {
+                hideKeyboard(view);
+                return false;
+            }
+        });
 
         arrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,6 +173,12 @@ public class AddBookActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+    }
+
+    protected void hideKeyboard(View view)
+    {
+        InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        in.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     class GetBookInfo extends AsyncTask<Void, Void, Void> {
@@ -384,6 +423,8 @@ public class AddBookActivity extends AppCompatActivity {
         }
 
 
+
+
     public void goToCropActivity(boolean itsOkayToBeNull, boolean calendarIsOkay) {
         if(!NetworkStatus.checkNetworkStatus(AddBookActivity.this)) {
             Toast.makeText(AddBookActivity.this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
@@ -402,6 +443,17 @@ public class AddBookActivity extends AppCompatActivity {
         if(author.equals("")){
             Snackbar.make(mainLinearLayout, getString(R.string.desc_null), Snackbar.LENGTH_LONG).show();
             return;
+        }
+
+        if(hasISBN){
+            if (addISBN.getText().toString().equals("")){
+                Snackbar.make(mainLinearLayout, "NO ISBN", Snackbar.LENGTH_LONG).show();
+                return;
+            }
+            else if (addISBN.getText().toString().length() !=13 && addISBN.getText().toString().length()!=10){
+                Snackbar.make(mainLinearLayout, "BAD LENGTH", Snackbar.LENGTH_LONG).show();
+                return;
+            }
         }
 
        if(catSelector.getSelectedItemPosition()==0){
@@ -479,7 +531,7 @@ public class AddBookActivity extends AppCompatActivity {
                             par.put("user_auth_token", UserInfo.token);
                             par.put("book_title", title);
                             par.put("book_author", author);
-                            par.put("book_isbn", "0000000000000");
+                            par.put("book_isbn", addISBN.getText().toString());
                             par.put("book_publication_date", year.getValue());
                             par.put("book_category", GetCategory.returnCatCode(AddBookActivity.this, GetCategory.returnCatCode(AddBookActivity.this, catSelector.getSelectedItem().toString())));
                         } catch (JSONException e) {
@@ -537,6 +589,11 @@ public class AddBookActivity extends AppCompatActivity {
             b.putInt("year", year.getValue());
             b.putString("cat", catSelector.getSelectedItem().toString());
             cel.putExtra("aspect_x", 14);
+            if(hasISBN){
+                cel.putExtra("ISBN", addISBN.getText().toString());
+            } else {
+                cel.putExtra("ISBN", "0000000000000");
+            }
             cel.putExtra("aspect_y", 22);
             b.putString("title", title);
             b.putString("author", author);

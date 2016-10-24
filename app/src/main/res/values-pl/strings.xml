@@ -419,11 +419,13 @@
 
     <string name="km">km</string>
     <string name="mile">mil</string>
+    <string name="no_ISBN">Brak</string>
 
     <string name="near_points">Punkt najbliżej Ciebie</string>
     <string name="p_nearest">Najbliższy</string>
     <string name="P_all">Wszystkie w zasięgu</string>
     <string name="of_searching_bs">Szukania półek</string>
+    <string name="ISBN">ISBN</string>
 
     <string name="errors.must_be_between">Musi być pomiędzy</string>
     <string name ="UNKNOWN_SUCCESS">Operacja wykonana pomyślnie</string>

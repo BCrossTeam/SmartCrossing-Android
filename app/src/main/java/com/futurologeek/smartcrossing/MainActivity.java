@@ -303,7 +303,6 @@ public class MainActivity extends AppCompatActivity {
                                 for (Iterator<Bookshelf> iter = punkty.listIterator(); iter.hasNext(); ) {
                                     Bookshelf a = iter.next();
                                     if (a.getDistance()>preferences.getInt("radius",30)) {
-                                        // Toast.makeText(MainActivity.this, "Za duzy dist"+a.getDistance()+" max "+preferences.getInt("radius",30), Toast.LENGTH_SHORT).show();
                                         iter.remove();
                                     }
                                 }

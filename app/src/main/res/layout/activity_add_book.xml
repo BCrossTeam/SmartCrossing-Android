@@ -85,7 +85,69 @@
 
         </LinearLayout>
 
+
     </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/eighty"
+        android:layout_marginLeft="@dimen/twenty"
+        android:layout_marginRight="@dimen/twenty"
+        android:layout_marginBottom="@dimen/five">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:text="@string/ISBN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/twenty_five"
+                android:layout_gravity="center"
+                android:textStyle="normal|bold"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/five"
+                android:id="@+id/ISBN" />
+
+            <RelativeLayout
+    android:layout_height="@dimen/forty"
+    android:layout_width="fill_parent">
+
+                <CheckBox
+                    android:text="@string/no_ISBN"
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:checked="false"
+                    android:layout_centerVertical="true"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/checkBox" />
+
+                <EditText
+                android:maxLength="13"
+                android:inputType="number"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/forty"
+                android:id="@+id/add_ISBN"
+                    android:textColorHint="@color/white"
+                android:singleLine="true"
+                android:background="@color/fortyshadesofgrey"
+                android:textColor="@color/white"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                android:gravity="center"
+                    android:layout_toLeftOf="@+id/checkBox"
+                    android:layout_toStartOf="@+id/checkBox" />
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </TableRow>
+
 
 
     <TableRow

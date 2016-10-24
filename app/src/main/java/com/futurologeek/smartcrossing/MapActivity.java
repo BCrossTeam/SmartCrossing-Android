@@ -189,7 +189,10 @@ public class MapActivity extends FragmentActivity {
                                             } else {
                                                sortList();
                                                 LatLngBounds.Builder builder = new LatLngBounds.Builder();
-                                                builder.include(new LatLng(punkty.get(0).getLatitude(), punkty.get(0).getLongitude()));
+                                                if(punkty.size()>0){
+                                                    builder.include(new LatLng(punkty.get(0).getLatitude(), punkty.get(0).getLongitude()));
+                                                }
+
                                                 builder.include(new LatLng(loc.latitude, loc.longitude));
                                                 LatLngBounds bounds = builder.build();
                                                 int padding = 200; // offset from edges of the map in pixels

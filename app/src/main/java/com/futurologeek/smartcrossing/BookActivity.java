@@ -135,7 +135,12 @@ public class BookActivity extends AppCompatActivity {
                                 }
                                 categoryTextView.setText(getResources().getString(R.string.cat)+" "+GetCategory.returnCategory(BookActivity.this, cat));
                                 dateTextView.setText(getResources().getString(R.string.year)+" "+pub_date);
-                                isbnTextView.setText(getResources().getString(R.string.isbn)+" "+ISBN);
+                                if(ISBN.equals("0000000000")||ISBN.equals("0000000000000")){
+                                    isbnTextView.setText(getResources().getString(R.string.isbn)+" "+getResources().getString(R.string.no_ISBN));
+                                } else {
+                                    isbnTextView.setText(getResources().getString(R.string.isbn)+" "+ISBN);
+                                }
+
                                 visitProfile.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {

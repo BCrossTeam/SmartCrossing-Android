@@ -3,7 +3,7 @@
 
     <color name="notificationBarColor">#231a39</color>
     <color name="lighterNotificationBarColor">#3B356B</color>
-    <color name="grey">#817d7d</color>
+    <color name="grey">#404b4949</color>
     <color name="lightgreen">#9ae4b0</color>
     <color name="darkgreen">#0b6c28</color>
 

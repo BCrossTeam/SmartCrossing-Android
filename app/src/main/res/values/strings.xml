@@ -468,12 +468,13 @@
 
     <string name="p_nearest">Nearest</string>
     <string name="P_all">All in radius</string>
-
+    <string name="ISBN">ISBN</string>
 
     <string name="of_searching_bs">of searching bookshelves</string>
     <string name="errors.must_be_between">Must be between</string>
     <string name="UNKNOWN_SUCCESS">Operation done</string>
     <string name="errors.and">And</string>
+    <string name="no_ISBN">NO ISBN</string>
 
     <string name="enter_custom_value">Enter custom value</string>
 

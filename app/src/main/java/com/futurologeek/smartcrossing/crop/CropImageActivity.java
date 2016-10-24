@@ -100,6 +100,7 @@ public class CropImageActivity extends MonitoredActivityReportingLifeCycle {
     private RotateBitmap rotateBitmap;
     private CropImageView imageView;
     private HighlightView cropView;
+    String ISBN;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -175,11 +176,14 @@ public class CropImageActivity extends MonitoredActivityReportingLifeCycle {
     }
 
     public void booleanHandler() {
-        title = getIntent().getExtras().getString("title");
-        cat = getIntent().getExtras().getString("cat");
-        author = getIntent().getExtras().getString("author");
-        book_year = getIntent().getExtras().getInt("year");
-        isDirectFilePath = getIntent().getExtras().getBoolean("isDirectFilePath");
+        if(getIntent().getExtras()!=null) {
+            title = getIntent().getExtras().getString("title");
+            cat = getIntent().getExtras().getString("cat");
+            author = getIntent().getExtras().getString("author");
+            ISBN = getIntent().getExtras().getString("ISBN");
+            book_year = getIntent().getExtras().getInt("year");
+            isDirectFilePath = getIntent().getExtras().getBoolean("isDirectFilePath");
+        }
 
     }
 
@@ -513,7 +517,7 @@ public class CropImageActivity extends MonitoredActivityReportingLifeCycle {
                         par.put("user_auth_token", UserInfo.token);
                         par.put("book_title", title);
                         par.put("book_author", author);
-                        par.put("book_isbn", "0000000000000");
+                        par.put("book_isbn", ISBN);
                         par.put("book_publication_date", book_year);
                         par.put("book_category", GetCategory.returnCatCode(CropImageActivity.this, cat));
                     } catch (JSONException e) {
