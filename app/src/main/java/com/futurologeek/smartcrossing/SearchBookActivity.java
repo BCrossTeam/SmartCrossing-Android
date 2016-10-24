@@ -118,7 +118,7 @@ public class SearchBookActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             if(ksiazki.size()>0){
-                                adapter = new SearchAdapter(SearchBookActivity.this, ksiazki);
+                                adapter = new SearchAdapter(SearchBookActivity.this, ksiazki, SearchBookActivity.this);
                                 bookList.setAdapter(adapter);
                                 adapter.notifyDataSetChanged();
                             } else {

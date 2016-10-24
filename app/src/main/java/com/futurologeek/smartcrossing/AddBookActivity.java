@@ -507,21 +507,22 @@ public class AddBookActivity extends AppCompatActivity {
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
+                                    finish();
                                 } else {
                                     try {
                                         Toast.makeText(AddBookActivity.this, getResources().getString(R.string.JUST_ERROR) + " " + GetStringCode.getErrorResource(ob.getInt("error"), AddBookActivity.this), Toast.LENGTH_SHORT).show();
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
-                                    finish();
                                 }
-                                finish();
+
                                     } else {
                                 try {
                                     Toast.makeText(AddBookActivity.this, GetStringCode.getSuccessCode(ob.getInt("success"), AddBookActivity.this), Toast.LENGTH_SHORT).show();
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
+                                finish();
                             }
                         }
                     });

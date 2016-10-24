@@ -14,6 +14,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,6 +44,26 @@ public class BookActivity extends AppCompatActivity {
             Bundle przekazanedane = getIntent().getExtras();
             id = przekazanedane.getInt("ajdi");
             new getUserBooks(true).execute();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            if (result.getContents() == null) {
+                Toast.makeText(this, "You cancelled the scanning", Toast.LENGTH_LONG).show();
+            } else {
+                String url = Constants.gapi_url + result.getContents();
+                Bundle koszyk = new Bundle();
+                koszyk.putString("jurl", url);
+                Intent cel = new Intent(this, AddBookActivity.class);
+                cel.putExtras(koszyk);
+                startActivity(cel);
+            }
+
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
@@ -94,7 +117,7 @@ public class BookActivity extends AppCompatActivity {
                         final String pub_date = jsonObj.getString("book_publication_date");
                         final String cat = jsonObj.getString("book_category");
                         creator_id = jsonObj.getInt("book_user_author");
-                        if(!(jsonObj.getString("book_cover")==null)){
+                        if(!(jsonObj.isNull("book_cover"))){
                             book_cover = jsonObj.getString("book_cover");
                             hasCover = true;
                         }
@@ -107,6 +130,8 @@ public class BookActivity extends AppCompatActivity {
                                 authorTextView.setText(author);
                                 if(hasCover){
                                     PicassoTrustAll.getInstance(BookActivity.this).load(Constants.content+book_cover).fit().into(coverImage);
+                                } else {
+                                    coverImage.setImageResource(R.drawable.nocover);
                                 }
                                 categoryTextView.setText(getResources().getString(R.string.cat)+" "+GetCategory.returnCategory(BookActivity.this, cat));
                                 dateTextView.setText(getResources().getString(R.string.year)+" "+pub_date);

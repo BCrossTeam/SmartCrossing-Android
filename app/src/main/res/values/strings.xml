@@ -409,7 +409,7 @@
     <string name="name">Name:</string>
     <string name="gps_turned_off">Error: GPS turned off</string>
     <string name="ranking">Rank</string>
-    <string name="your_place">Your place in ranking:</string>
+    <string name="your_place">Place in ranking:</string>
     <string name="nr">No.</string>
     <string name="l_permission">Add location permission to continue use app</string>
     <string name="unfort_y_ve_no_books">Unfortunately you don\'t have any book</string>

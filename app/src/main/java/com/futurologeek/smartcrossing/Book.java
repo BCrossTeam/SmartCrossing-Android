@@ -6,8 +6,11 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -22,10 +25,11 @@ public class Book {
     SearchAdapter sadapter;
     BookListAdapter.ViewHolder holder;
     BookListAdapter adapter;
-
+    String cover = "";
     JSONObject ob;
     Activity act;
     Dialog dial;
+    public static Boolean hasCover = false;
 
     enum Kategoria { Beletrystyka, Biografie, Biznes_i_inwestycje, Gotowanie, Historia, Komputery, Kryminały, Dla_dzieci, Polityka, Prawo, Religia, Romanse, SCI_FI, Zdrowie}
 
@@ -40,6 +44,10 @@ public class Book {
         this.title = title;
         this.author = author;
         this.year = year;
+    }
+
+    public void setCover(Activity activ, ImageView iv){
+        new GetBookCover(iv, activ).execute();
     }
 
    public String getTitle(){
@@ -268,6 +276,65 @@ public class Book {
 
         }
 
+    }
+
+    class GetBookCover extends AsyncTask<Void, Void, Void> {
+        ImageView iv;
+        Activity act;
+
+        public GetBookCover(ImageView iv, Activity act){
+            super();
+            this.iv = iv;
+            this.act = act;
+        }
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            HttpHandler sh = new HttpHandler();
+            String jsonStr = sh.makeServiceCall(Constants.book_url+id);
+
+            Log.e("tag", "Response from url: " + jsonStr);
+
+            if (jsonStr != null) {
+                try {
+                    JSONObject jsonObj = new JSONObject(jsonStr);
+                    if(!(jsonObj.isNull("book_cover"))){
+                        cover=Constants.content+jsonObj.getString("book_cover");
+                        hasCover = true;
+                        act.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                PicassoTrustAll.getInstance(act.getApplicationContext()).load(cover).fit().into(iv);
+                            }
+                        });
+                    } else {
+                        act.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                iv.setImageResource(R.drawable.nocover);
+                            }
+                        });
+                    }
+                } catch (final JSONException e) {
+                    Log.e("TAG", "Json parsing error: " + e.getMessage());
+                }
+            } else {
+                Log.e("TAG", "Couldn't get json from server.");
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+
+        }
     }
 
 

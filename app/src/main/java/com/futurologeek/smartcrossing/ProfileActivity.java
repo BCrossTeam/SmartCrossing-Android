@@ -17,6 +17,9 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,6 +52,26 @@ public class ProfileActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
             }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            if (result.getContents() == null) {
+                Toast.makeText(this, "You cancelled the scanning", Toast.LENGTH_LONG).show();
+            } else {
+                String url = Constants.gapi_url + result.getContents();
+                Bundle koszyk = new Bundle();
+                koszyk.putString("jurl", url);
+                Intent cel = new Intent(this, AddBookActivity.class);
+                cel.putExtras(koszyk);
+                startActivity(cel);
+            }
+
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
@@ -192,6 +215,8 @@ public class ProfileActivity extends AppCompatActivity {
                                     } else {
                                         title.setText(k.getTitle());
                                     }
+                                    ImageView cov = (ImageView) child.findViewById(R.id.book_cover);
+                                    k.setCover(ProfileActivity.this, cov);
                                     tableToInflejt.addView(child);
                                     CustomOnClickListener list = new CustomOnClickListener(k, child);
                                     list.setListener();

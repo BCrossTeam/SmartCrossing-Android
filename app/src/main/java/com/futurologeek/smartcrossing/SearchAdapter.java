@@ -17,13 +17,13 @@ import java.util.ArrayList;
 public class SearchAdapter extends ArrayAdapter<Book> {
     private final Context context;
     private final ArrayList<Book> itemsArrayList;
+    Activity act;
 
-
-    public SearchAdapter(Context context, ArrayList<Book> itemsArrayList) {
+    public SearchAdapter(Context context, ArrayList<Book> itemsArrayList, Activity act) {
         super(context, R.layout.book_list_template, itemsArrayList);
         this.context = context;
         this.itemsArrayList = itemsArrayList;
-
+        this.act = act;
     }
 
     @Override
@@ -44,6 +44,7 @@ public class SearchAdapter extends ArrayAdapter<Book> {
             holder.tvauthor.setText(getItem(position).getAuthor());
             holder.ivimage.setImageResource(R.drawable.nocover);
             getItem(position).setSearchListeners(holder, this, context);
+            getItem(position).setCover(act, holder.ivimage);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();

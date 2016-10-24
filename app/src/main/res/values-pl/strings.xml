@@ -31,7 +31,7 @@
     <string name="l_permission">Dodaj pozwolenie na lokalizacje aby korzystać z aplikacji</string>
     <string name="books_null">Nie ma tu jeszcze książek</string>
     <string name="ranking">Ranking</string>
-    <string name="your_place">W rankingu jesteś:</string>
+    <string name="your_place">Pozycja w rankingu:</string>
     <string name="borrow_book">Weź książkę</string>
     <string name="return_book">Uwolnij książkę</string>
     <string name="name">Imię:</string>

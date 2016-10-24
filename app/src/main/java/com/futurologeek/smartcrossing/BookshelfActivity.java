@@ -134,7 +134,6 @@ public class BookshelfActivity extends FragmentActivity {
 
         final Dialog dialog = new Dialog(BookshelfActivity.this);
         dialog.setContentView(R.layout.return_or_borrow_prompt);
-        dialog.setTitle(BookshelfActivity.this.getResources().getString(R.string.select_src));
         RelativeLayout borrowBook = (RelativeLayout) dialog.findViewById(R.id.borrow_book);
         RelativeLayout returnBook = (RelativeLayout) dialog.findViewById(R.id.return_book);
         borrowBook.setOnClickListener(new View.OnClickListener() {
@@ -204,6 +203,8 @@ public class BookshelfActivity extends FragmentActivity {
                                 for (Book k : ksiazki) {
                                     View view = inflater.inflate(R.layout.book_list_item_in_bookshelf, null);
                                     RelativeLayout whole = (RelativeLayout) view.findViewById(R.id.whole);
+                                    ImageView cov = (ImageView) view.findViewById(R.id.book_cover);
+                                    k.setCover(BookshelfActivity.this, cov);
                                     b_id = k.getId();
                                     TextView txt = (TextView) view.findViewById(R.id.title_textview);
                                     if (k.getTitle().length() > 18) {

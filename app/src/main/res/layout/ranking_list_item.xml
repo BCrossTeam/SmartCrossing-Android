@@ -15,7 +15,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_centerInParent="true"
-                android:textSize="@dimen/fifteen"
+                android:textSize="@dimen/twenty"
                 android:layout_marginTop="@dimen/five"
                 android:layout_marginBottom="@dimen/five"
                 android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_centerInParent="true"
-                android:textSize="@dimen/fifteen"
+                android:textSize="@dimen/twenty"
                 android:layout_marginTop="@dimen/five"
                 android:layout_marginBottom="@dimen/five"
                 android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_centerInParent="true"
-                android:textSize="@dimen/fifteen"
+                android:textSize="@dimen/twenty"
                 android:layout_marginTop="@dimen/five"
                 android:layout_marginBottom="@dimen/five"
                 android:layout_height="wrap_content"

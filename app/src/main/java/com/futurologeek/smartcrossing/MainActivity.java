@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
     String querySt;
     int counter = 0;
     ProgressBar progress;
-ImageView xd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -208,7 +207,6 @@ ImageView xd;
         mapview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                xd.setImageResource(R.drawable.green_arrow);
                 if(!location.hasLocationEnabled()){
                     SimpleLocation.openSettings(MainActivity.this);
                     return;
