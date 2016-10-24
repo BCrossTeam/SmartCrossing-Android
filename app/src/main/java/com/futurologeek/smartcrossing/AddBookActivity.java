@@ -45,7 +45,7 @@ public class AddBookActivity extends AppCompatActivity {
     EditText addTitle, addAuthor, addISBN;
     NumberPicker year;
     ImageView arrow;
-    boolean hasISBN = false;
+    boolean hasISBN = true;
     RelativeLayout add_photo_relative;
     LinearLayout mainLinearLayout;
     ImageView choosePhotoIco;
