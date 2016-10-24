@@ -46,9 +46,23 @@ public class POSTHandler {
         }
         sendJson(conn, obj);
         output = handleOutput(conn);
-        Log.d("--output--", output.toString());
+//        Log.d("--output--", output.toString());
         conn.disconnect();
         return output;
+    }
+
+    public String handlePOSTxx(String url, JSONObject obj, Boolean isPOST) throws ProtocolException {
+        HttpURLConnection conn = null;
+        JSONObject output = null;
+        conn = getConnectionFromUrl(url);
+        if(!isPOST){
+            conn.setRequestMethod("DELETE");
+        }
+        sendJson(conn, obj);
+        output = handleOutput(conn);
+//        Log.d("--output--", output.toString());
+        conn.disconnect();
+        return output.toString();
     }
 
     public JSONObject handlePOSTmethodAddBook(String filepath, JSONObject json) throws IOException, JSONException {

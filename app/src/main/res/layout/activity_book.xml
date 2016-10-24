@@ -28,10 +28,10 @@
             android:gravity="center">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/fifty"
+                android:layout_height="@dimen/eighty"
                 app:srcCompat="@android:drawable/sym_def_app_icon"
-                android:id="@+id/imageView" />
+                android:id="@+id/cover_image" />
         </TableRow>
 
         <TableRow

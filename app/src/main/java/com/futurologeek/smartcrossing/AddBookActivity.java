@@ -486,7 +486,7 @@ public class AddBookActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     try {
-                        ob = han.handlePOSTmethod("/book", par, true);
+                        ob = han.handlePOSTmethod("/book/", par, true);
                     } catch (ProtocolException e) {
                         e.printStackTrace();
                     }
@@ -513,8 +513,9 @@ public class AddBookActivity extends AppCompatActivity {
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
+                                    finish();
                                 }
-
+                                finish();
                                     } else {
                                 try {
                                     Toast.makeText(AddBookActivity.this, GetStringCode.getSuccessCode(ob.getInt("success"), AddBookActivity.this), Toast.LENGTH_SHORT).show();

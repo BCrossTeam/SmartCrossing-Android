@@ -9,6 +9,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +26,9 @@ public class BookActivity extends AppCompatActivity {
     private RelativeLayout visitProfile;
     int id;
     int creator_id;
-
+    Boolean hasCover = false;
+    String book_cover;
+    ImageView coverImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +52,7 @@ public class BookActivity extends AppCompatActivity {
         categoryTextView = (TextView) findViewById(R.id.category_textview);
         addedByTextView= (TextView) findViewById(R.id.added_by_textview);
         isbnTextView= (TextView) findViewById(R.id.isbn_textview);
+        coverImage = (ImageView) findViewById(R.id.cover_image);
     }
 
 
@@ -90,7 +94,10 @@ public class BookActivity extends AppCompatActivity {
                         final String pub_date = jsonObj.getString("book_publication_date");
                         final String cat = jsonObj.getString("book_category");
                         creator_id = jsonObj.getInt("book_user_author");
-
+                        if(!(jsonObj.getString("book_cover")==null)){
+                            book_cover = jsonObj.getString("book_cover");
+                            hasCover = true;
+                        }
                         Book ksiazka = new Book(id, title, author);
 
                         runOnUiThread(new Runnable() {
@@ -98,6 +105,9 @@ public class BookActivity extends AppCompatActivity {
                             public void run() {
                                 titleTextView.setText(title);
                                 authorTextView.setText(author);
+                                if(hasCover){
+                                    PicassoTrustAll.getInstance(BookActivity.this).load(Constants.content+book_cover).fit().into(coverImage);
+                                }
                                 categoryTextView.setText(getResources().getString(R.string.cat)+" "+GetCategory.returnCategory(BookActivity.this, cat));
                                 dateTextView.setText(getResources().getString(R.string.year)+" "+pub_date);
                                 isbnTextView.setText(getResources().getString(R.string.isbn)+" "+ISBN);
@@ -107,7 +117,6 @@ public class BookActivity extends AppCompatActivity {
                                         if (NetworkStatus.checkNetworkStatus(BookActivity.this)) {
                                             Intent i = new Intent(BookActivity.this, ProfileActivity.class);
                                             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                            //Todo: Pobieranie user id
                                             Bundle koszyk = new Bundle();
                                             koszyk.putString("u_id", String.valueOf(creator_id));
                                             i.putExtras(koszyk);
