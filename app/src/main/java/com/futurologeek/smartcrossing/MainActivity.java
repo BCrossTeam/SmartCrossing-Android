@@ -241,6 +241,7 @@ public class MainActivity extends AppCompatActivity {
                 String url = Constants.gapi_url + result.getContents();
                 Bundle koszyk = new Bundle();
                 koszyk.putString("jurl", url);
+                koszyk.putString("ISBN", result.getContents());
                 Intent cel = new Intent(this, AddBookActivity.class);
                 cel.putExtras(koszyk);
                 startActivity(cel);

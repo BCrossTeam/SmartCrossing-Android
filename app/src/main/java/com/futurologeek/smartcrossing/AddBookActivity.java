@@ -56,6 +56,7 @@ public class AddBookActivity extends AppCompatActivity {
     File sdImageMainDirectory;
     private Uri outputFileUri;
     private Uri file;
+    String downloadedISBN;
     private Uri imageToUploadUri;
     private CheckBox hasNumber;
     int yearvalue;
@@ -71,6 +72,8 @@ public class AddBookActivity extends AppCompatActivity {
         if(getIntent().getExtras()!=null){
             Bundle przekazanedane = getIntent().getExtras();
             url  = przekazanedane.getString("jurl");
+            downloadedISBN = przekazanedane.getString("ISBN");
+            addISBN.setText(downloadedISBN);
             if(NetworkStatus.checkNetworkStatus(this)){
                 new GetBookInfo().execute();
             } else {
@@ -78,7 +81,6 @@ public class AddBookActivity extends AppCompatActivity {
             }
 
         }
-
     }
 
     public void findViews(){
@@ -95,10 +97,11 @@ public class AddBookActivity extends AppCompatActivity {
     }
 
     public void setListeners(){
-        year.setMinValue(1800);
+        year.setMinValue(1600);
         year.setMaxValue(cyear);
         year.setWrapSelectorWheel(false);
         year.setValue(cyear);
+
 
         hasNumber.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

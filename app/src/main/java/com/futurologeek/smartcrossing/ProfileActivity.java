@@ -29,6 +29,7 @@ import java.util.ArrayList;
 public class ProfileActivity extends AppCompatActivity {
     private TextView usernametv, scoretv;
     String id;
+    boolean downloadedId = false;
     ArrayList<Book> user_books = new ArrayList<Book>();
     TableRow tableToInflejt, tableToInflejtBadges;
     RelativeLayout rank;
@@ -48,12 +49,23 @@ public class ProfileActivity extends AppCompatActivity {
             id  = przekazanedane.getString("u_id");
             if(NetworkStatus.checkNetworkStatus(this)){
                 new GetUserInfo().execute();
-                new getUserBooks().execute();
+                downloadedId = true;
+                onResume();
             } else {
                 Toast.makeText(this, getResources().getString(R.string.no_network), Toast.LENGTH_LONG).show();
             }
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(downloadedId){
+            tableToInflejt.removeAllViews();
+            new getUserBooks().execute();
+        }
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -188,12 +200,12 @@ public class ProfileActivity extends AppCompatActivity {
             String jsonStr = sh.makeServiceCall(Constants.user_url+id+"/book");
 
             Log.e("tag", "Response from url: " + jsonStr);
-
+            user_books.clear();
             if (jsonStr != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(jsonStr);
                     JSONArray contacts = jsonObj.getJSONArray("user_borrowed_books");
-                    user_books.clear();
+
                     for (int i = 0; i < contacts.length(); i++) {
                         JSONObject c = contacts.getJSONObject(i);
                         final String title = c.getString("book_title");
@@ -205,7 +217,7 @@ public class ProfileActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-
+                        tableToInflejt.removeAllViews();
                             if(user_books.size()>0){
                                 for(Book k: user_books) {
                                     View child = View.inflate(ProfileActivity.this, R.layout.book_list_item_in_bookshelf, null);
